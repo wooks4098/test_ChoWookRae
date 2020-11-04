@@ -9,6 +9,7 @@ Land_Mine::Land_Mine()
 	m_ix = 0;
 	m_iy = 0;
 	m_iBombCheckCount = 0;
+
 }
 void Land_Mine::BlockDraw(int x, int y)
 {
