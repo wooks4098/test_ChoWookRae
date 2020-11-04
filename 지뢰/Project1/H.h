@@ -10,6 +10,12 @@ using namespace std;
 #define WIDTH 10
 #define HEIGHT 10
 
+struct pos
+{
+	int x;
+	int y;
+};
+
 struct Block
 {
 	int x, y;

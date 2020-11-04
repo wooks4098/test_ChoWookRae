@@ -156,11 +156,31 @@ void Land_Mine::BlockSet()
 }
 void Land_Mine::BLockSet_Bomb()
 {
-	int random;
-	for (int i = 0; i < HEIGHT; i++)
+	pos p[10];
+	bool Check;
+	for (int i = 0; i < 10; i++)
 	{
-		random = rand() % 10;
-		block[i][random].isbomb = true;
+		while (1)
+		{
+			Check = true;
+			p[i].x = rand() % 10;
+			p[i].y = rand() % 10;
+			for (int j = 0; j < i; j++)
+			{
+				if (p[i].x == p[j].x && p[i].y == p[j].y)
+				{
+					Check = false;
+					break;
+				}
+			}
+			if (Check)
+				break;
+		}
+	}
+	int random;
+	for (int i = 0; i < 10; i++)
+	{
+		block[p[i].y][p[i].x].isbomb = true;
 	}
 }
 
