@@ -4,9 +4,11 @@
 
 Land_Mine::Land_Mine()
 {
+	srand(time(NULL));
 	BlockSet();
 	m_ix = 0;
 	m_iy = 0;
+	m_iBombCheckCount = 0;
 }
 void Land_Mine::BlockDraw(int x, int y)
 {
@@ -35,6 +37,12 @@ void Land_Mine::Draw_Land_MIne()
 
 	while (1)
 	{
+		if (m_iBombCheckCount >= 90)
+		{
+			Map.TextDraw("승리", 0, 15);
+			cout << endl;
+			break;
+		}
 		if (kbhit())
 		{
 			ch = getch();
@@ -50,19 +58,25 @@ void Land_Mine::Draw_Land_MIne()
 				BlockDraw(m_ix, m_iy--);
 			else if (ch == 13 && block[m_iy][m_ix].isOpen == false)
 			{
-				OpenBlock(&block[m_iy][m_ix]);
+				if (OpenBlock(&block[m_iy][m_ix]))
+				{
+					Map.TextDraw("패배", 0, 15);
+					cout << endl;
+					break;
+				}
 				continue;
 			}
 			else 
 				continue;
 				Map.gotoxy(m_ix*2, m_iy);
+
 				cout << "▲";
 		}
 	}
 
 }
 
-void Land_Mine::OpenBlock(Block *block)
+bool Land_Mine::OpenBlock(Block *block)
 {
 	/*
 	들어오면 열었는지 체크
@@ -71,40 +85,40 @@ void Land_Mine::OpenBlock(Block *block)
 	체크하는 x y값이 배열 크기에 없다면 다음 칸 체크
 	*/
 
+	if (block->isbomb)
+	{
+		block->isOpen = true;
+		BlockDraw(block->x, block->y);
+		return true;
+	}
+
+	if (block->isOpen)
+		return false;
 	int BombCount = 0;
-	
-	block.isOpen = true;
-	//BlockDraw(x, y);그리기 추가
-	BlockDraw(block.x, block.y);
-	if (block.isbomb == true)
-		return;
-	for (auto iter = block.NextBlock.begin(); iter < block.NextBlock.end(); iter++ )
+
+	block->isOpen = true;
+	m_iBombCheckCount++;
+	if (block->isbomb == true)
+		return false;
+	for (auto iter = block->NextBlock.begin(); iter < block->NextBlock.end(); iter++ )
 	{
 		if((*iter)->isbomb == true)
 			BombCount++;
 	}
 
-	//for (int C_y = 0; C_y < HEIGHT; C_y++)
-	//{
-	//	for (int C_x = 0; C_x < WIDTH; C_x++)
-	//	{
-	//		if (C_x == x && C_y == y)
-	//			continue;
-	//		if (block[C_y][C_x].isbomb == true)
-	//			BombCount++;
-	//	}
-	//}
-	block.Number = BombCount;
-	if (BombCount >= 1)
-		return;
 
-	for (int i =0 ; i<block.NextBlock.size(); i++)
+	block->Number = BombCount;
+	BlockDraw(block->x, block->y);
+	if (BombCount >= 1)
+		return false;
+	 
+	for (int i =0 ; i<block->NextBlock.size(); i++)
 	{
-		if (block.NextBlock[i]->isbomb== false)
-			OpenBlock(*block.NextBlock[i]);
+		if (block->NextBlock[i]->isbomb== false)
+			OpenBlock(block->NextBlock[i]);
 	}
 
-
+	return false;
 
 }
 

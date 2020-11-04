@@ -9,7 +9,7 @@ private:
 	Block block[HEIGHT][WIDTH];
 	MapDraw Map;
 	int m_ix, m_iy;
-
+	int m_iBombCheckCount;
 
 	void BlockSet_Neighbor( int N_x, int N_y);
 	void BlockSet();
@@ -20,7 +20,7 @@ public:
 
 	void Draw_Land_MIne();
 	void BlockDraw(int x, int y);
-	void OpenBlock(Block *block);
+	bool OpenBlock(Block *block);
 
 	Land_Mine();
 	~Land_Mine();
