@@ -25,7 +25,6 @@ void Land_Mine::BlockDraw(int x, int y)
 }
 void Land_Mine::Draw_Land_MIne()
 {
-
 	Map.gotoxy(0, 0);
 	char ch;
 	for (int y = 0; y < HEIGHT; y++)
