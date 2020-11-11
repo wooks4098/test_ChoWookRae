@@ -186,6 +186,7 @@ void Land_Mine::BLockSet_Bomb()
 
 void Land_Mine::BlockSet_Neighbor( int N_x, int N_y)
 {
+	int k = 0;
 	for (int y = N_y - 1; y <= N_y + 1; y++)
 	{
 		for (int x = N_x - 1; x <= N_x + 1; x++)
@@ -194,7 +195,8 @@ void Land_Mine::BlockSet_Neighbor( int N_x, int N_y)
 			{
 				if (x == N_x && y == N_y)
 					continue;
-				
+				if (x == 9 && y == 9)
+					k++;
 				block[N_y][N_x].NextBlock.push_back(&block[y][x]);
 			}
 		}
