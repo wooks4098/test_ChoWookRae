@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{0EDB4010-1ACA-4E2C-B23F-FDA600430844}</ProjectGuid>
+    <ProjectGuid>{EEBF5478-E8ED-41D3-9742-C8620D7F5643}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Singleton</RootNamespace>
+    <RootNamespace>Test</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -139,14 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Int.h" />
-    <ClInclude Include="IntManager.h" />
-    <ClInclude Include="Singleton.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Int.cpp" />
-    <ClCompile Include="IntManager.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="소스.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
