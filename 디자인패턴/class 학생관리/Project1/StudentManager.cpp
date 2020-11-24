@@ -1,7 +1,7 @@
 #include "StudentManager.h"
 
 
-StudentManager StudentManager::*instance = NULL;
+StudentManager* StudentManager::instance = NULL;
 
 StudentManager::StudentManager()
 {
