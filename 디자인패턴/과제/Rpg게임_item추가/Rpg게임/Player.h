@@ -53,10 +53,11 @@ public:
 	int ReturnLevel(){return m_iLevel;}
 	int ReturnStr()
 	{
-		if (inventory->Return_Weapon() == NULL)
+		if (inventory->Return_Weapon_state() == NULL)
 			return m_iStr;
 		else
-			return m_iStr + inventory->Return_Weapon()->ReturnStr();
+			return m_iStr + inventory->Return_Weapon_state()->ReturnStr();
+		/*return m_iStr + inventory->Return_Weapon()->ReturnStr();*/
 	}
 	int ReturnNhp()	{return m_iNhp;}
 	int ReturnMaxhp(){return m_iMaxhp;}

@@ -61,12 +61,12 @@ void Player::LoadNewInfo(int FileNumber)
 	load >> m_iGold;
 	if (!load.eof() == true)
 	{
-		
+
 		load >> Weapon_Class;
 		Get_Weapon(Weapon_Class);
 		load >> Weapon_Name;
 		load >> Weapon_Str;
-		inventory->Return_Weapon()->Setdata(Weapon_Name, Weapon_Str, Weapon_Class);
+		inventory->Return_Weapon_state()->Setdata(Weapon_Name, Weapon_Str, Weapon_Class);
 	}
 	else
 	{
@@ -87,10 +87,10 @@ void Player::ShowInfo(int TextLine)
 	Map.DrawMidText(str, m_iWidth, TextLine++);
 	str = "Gold = " + to_string(m_iGold) + "               ";
 	Map.DrawMidText(str, m_iWidth, TextLine++);
-	if (inventory->Return_Weapon() != NULL)
+	if (inventory->Return_Weapon_state() != NULL)
 	{
-		str = "무기타입 : " + inventory->Return_Weapon()->ReturnClass() +" 무기이름 : "
-			+ inventory->Return_Weapon()->ReturnName() + " 공격력 : " + to_string(inventory->Return_Weapon()->ReturnStr());
+		str = "무기타입 : " + inventory->Return_Weapon_state()->ReturnClass() +" 무기이름 : "
+			+ inventory->Return_Weapon_state()->ReturnName() + " 공격력 : " + to_string(inventory->Return_Weapon_state()->ReturnStr());
 		Map.DrawMidText(str, m_iWidth, TextLine++);
 	}
 	ORIGINAL
@@ -139,9 +139,10 @@ void Player::SaveData(int FileNumber)
 	save << m_iMaxExp << " ";
 	save << m_iNExp << " ";
 	save << m_iGold;
-	if (inventory->Return_Weapon() != NULL)
+	if (inventory->Return_Weapon_state() != NULL)
 	{
-		save << endl << inventory->Return_Weapon()->ReturnClass() << " " << inventory->Return_Weapon()->ReturnName() << " " << inventory->Return_Weapon()->ReturnStr();
+		save << endl << inventory->Return_Weapon_state()->ReturnClass() << " " << inventory->Return_Weapon_state()->ReturnName() 
+			<< " " << inventory->Return_Weapon_state()->ReturnStr();
 	}
 	save.close();
 }
@@ -223,18 +224,18 @@ void Player::Get_Weapon(string Weapon_Class)
 
 int Player::Weapon_Skill()
 {
-	if (inventory->Return_Weapon() == NULL)
+	if (inventory->Return_Weapon_state() == NULL)
 		return 0;
 	else
-		return inventory->Return_Weapon()->Use_Skill_Check(m_iStr);
+		return inventory->Return_Weapon_state()->Use_Skill_Check(m_iStr);
 
 }
 
 void Player::Buy_Weapon(Weapon &wp, string Class)
 {
 	m_iGold -= wp.ReturnPrice();
-	if (inventory->Return_Weapon() != NULL)
-		delete inventory->Return_Weapon();
+	if (inventory->Return_Weapon_state() != NULL)
+		delete inventory->Return_Weapon_state();
 	if (Class == "Bow")
 		*inventory->Return_Weapon() = new Bow(&wp);
 	else if (Class == "Dagger")
@@ -252,8 +253,8 @@ void Player::Buy_Weapon(Weapon &wp, string Class)
 
 Player::~Player()
 {
-	if (inventory->Return_Weapon() != NULL)
-		delete inventory->Return_Weapon();
+	if (inventory->Return_Weapon_state() != NULL)
+		delete inventory->Return_Weapon_state();
 
 
 }

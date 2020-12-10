@@ -13,7 +13,8 @@ class Inventory
 public:
 	Inventory();
 
-	virtual Weapon* Return_Weapon() = 0;
+	virtual Weapon** Return_Weapon() = 0;
+	virtual Weapon* Return_Weapon_state() = 0;
 	virtual void AddInventory(Inventory* inventory) = 0;
 	virtual void RemoveInventory(Inventory* inventory) = 0;
 
@@ -28,14 +29,15 @@ protected:
 class Item : public Inventory
 {
 private:
-	Weapon **m_pWeapon;
+	Weapon *m_pWeapon;
 
 public:
 	Item();
 
 	void AddInventory(Inventory* inventory) {};
 	void RemoveInventory(Inventory* inventory) {};
-	Weapon* Return_Weapon()override;
+	Weapon** Return_Weapon()override;
+	Weapon* Return_Weapon_state()override;
 };
 
 
@@ -47,7 +49,8 @@ public:
 	Bag();
 	~Bag();
 
-	Weapon* Return_Weapon() override;
+	Weapon** Return_Weapon()override;
+	Weapon* Return_Weapon_state()override;
 	void AddInventory(Inventory* inventory) override;
 	void RemoveInventory(Inventory* inventory) override;
 };

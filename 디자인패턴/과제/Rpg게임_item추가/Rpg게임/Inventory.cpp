@@ -42,12 +42,17 @@ int Inventory::GetSize()
 
 Item::Item()
 {
-m_pWeapon = NULL;
+	m_pWeapon = NULL;
 }
 
-Weapon* Item::Return_Weapon()
+Weapon** Item::Return_Weapon()
 {
-	return *m_pWeapon;
+	return &m_pWeapon;
+}
+
+Weapon* Item::Return_Weapon_state()
+{
+	return m_pWeapon;
 }
 
 Bag::Bag()
@@ -74,14 +79,27 @@ void Bag::RemoveInventory(Inventory* inventory)
 		inventoryList.erase(remove);
 	}
 }
-Weapon* Bag::Return_Weapon()
+Weapon** Bag::Return_Weapon()
+{
+	vector<Inventory*>::iterator begin = inventoryList.begin();
+	vector<Inventory*>::iterator end = inventoryList.end();
+	Weapon **wp;
+	while (begin != end)
+	{
+		wp = (*begin)->Return_Weapon();
+		return wp;
+		begin++;
+	}
+}
+
+Weapon* Bag::Return_Weapon_state()
 {
 	vector<Inventory*>::iterator begin = inventoryList.begin();
 	vector<Inventory*>::iterator end = inventoryList.end();
 	Weapon *wp;
 	while (begin != end)
 	{
-		wp = (*begin)->Return_Weapon();
+		wp = (*begin)->Return_Weapon_state();
 		return wp;
 		begin++;
 	}
