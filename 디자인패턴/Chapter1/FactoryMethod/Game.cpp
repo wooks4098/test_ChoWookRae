@@ -20,8 +20,3 @@ View * MyGame::CreateView()
 {
 	return new MyView();
 }
-
-//View * YouGame::CreateView()
-//{
-//	return new YouView();
-//}

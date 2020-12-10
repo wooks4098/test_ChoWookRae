@@ -2,20 +2,11 @@
 
 int main()
 {
-	Game* game = new MyGame();
-	//Game* ygame = new YouGame();
-
-	//Game* game = ygame;
+	MyGame* game = new MyGame();
 
 	game->Initialized();
 	game->Update();
 	game->Finished();
-
-	//YouGame* ygame = new YouGame();
-
-	//ygame->Initialized();
-	//ygame->Update();
-	//ygame->Finished();
 
 	delete game;
 }

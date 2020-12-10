@@ -4,7 +4,7 @@ template <typename T>
 class Singleton
 {
 private:
-	static T* m_pThis = NULL;
+	static T* m_pThis;
 
 protected:
 	Singleton()

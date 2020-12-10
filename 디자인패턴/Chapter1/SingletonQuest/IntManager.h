@@ -1,7 +1,6 @@
 #pragma once
 #include"Int.h"
 #include<vector>
-using namespace std;
 
 class IntManager
 {

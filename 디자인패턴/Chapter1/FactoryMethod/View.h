@@ -16,11 +16,3 @@ public:
 	virtual ~MyView();
 	virtual void Render();
 };
-
-class YouView : public View
-{
-public:
-	YouView();
-	virtual ~YouView();
-	virtual void Render();
-};
