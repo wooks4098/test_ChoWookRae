@@ -15,7 +15,7 @@ private:
 public:
 	virtual void NotifyObserver();
 	virtual void AddObserver(Observer* input);
-	void setData(int kor, int mat, int eng);
+	void Data::setData(int kor, int mat, int eng);
 	Data();
 	~Data();
 };
