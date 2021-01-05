@@ -4,19 +4,24 @@ using namespace std;
 
 class Burger
 {
-
+protected:
+	virtual void bake() = 0;
 public:
 	Burger();
 	~Burger();
 };
 
-class Bulgogi : public Burger
+class Wafer_original : public Burger
 {
-
+	virtual void bake();
 };
 
-class Cheese : public Burger
+
+
+class Monster_original : public Burger
 {
+	virtual void bake();
+
 
 };
 
