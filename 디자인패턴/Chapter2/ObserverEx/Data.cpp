@@ -4,6 +4,7 @@
 
 Data::Data()
 {
+
 }
 
 void Data::NotifyObserver() 
