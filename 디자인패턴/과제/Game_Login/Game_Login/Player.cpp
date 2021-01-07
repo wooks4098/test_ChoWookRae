@@ -19,7 +19,7 @@ void Player::subscribe(Player* player)
 }
 void Player::Alarm(string name)
 {
-	cout << Name << "->";
+	cout << Name << "<-";
 	cout << name << "´ÔÀÌ Á¢¼ÓÇÏ¼Ì½À´Ï´Ù."<< endl << endl;
 }
 Player::~Player()
