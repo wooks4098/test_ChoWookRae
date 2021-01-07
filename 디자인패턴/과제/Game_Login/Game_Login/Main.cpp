@@ -22,11 +22,15 @@ using namespace std;
 
 void main()
 {
-	Server sever;
 
-	Player *p1 = new Player;
-	Player *p2 = new Player;
-	sever.pushPlayer(p1);
-	sever.pushPlayer(p2);
+	Player *p1 = new Player("플레이어");
+	Player *p2 = new Player("디모");
+	Server::GetInstance()->pushPlayer(p1);
+	Server::GetInstance()->pushPlayer(p2);
+
+	p1->subscribe(p2);
+
+	p1->Login();
+	p2->Login();
 
 }
