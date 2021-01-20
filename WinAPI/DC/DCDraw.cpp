@@ -39,19 +39,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 
 
-	/*RECT rt = { 100, 100, 400, 300 };
+	RECT rt = { 100, 100, 400, 300 };
 	LPCSTR str = TEXT("So keep your eyes on me now"
 		"무엇을 보든 좋아할 거야 닿을 수 없는 Level"
-		"나와 대결 원한 널 확신해");*/
-
+		"나와 대결 원한 널 확신해");
 
 	switch (iMessage)
 	{
 	case WM_PAINT:
+
 		hdc = BeginPaint(hWnd, &ps);
-		//SetTextAlign(hdc, TA_CENTER);
-		TextOut(hdc, 100, 100, TEXT("Beautiful Korea"), 15);
-		//DrawText(hdc, str, -1, &rt, DT_CENTER | DT_WORDBREAK);
+		SetTextAlign(hdc, TA_TOP);
+		//TextOut(hdc, 100, 100, TEXT("Beautiful Korea"), 15);
+		DrawText(hdc, str, -1, &rt, DT_CENTER | DT_WORDBREAK);
 
 		/*for(int i = 0; i < 100; i++)
 			SetPixel(hdc, 10 + (i * 3), 10, RGB(255, 0, 0));
@@ -68,11 +68,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		return 0;
 
 	case WM_LBUTTONDOWN:
-		hdc = GetDC(hWnd);
+		/*hdc = GetDC(hWnd);
 
 		TextOut(hdc, 100, 100, TEXT("Beautiful Korea"), 15);
 
-		ReleaseDC(hWnd, hdc);
+		ReleaseDC(hWnd, hdc);*/
 		return 0; 
 	}
 	return(DefWindowProc(hWnd, iMessage, wParam, lParam));
