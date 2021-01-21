@@ -44,6 +44,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	PAINTSTRUCT ps;
 
 	int r = 100;
+	int Position_x = 300;
+	int Position_y = 300;
 	double x;
 	double y;
 
@@ -54,17 +56,25 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		hdc = BeginPaint(hWnd, &ps);
 		for(int angle = 0; angle <360; angle++)
 		{
-			x = 300 + r * cos(2 * M_PI / 360 * angle);
-			y = 300 + r * sin(2 * M_PI / 360 * angle);
+			x = Position_x + r * cos(angle);
+			y = Position_y + r * sin(angle);
 			SetPixel(hdc, x, y, RGB(255, 0, 0));
 		}
+		Position_x += 500;
 
-		
+		for (int angle = 0; angle < 360; angle++)
+		{
+			x = Position_x + r* cos(angle);
+			y = Position_y + 60 * sin(angle);
+			SetPixel(hdc, x, y, RGB(255, 0, 0));
+		}
 		EndPaint(hWnd, &ps);
 		
 
 		return 0;
-		
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
 
 	case WM_LBUTTONDOWN:
 		
