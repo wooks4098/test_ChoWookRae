@@ -1,6 +1,8 @@
 #include<windows.h>
 #include <math.h>
 #define _USE_MATH_DEFINES
+#define M_PI 3.14159265358979323846
+
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
@@ -50,26 +52,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-
-		for (int i = 0; i < 20; i++)
+		for(int angle = 0; angle <360; angle++)
 		{
-			x = 300-cos(3.14*i / 20);
-			y = 300- cos(3.14*i / 20);
+			x = 300 + r * cos(2 * M_PI / 360 * angle);
+			y = 300 + r * sin(2 * M_PI / 360 * angle);
 			SetPixel(hdc, x, y, RGB(255, 0, 0));
 		}
 
-		//for (int i = 0; i < 360; i++)
-		//{
-		//	//x^2 + y^2 = r^2
-		//	//y^2= 100 - i
-		//	y = 100 - i * i;
-		//	y = sqrt(y);
-		//	SetPixel(hdc, i+100, y+100, RGB(0, 0, 0));
-		//}
-			/*
-					Vector2 dirVec = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / BulletCount),
-										 Mathf.Sin(Mathf.PI * 2 * i / BulletCount))
-		*/
 		
 		EndPaint(hWnd, &ps);
 		
