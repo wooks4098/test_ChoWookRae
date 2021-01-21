@@ -61,7 +61,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			return 0;
 
 
-		case WM_KEYDOWN:
+		/*case WM_KEYDOWN:
 
 			switch (wParam)
 			{
@@ -80,7 +80,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			}
 
 			InvalidateRect(hWnd, NULL, TRUE);
-		return 0;
+		return 0;*/
 		
 		case WM_DESTROY:
 			PostQuitMessage(0);
