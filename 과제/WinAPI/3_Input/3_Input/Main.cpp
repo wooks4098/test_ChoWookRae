@@ -39,7 +39,8 @@ int x = 0;
 int y = 0;
 int Pos_x = 300;
 int Pos_y = 300;
-RECT rt = { 100, 100, 500, 600 };LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
+RECT rt = { 100, 100, 500, 600 };
+LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
 	HDC hdc;
 	PAINTSTRUCT ps;
@@ -90,9 +91,10 @@ RECT rt = { 100, 100, 500, 600 };LRESULT CALLBACK WndProc(HWND hWnd, UINT iMess
 
 	//2
 	case WM_MOUSEMOVE:
-
-		Pos_x = LOWORD(lParam);
-		Pos_y = HIWORD(lParam);
+		if(LOWORD(lParam) >=100+100 && LOWORD(lParam) <= 500-100)
+			Pos_x = LOWORD(lParam);
+		if (HIWORD(lParam) >= 100+100 && HIWORD(lParam) <= 600-100)
+			Pos_y = HIWORD(lParam);
 		InvalidateRect(hWnd, NULL, TRUE);
 
 		return 0;
