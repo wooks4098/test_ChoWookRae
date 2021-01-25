@@ -11,6 +11,7 @@ int timer_x = 600, timer_y = 400;
 int Secound = 0;
 int Minute = 0;
 float Hour = 0;
+bool MinuteCheck = false;
 SYSTEMTIME st;
 static TCHAR sTime[128];
 void CALLBACK TimeProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime);
@@ -55,7 +56,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	switch (iMessage)
 	{
 	case WM_CREATE:
-		SetTimer(hWnd, 1, 1000, TimeProc);
+		SetTimer(hWnd, 1, 1, TimeProc);
 		SendMessage(hWnd, WM_TIMER, 1, 0);
 		return 0;
 	case WM_PAINT:
@@ -80,8 +81,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		LineTo(hdc, timer_x + Px, timer_y + Py);
 
 		MoveToEx(hdc, timer_x, timer_y, NULL);
-		Px = 45 * cos(2 * M_PI /  (Hour - 0));
-		Py = 45 * sin(2 * M_PI / (Hour - 0));
+		Px = 45 * cos(2 * M_PI / 60 * (Hour - 15));
+		Py = 45 * sin(2 * M_PI / 60 * (Hour  - 15));
 		LineTo(hdc, timer_x + Px, timer_y + Py);
 
 
@@ -113,8 +114,13 @@ void CALLBACK TimeProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime)
 	Secound++;
 	if (Secound % 60 == 0 && Secound != 0)
 		Minute++;
-	if (Minute % 5 == 0 && Minute != 0)
-		Hour += 2.5f;
+	if (Minute % 5 == 0 && Minute != 0 && MinuteCheck == false)
+	{
+		MinuteCheck = true;
+		Hour += 0.2083333f;
+	}
+	else if (Minute % 5 != 0)
+		MinuteCheck = false;
 	if (Hour == 365 && Hour != 0)
 		Hour = 0;
 	
