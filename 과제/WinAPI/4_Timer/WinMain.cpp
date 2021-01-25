@@ -10,7 +10,7 @@ int x = 100, y = 0;
 int timer_x = 600, timer_y = 400;
 int Secound = 0;
 int Minute = 0;
-int Hour = 0;
+float Hour = 0;
 SYSTEMTIME st;
 static TCHAR sTime[128];
 void CALLBACK TimeProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime);
@@ -68,7 +68,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 
 		//아날로그 시계
-		int Px, Py;
+		float Px, Py;
 		MoveToEx(hdc, timer_x, timer_y, NULL);		
 		Px = 100*cos(2* M_PI/60 *(Secound%60-15));
 		Py = 100*sin(2 * M_PI / 60 * (Secound % 60 -15));
@@ -80,8 +80,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		LineTo(hdc, timer_x + Px, timer_y + Py);
 
 		MoveToEx(hdc, timer_x, timer_y, NULL);
-		Px = 45 * cos(2 * M_PI / 60 * (Hour % 60 - 15));
-		Py = 45 * sin(2 * M_PI / 60 * (Hour % 60 - 15));
+		Px = 45 * cos(2 * M_PI /  (Hour - 0));
+		Py = 45 * sin(2 * M_PI / (Hour - 0));
 		LineTo(hdc, timer_x + Px, timer_y + Py);
 
 
@@ -114,7 +114,9 @@ void CALLBACK TimeProc(HWND hWnd, UINT uMsg, UINT idEvent, DWORD dwTime)
 	if (Secound % 60 == 0 && Secound != 0)
 		Minute++;
 	if (Minute % 5 == 0 && Minute != 0)
-		Hour++;
+		Hour += 2.5f;
+	if (Hour == 365 && Hour != 0)
+		Hour = 0;
 	
 	InvalidateRect(hWnd, NULL, TRUE);
 }

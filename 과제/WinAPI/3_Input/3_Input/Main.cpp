@@ -55,18 +55,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-/*
+
 		///1
-		Pos_x = 300;
-		Pos_y = 300;
-		for (int angle = 0; angle < 360; angle++)
+
+		/*for (int angle = 0; angle < 360; angle++)
 		{
 			x =  r * cos(angle);
 			y =  r * sin(angle);
 			SetPixel(hdc, x+ Pos_x, y+ Pos_y, RGB(255, 0, 0));
 		}*/
 
-		///2
+		//2
 		/*for (int angle = 0; angle < 360; angle++)
 		{
 			x = r * cos(angle);
@@ -74,16 +73,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			SetPixel(hdc, x + Pos_x, y + Pos_y, RGB(255, 0, 0));
 		}*/
 		//3
-		/*Rectangle(hdc, rt.left, rt.top, rt.right, rt.bottom);
+		Rectangle(hdc, rt.left, rt.top, rt.right, rt.bottom);
 		for (int angle = 0; angle < 360; angle++)
 		{
 			x = r * cos(angle);
 			y = r * sin(angle);
 			SetPixel(hdc, x + Pos_x, y + Pos_y, RGB(255, 0, 0));
-		}*/
+		}
 		
-		//
-		if (isCircle)
+		//4
+		/*if (isCircle)
 		{
 			for (int angle = 0; angle < 360; angle++)
 			{
@@ -95,7 +94,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		else
 		{
 			Rectangle(hdc, rt.left, rt.top, rt.right, rt.bottom);
-		}
+		}*/
 
 		EndPaint(hWnd, &ps);
 
@@ -111,14 +110,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		//InvalidateRect(hWnd, NULL, TRUE);
 
 		//3
-		/*if (LOWORD(lParam) >= 100 + 100 && LOWORD(lParam) <= 500 - 100)
+		if (LOWORD(lParam) >= 100 + 100 && LOWORD(lParam) <= 500 - 100)
 			Pos_x = LOWORD(lParam);
 		if (HIWORD(lParam) >= 100 + 100 && HIWORD(lParam) <= 600 - 100)
 			Pos_y = HIWORD(lParam);
-		InvalidateRect(hWnd, NULL, TRUE);*/
+		InvalidateRect(hWnd, NULL, TRUE);
 		return 0;
 
-		///1
+		//1
 	/*case WM_KEYDOWN:
 
 		switch (wParam)
@@ -140,7 +139,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		InvalidateRect(hWnd, NULL, TRUE);
 	return 0;*/
 
-	case WM_LBUTTONDOWN:
+	/*case WM_LBUTTONDOWN:
 		if (MessageBox(hWnd, TEXT("원으로 만드시겠습니까?"), TEXT("MessageBox"), MB_YESNO) == IDYES)
 		{
 			isCircle = true;
@@ -150,7 +149,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 			isCircle = false;
 		}
 		InvalidateRect(hWnd, NULL, TRUE);
-		return 0;
+		return 0;*/
 
 	case WM_DESTROY:
 		PostQuitMessage(0);
