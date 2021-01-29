@@ -52,7 +52,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		//그려져야할 크기만큼 메모리에서 읽어오기 때문
 		BitBlt(hdc, 100, 100, 145, 235, MemDC, 0, 0, SRCCOPY);
 		//Bitmap이 로드된 메모리에서 읽어오는 정보의 시작과 끝은 지정하기 때문에 크기를 변경할 수 있다.
-		StretchBlt(hdc, 300, 100, 290, 470, MemDC, 0, 0, 145, 235, SRCCOPY);
+		//StretchBlt(hdc, 300, 100, 290, 470, MemDC, 0, 0, 145, 235, SRCCOPY);
 		SelectObject(MemDC, oldBitmap);
 		DeleteObject(myBitmap);
 		DeleteDC(MemDC);

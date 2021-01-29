@@ -1,8 +1,9 @@
 #include<windows.h>
+#include "BitMap.h"
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("HelloWorld");
-
+BitMap bit;
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPervlnstance, LPSTR lpszCmdParam, int nCmdShow)
 {
 	HWND hWnd;
@@ -37,8 +38,18 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPervlnstance, LPSTR lpszCmd
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
+
+	HDC hdc;
+	PAINTSTRUCT ps;
 	switch (iMessage)
 	{
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+
+		bit.DrawAll(hdc, g_hInst);
+		EndPaint(hWnd, &ps);
+		return 0;
+
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
