@@ -1,8 +1,9 @@
 #include<windows.h>
+#include "Sprite.h"
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("HelloWorld");
-
+Sprite sprite;
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPervlnstance, LPSTR lpszCmdParam, int nCmdShow)
 {
 	HWND hWnd;
@@ -26,7 +27,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPervlnstance, LPSTR lpszCmd
 	hWnd = CreateWindow(lpszClass, lpszClass, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, NULL, (HMENU)NULL, hInstance, NULL);
 
 	ShowWindow(hWnd, nCmdShow);
-
 	while (GetMessage(&Message, NULL, 0, 0))
 	{
 		TranslateMessage(&Message);
@@ -37,8 +37,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPervlnstance, LPSTR lpszCmd
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
+	HDC hdc;
+	hdc = GetDC(hWnd);
 	switch (iMessage)
 	{
+	case WM_CREATE:
+		
+		sprite.Create_Sprite(hdc, g_hInst);
+
+		return 0;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
