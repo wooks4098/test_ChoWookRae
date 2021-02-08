@@ -1,5 +1,6 @@
 #include<windows.h>
 #include "GameManager.h"
+
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("HelloWorld");
@@ -47,9 +48,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-
-
-
+		GameManager::GetInstans()->DrawAll(hdc, g_hInst, 100, 100, "¼Ò");
 		return 0;
 	case WM_DESTROY:
 		PostQuitMessage(0);

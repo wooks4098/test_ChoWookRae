@@ -19,5 +19,7 @@ public:
 
 	GameManager();
 	void Create_Sprite(HWND hWnd, HINSTANCE hInst);
+	void Draw(HDC hdc, int x, int y, std::string Name);
+
 };
 

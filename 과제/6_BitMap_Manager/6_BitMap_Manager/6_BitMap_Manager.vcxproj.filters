@@ -29,39 +29,44 @@
     <ClInclude Include="Sprite.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h">
+    <ClInclude Include="GameManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
+    <ClInclude Include="resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\ReSource\1.png">
+    <ResourceCompile Include="6_BitMap_Manager.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\ReSource\1.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="..\..\ReSource\2.png">
+    <Image Include="..\ReSource\2.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="..\..\ReSource\3.png">
+    <Image Include="..\ReSource\3.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="..\..\ReSource\4.png">
+    <Image Include="..\ReSource\4.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="..\..\ReSource\5.png">
+    <Image Include="..\ReSource\5.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="..\..\ReSource\6.png">
+    <Image Include="..\ReSource\6.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="..\..\ReSource\7.png">
+    <Image Include="..\ReSource\7.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="..\..\ReSource\8.png">
+    <Image Include="..\ReSource\8.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="..\..\ReSource\hide.png">
+    <Image Include="..\ReSource\hide.png">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

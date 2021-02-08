@@ -57,4 +57,5 @@ void BitMap::MouseClick(HWND hWnd, int Mouse_x, int Mouse_y)
 
 BitMap::~BitMap()
 {
+
 }
