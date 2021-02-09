@@ -1,31 +1,37 @@
 #pragma once
 #include<Windows.h>
 #include "Sprite.h"
+#include <string>
 
-struct Point
-{
-	int id;
-	bool isOpen;
-};
-
+#define END 9
 struct CheckData
 {
 	int id;
 	int x;
 	int y;
+	std::string name;
+
 };
+struct CardData
+{
+	bool isOpen;
+	CheckData data;
+};
+
 
 class GameManager
 {
 private:
 	static GameManager* m_pThis;
 	Sprite sprite;
-	Point point[2][9];
+	CardData cardData[2][9];
 
 	int rightCount;
 
 	CheckData firstOpen;
 	CheckData secondOpen;
+
+	void CardDataSet();
 
 public:
 	static GameManager* GetInstans()
@@ -41,10 +47,12 @@ public:
 	void Create_Sprite(HWND hWnd, HINSTANCE hInst);
 	void Draw(HDC hdc, HINSTANCE hInst, int x, int y, std::string Name);
 
-	void DrawAll(HDC hdc, HINSTANCE hInst, int x, int y, std::string Name);
-	void Click(HWND hWnd, int Mouse_x, int Mouse_y);
+	void DrawAll(HDC hdc, HINSTANCE hInst);
+	void Click(HDC hdc, HINSTANCE hInst, HWND hWnd, int Mouse_x, int Mouse_y);
 
-	void CardCheck();
+	void CardCheck(HDC hdc, HINSTANCE hInst, HWND hWnd);
+	void CardOpen(HDC hdc, HINSTANCE hInst, HWND hWnd, CheckData *Open);
+
 
 };
 

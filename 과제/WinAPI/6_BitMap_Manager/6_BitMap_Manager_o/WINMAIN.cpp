@@ -45,10 +45,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	{
 	case WM_CREATE:
 		GameManager::GetInstans()->Create_Sprite(hWnd, g_hInst);
+
 		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		GameManager::GetInstans()->Draw(hdc, 100, 100, "¿¢½º");
+
+		GameManager::GetInstans()->DrawAll(hdc, g_hInst);
+		EndPaint(hWnd, &ps);
+
+		return 0;
+	case WM_LBUTTONDOWN:
+		hdc = BeginPaint(hWnd, &ps);
+		GameManager::GetInstans()->Click(hdc, g_hInst, hWnd, LOWORD(lParam), HIWORD(lParam));
+		EndPaint(hWnd, &ps);
+		InvalidateRect(hWnd, NULL, TRUE);
+
 		return 0;
 	case WM_DESTROY:
 		PostQuitMessage(0);
