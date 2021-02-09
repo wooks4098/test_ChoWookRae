@@ -297,7 +297,7 @@ void GameManager::Click(HDC hdc, HINSTANCE hInst, HWND hWnd, int Mouse_x, int Mo
 void GameManager::CardOpen(HDC hdc, HINSTANCE hInst,HWND hWnd, CheckData *Open)
 {
 	cardData[Open->y][Open->x].isOpen = true;
-	Draw(hdc, hInst, cardData[Open->y][Open->y].data.x, cardData[Open->y][Open->y].data.y, cardData[Open->y][Open->y].data.name);
+	//Draw(hdc, hInst, cardData[Open->y][Open->y].data.x, cardData[Open->y][Open->y].data.y, cardData[Open->y][Open->y].data.name);
 	InvalidateRect(hWnd, NULL, TRUE);
 
 	CardCheck(hdc, hInst, hWnd);
