@@ -13,7 +13,7 @@ void BitMapManager::Init(HWND hWnd)
 	HDC hdc = GetDC(hWnd);
 	for (int i = IMAGE_START; i < IMAGE_CARDEND; i++)
 	{
-		wsprintf(buf, L"RES//0%d.bmp", i);
+		wsprintf(buf, L"ReSource//0%d.bmp", i);
 		m_parrBitMap[i].Init(hdc,buf);
 	}
 

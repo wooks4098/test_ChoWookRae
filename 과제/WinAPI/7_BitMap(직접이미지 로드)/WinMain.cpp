@@ -1,4 +1,5 @@
 #include<windows.h>
+#include "GameManager.h"
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("HelloWorld");
@@ -37,8 +38,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPervlnstance, LPSTR lpszCmd
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
+	HDC hdc;
+	PAINTSTRUCT ps;
+	POINT Point;
 	switch (iMessage)
 	{
+	case WM_CREATE:
+		GameManager::GetInstans()->GameDataSet(hWnd);
+		return 0;
+
+
+
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;

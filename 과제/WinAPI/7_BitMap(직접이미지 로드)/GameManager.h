@@ -1,7 +1,9 @@
 #pragma once
 #include "Mecro.h"
+#include "BitMapManager.h"
 class GameManager
 {
+#pragma region ΩÃ±€≈Ê
 private:
 
 	static GameManager* m_pThis;
@@ -14,5 +16,16 @@ public:
 		}
 		return m_pThis;
 	}
+#pragma endregion
+
+private:
+
+
+public:
+
+	GameManager();
+
+
+	void GameDataSet( HWND hWnd);
 };
 

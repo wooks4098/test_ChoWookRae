@@ -1,5 +1,7 @@
 #pragma once
 #include "Card.h"
+#include "Mecro.h"
+
 class CardManager
 {
 private:
