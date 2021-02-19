@@ -53,3 +53,10 @@ void Card::SetData(int number)
 
 	}
 }
+
+
+void Card::Draw(HDC hdc)
+{
+	BitMapManager::GetInstans()->Draw(hdc, m_X, m_Y, m_Width, m_Height,m_Name);
+
+}

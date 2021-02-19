@@ -12,6 +12,6 @@ public:
 
 	void SetData();
 	void SetPos();
-
+	std::string CheckCard();
 };
 

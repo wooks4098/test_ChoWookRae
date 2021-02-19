@@ -9,6 +9,7 @@ void CardManager::SetData()
 
 	bool doubleCheck;
 
+	//카드 정하기
 	for (int i = 0; i < 2; i++)
 	{
 		for (int j = 0; j < 10; j++)
@@ -38,4 +39,26 @@ void CardManager::SetData()
 			SetNumber++;
 		}
 	}
+	//위치지정
+	SetPos();
+}
+
+
+void CardManager::SetPos() //50
+{
+	for (int i = 0; i < 2; i++)
+	{
+		CardList[0][i].SetPos(50 + (100 * i), 10);
+	}
+
+	for (int i = 0; i < 2; i++)
+	{
+		CardList[1][i].SetPos(50 + (100 * i), 140);
+	}
+}
+
+
+std::string CardManager::CheckCard()
+{
+
 }
