@@ -16,12 +16,14 @@ void CardManager::SetData()
 		{
 			do
 			{
+				doubleCheck = false;
+				doubleCkeck_Count = 0;
 				int randNum = rand() % CardSize;
+				random[j] = randNum;
 				for (int k = 0; k < SetNumber; k++)
 				{
-					doubleCheck = false;
 
-					if (random[i] == randNum)
+					if (random[k] == randNum)
 					{
 						doubleCkeck_Count++;
 						if (doubleCkeck_Count >= 2)
@@ -33,7 +35,7 @@ void CardManager::SetData()
 					}
 				}
 
-			} while (doubleCheck != true);
+			} while (doubleCheck == true);
 
 			CardList[i][j].SetData(SetNumber);
 			SetNumber++;
@@ -56,9 +58,9 @@ void CardManager::SetPos() //50
 		CardList[1][i].SetPos(50 + (100 * i), 140);
 	}
 }
-
-
-std::string CardManager::CheckCard()
-{
-
-}
+//
+//
+//std::string CardManager::CheckCard()
+//{
+//
+//}
