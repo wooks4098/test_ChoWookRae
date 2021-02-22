@@ -15,9 +15,9 @@ void GameManager::GameDataSet(HWND hWnd)
 
 
 
-void GameManager::CheckCard(HDC hdc, HINSTANCE hInst, HWND hWnd)
+void GameManager::CheckCard(HDC hdc, HINSTANCE hInst, HWND hWnd, POINT mouse)
 {
-
+	cardManager.CheckCard(hdc, hInst, hWnd, mouse);
 }
 
 
@@ -33,6 +33,9 @@ void GameManager::CloseCard()
 }
 
 
-
+void GameManager::DrawAll(HDC hdc)
+{
+	cardManager.DrawAll(hdc);
+}
 
 

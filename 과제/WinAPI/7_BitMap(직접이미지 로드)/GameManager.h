@@ -26,9 +26,11 @@ public:
 	GameManager();
 	void GameDataSet( HWND hWnd);
 
-	void CheckCard(HDC hdc, HINSTANCE hInst, HWND hWnd);
+	void CheckCard(HDC hdc, HINSTANCE hInst, HWND hWnd, POINT mouse);
 	void OpenCard();
 	void CloseCard();
+
+	void DrawAll(HDC hdc);;
 
 };
 

@@ -47,8 +47,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		GameManager::GetInstans()->GameDataSet(hWnd);
 		return 0;
 
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+		GameManager::GetInstans()->DrawAll(hdc);
+		EndPaint(hWnd, &ps);
+		return 0;
+	case WM_LBUTTONDOWN:
+		hdc = BeginPaint(hWnd, &ps);
+		Point.x = LOWORD(lParam);
+		Point.y = HIWORD(lParam);
+		GameManager::GetInstans()->CheckCard(hdc, g_hInst, hWnd, Point);
+		EndPaint(hWnd, &ps);
+		InvalidateRect(hWnd, NULL, TRUE);
 
-
+		return 0;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;

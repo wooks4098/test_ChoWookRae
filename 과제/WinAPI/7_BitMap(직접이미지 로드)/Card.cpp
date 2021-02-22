@@ -4,12 +4,12 @@ void Card::SetPos(int x, int y, float spX, float spY)
 {
 	m_X = x;
 	m_Y = y;
-	m_Width = spX;
-	m_Height = spY;
+	m_Width = BitMapManager::GetInstans()->GetSize("검은색").cx;
+	m_Height = BitMapManager::GetInstans()->GetSize("검은색").cy;
 	m_Rect.left = x;
 	m_Rect.top = y;
-	m_Rect.right = m_Rect.left +BitMapManager::GetInstans()->GetSize("검은색").cx * m_Width;
-	m_Rect.bottom = m_Rect.top +BitMapManager::GetInstans()->GetSize("검은색").cy * m_Height;
+	m_Rect.right = m_Rect.left + m_Width;
+	m_Rect.bottom = m_Rect.top + m_Height;
 	m_State = false;
 }
 
@@ -57,6 +57,26 @@ void Card::SetData(int number)
 
 void Card::Draw(HDC hdc)
 {
-	BitMapManager::GetInstans()->Draw(hdc, m_X, m_Y, m_Width, m_Height,m_Name);
+	if(m_State == OPEN)
+		BitMapManager::GetInstans()->Draw(hdc, m_X, m_Y, m_Width, m_Height,m_Name);
+	else
+		BitMapManager::GetInstans()->Draw(hdc, m_X, m_Y, m_Width, m_Height, "검은색");
 
+}
+void Card::SetState(bool state)
+{
+	m_State = state;
+}
+
+bool Card::CardOpen(POINT mouse)
+{
+	if (PtInRect(&m_Rect, mouse))
+	{
+		if (m_State == CLOSE)
+		{
+			m_State = OPEN;
+			return true;
+		}
+	}
+	return false;
 }

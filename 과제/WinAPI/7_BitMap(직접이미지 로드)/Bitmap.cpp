@@ -17,6 +17,6 @@ void Bitmap::CreatImage(HDC hdc, LPCWSTR FileName)
 
 void Bitmap::Draw(HDC hdc, int x, int y, float spX, float spY)
 {
-	StretchBlt(hdc, x, y, m_size.cx * spX, m_size.cy * spY, MemDC, 0, 0, m_size.cx, m_size.cy, SRCCOPY);
-
+	//StretchBlt(hdc, x, y, m_size.cx * spX, m_size.cy * spY, MemDC, 0, 0, m_size.cx, m_size.cy, SRCCOPY);
+	BitBlt(hdc, x, y, m_size.cx, m_size.cy, MemDC, 0, 0, SRCCOPY);
 }
