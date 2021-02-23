@@ -10,7 +10,7 @@
 
 #define OPEN true
 #define CLOSE false
-#define END 20
+#define END 10
 const std::string DOG = "강아지";
 const std::string TIGER = "호랑이";
 const std::string DUCK = "오리";

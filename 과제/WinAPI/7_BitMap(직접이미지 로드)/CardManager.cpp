@@ -14,8 +14,7 @@ void CardManager::SetData()
 	int SetNumber = 0;
 	int CardSize = 10;
 	int random[20];
-	int doubleCkeck_Count = 0;
-
+	int randNum;
 	bool doubleCheck;
 
 	//카드 정하기
@@ -25,27 +24,21 @@ void CardManager::SetData()
 		do
 		{
 			doubleCheck = false;
-			doubleCkeck_Count = 0;
-			int randNum = rand() % CardSize;
+			randNum = rand() % CardSize;
 			random[i] = randNum;
 			for (int k = 0; k < SetNumber; k++)
 			{
 
 				if (random[k] == randNum)
 				{
-					doubleCkeck_Count++;
-					if (doubleCkeck_Count >= 2)
-					{
-						doubleCheck = true;
-						break;
-					}
-
+					doubleCheck = true;
+					break;
 				}
 			}
 
 		} while (doubleCheck == true);
 
-		CardList[0][i].SetData(SetNumber);
+		CardList[0][i].SetData(randNum);
 		SetNumber++;
 	}
 
@@ -54,23 +47,21 @@ void CardManager::SetData()
 		do
 		{
 			doubleCheck = false;
-			doubleCkeck_Count = 0;
-			int randNum = rand() % CardSize;
+			randNum = rand() % CardSize;
 			random[i+10] = randNum;
-			for (int k = 0; k < SetNumber; k++)
+			for (int k = 0; k < SetNumber-10; k++)
 			{
-				if (random[k] == randNum)
+
+				if (random[k+10] == randNum)
 				{
-					doubleCkeck_Count++;
-					if (doubleCkeck_Count >= 2)
-					{
-						doubleCheck = true;
-						break;
-					}
+					doubleCheck = true;
+					break;
 				}
 			}
+
 		} while (doubleCheck == true);
-		CardList[1][i].SetData(SetNumber);
+
+		CardList[1][i].SetData(randNum);
 		SetNumber++;
 	}
 	//위치지정
@@ -126,7 +117,7 @@ void CardManager::CheckCard(HDC hdc, HINSTANCE hInst, HWND hWnd, POINT mouse)
 			Open_Card->y = i;
 
 			WinCheck(hdc, hInst, hWnd);
-			break;
+			return;
 		}
 	}
 }
@@ -139,12 +130,12 @@ void CardManager::WinCheck(HDC hdc, HINSTANCE hInst, HWND hWnd)
 	{
 		CardList[openCard[0].y][openCard[0].x].SetState(false);
 		CardList[openCard[1].y][openCard[1].x].SetState(false);
-		openCard[0].Name == "";
-		openCard[0].x == -1;
-		openCard[0].y == -1;
-		openCard[1].Name == "";
-		openCard[1].x == -1;
-		openCard[1].y == -1;
+		openCard[0].Name = "";
+		openCard[0].x = -1;
+		openCard[0].y = -1;
+		openCard[1].Name = "";
+		openCard[1].x = -1;
+		openCard[1].y = -1;
 		return;
 	}
 
@@ -166,10 +157,10 @@ void CardManager::WinCheck(HDC hdc, HINSTANCE hInst, HWND hWnd)
 		CardList[openCard[1].y][openCard[1].x].SetState(false);
 		
 	}
-	openCard[0].Name == "";
-	openCard[0].x == -1;
-	openCard[0].y == -1;
-	openCard[1].Name == "";
-	openCard[1].x == -1;
-	openCard[1].y == -1;
+	openCard[0].Name = "";
+	openCard[0].x = -1;
+	openCard[0].y = -1;
+	openCard[1].Name = "";
+	openCard[1].x = -1;
+	openCard[1].y = -1;
 }
