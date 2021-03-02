@@ -1,4 +1,6 @@
 #include<windows.h>
+#include "Map.h"
+#include "SpriteManager.h"
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("HelloWorld");
@@ -34,11 +36,32 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPervlnstance, LPSTR lpszCmd
 	}
 	return (int)Message.wParam;
 }
-
+RECT clientRect;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
+	HDC hdc;
+	PAINTSTRUCT ps;
 	switch (iMessage)
 	{
+	case WM_CREATE:
+		SetRect(&clientRect, 0, 0, 640, 640); //원하는 클라이언트 크기를 저장한다.
+
+		AdjustWindowRect(&clientRect, WS_OVERLAPPEDWINDOW, FALSE); //윈도우 크기를 계산
+
+		MoveWindow(hWnd, 0, 0,
+
+			clientRect.right - clientRect.left,
+
+			clientRect.bottom - clientRect.top,
+
+			TRUE);
+		SpriteManager::GetInstans()->SetImage(hWnd);
+		return 0;
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+		Map::GetInstans()->MapDraw(hdc);
+		EndPaint(hWnd, &ps);
+		return 0;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
