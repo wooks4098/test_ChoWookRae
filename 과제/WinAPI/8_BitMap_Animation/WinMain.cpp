@@ -4,8 +4,17 @@ HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("HelloWorld");
 HBITMAP hImage, hOldBitmap;
 
-int x = 0;
-
+int Count = 0;
+int Frame = 0;
+int Direction;
+int x = 100;
+int y = 100;
+enum Dir {
+	DIR_Down = 0,
+	DIR_UP,
+	DIR_LEFT,
+	DIR_RIGHT,
+};
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPervlnstance, LPSTR lpszCmdParam, int nCmdShow)
 {
 	HWND hWnd;
@@ -49,17 +58,45 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 	switch (iMessage)
 	{
 	case WM_CREATE:
-		SetTimer(hWnd, 1, 200, NULL);
+		SetTimer(hWnd, 1, 10, NULL);
 
 		hImage = (HBITMAP)LoadImage(NULL, TEXT("image.bmp"), IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE | LR_CREATEDIBSECTION);
 
 		return 0;
 	case WM_TIMER:
-		x++;
-		if (x >= 4)
+
+		if (GetKeyState(VK_LEFT) & 0x8000)
 		{
-			x = 0;
+			x -= 10;
+			Direction = DIR_LEFT;
 		}
+		if (GetKeyState(VK_RIGHT) & 0x8000)
+		{
+			x += 10;
+			Direction = DIR_RIGHT;
+		}
+		if (GetKeyState(VK_UP) & 0x8000)
+		{
+			y -= 10;
+			Direction = DIR_UP;
+		}
+		if (GetKeyState(VK_DOWN) & 0x8000)
+		{
+			y += 10;
+			Direction = DIR_Down;
+		}
+
+		Count++;
+		if (Count >= 10)
+		{
+			Frame++;
+			if (Frame >= 4)
+			{
+				Frame = 0;
+			}
+			Count = 0;
+		}
+		
 		InvalidateRect(hWnd, NULL, TRUE);
 		return 0;
 	case WM_PAINT:
@@ -77,8 +114,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 		//투명처리와 부분그리기
 		//이번에는 왼쪽을 보고 있고 한발을 내딛은 캐릭터를 그린다
-		TransparentBlt(hdc, 650, 50, bx / 4, by / 4,
-			hMemDC, (bx / 4) * x, (by / 4) * 0, bx / 4, by / 4, RGB(255, 0, 255));
+		TransparentBlt(hdc, x, y, bx / 4, by / 4,
+			hMemDC, (bx / 4) * Frame, (by / 4) * Direction, bx / 4, by / 4, RGB(255, 0, 255));
 
 		SelectObject(hMemDC, hOldBitmap);
 		DeleteObject(hImage);
@@ -88,6 +125,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		
 
 		return 0;
+
+
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
