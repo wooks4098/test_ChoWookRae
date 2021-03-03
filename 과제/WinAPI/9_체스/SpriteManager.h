@@ -30,7 +30,7 @@ public:
 	void SetImage(HWND hWnd);
 	void Load_Image(HDC hdc, LPCWSTR FileName, int Piece_Number);
 
-	void Draw(HDC hdc, float x, float y, float spX, float spY, int Piece_Number);
+	void Draw(HDC hdc, float x, float y, float spX, float spY, int Piece_Number, bool Transparent);
 
 	SIZE GetSize(std::string name);
 };

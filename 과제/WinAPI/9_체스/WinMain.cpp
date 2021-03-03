@@ -1,4 +1,5 @@
 #include<windows.h>
+#pragma comment(lib, "msimg32.lib")
 #include "Map.h"
 #include "SpriteManager.h"
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);

@@ -51,9 +51,9 @@ void SpriteManager::Load_Image(HDC hdc, LPCWSTR FileName,int Piece_Number)
 }
 
 
-void SpriteManager::Draw(HDC hdc, float x, float y, float spX, float spY, int Piece_Number)
+void SpriteManager::Draw(HDC hdc, float x, float y, float spX, float spY, int Piece_Number, bool Transparent)
 {
-	sprite[Piece_Number].Draw(hdc, x, y, spX, spY);
+	sprite[Piece_Number].Draw(hdc, x, y, spX, spY, Transparent);
 
 }
 

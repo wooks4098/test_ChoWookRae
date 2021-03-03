@@ -10,7 +10,7 @@ private:
 	SIZE    m_size;
 
 public:
-	void Draw(HDC hdc, float x, float y, float spX, float spY);
+	void Draw(HDC hdc, float x, float y, float spX, float spY, bool Transparent);
 	void CreatImage(HDC hdc, LPCWSTR FileName);
 	inline SIZE GetSize()
 	{
