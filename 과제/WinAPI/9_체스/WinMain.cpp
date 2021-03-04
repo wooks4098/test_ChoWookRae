@@ -2,6 +2,8 @@
 #pragma comment(lib, "msimg32.lib")
 #include "Map.h"
 #include "SpriteManager.h"
+#include "Player.h"
+Player p1;
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("HelloWorld");
@@ -49,18 +51,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 		AdjustWindowRect(&clientRect, WS_OVERLAPPEDWINDOW, FALSE); //윈도우 크기를 계산
 
-		MoveWindow(hWnd, 0, 0,
-
-			clientRect.right - clientRect.left,
-
-			clientRect.bottom - clientRect.top,
-
-			TRUE);
+		MoveWindow(hWnd, 0, 0, clientRect.right - clientRect.left, clientRect.bottom - clientRect.top, TRUE);
 		SpriteManager::GetInstans()->SetImage(hWnd);
+		p1.SetData_Black();
 		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		Map::GetInstans()->MapDraw(hdc);
+		p1.TestDraw(hdc);
 		EndPaint(hWnd, &ps);
 		return 0;
 	case WM_DESTROY:
