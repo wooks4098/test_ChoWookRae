@@ -17,25 +17,26 @@ void SpriteManager::SetImage(HWND hWnd)
 		{
 		case 0:
 		case 1:
-		case 2:
-			wsprintf(buf, L"ReSource//block0%d.bmp", i);
-			break;
+		case 2:			
 		case 3:		
 		case 4:
 		case 5:
+			wsprintf(buf, L"ReSource//block_b_0%d.bmp", i);
+			break;
 		case 6:
 		case 7:
 		case 8:
-			wsprintf(buf, L"ReSource//block_b_0%d.bmp", i);
-			break;
 		case 9:
 		case 10:
 		case 11:
+			wsprintf(buf, L"ReSource//block_w_0%d.bmp", i - 6);
+			break;
 		case 12:
 		case 13:
 		case 14:
-			wsprintf(buf, L"ReSource//block_w_0%d.bmp", i);
+			wsprintf(buf, L"ReSource//block0%d.bmp", i-12);
 			break;
+
 		}
 		Load_Image(hdc, buf, i);
 	}

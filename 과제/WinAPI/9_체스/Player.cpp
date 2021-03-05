@@ -112,9 +112,9 @@ void Player::SetPos_White()
 	{
 		//폰 세팅
 		y = 7;
-		Pos[y][x + 8].Piece_Number = x + 8;
-		Pos[y][x + 8].x = x;
-		Pos[y][x + 8].y = y;
+		Pos[y][x].Piece_Number = x + 8;
+		Pos[y][x].x = x;
+		Pos[y][x].y = y;
 
 		//그외
 		y = 8;
@@ -132,13 +132,13 @@ void Player::SetPos_Black()
 	for (int x = 0; x < 8; x++)
 	{		
 		//폰 세팅
-		y = 1;
-		Pos[y][x + 8].Piece_Number = x;
-		Pos[y][x + 8].x = x;
-		Pos[y][x + 8].y = y;
+		y = 0;
+		Pos[y][x].Piece_Number = x+8;
+		Pos[y][x].x = x;
+		Pos[y][x].y = y;
 
 		//그외
-		y = 0;
+		y = 1;
 		Pos[y][x].Piece_Number = x;
 		Pos[y][x].x = x;
 		Pos[y][x].y = y;
