@@ -1,9 +1,8 @@
 #include<windows.h>
 #pragma comment(lib, "msimg32.lib")
-#include "Map.h"
 #include "SpriteManager.h"
-#include "Player.h"
-Player p1;
+#include "GameManager.h"
+GameManager GM;
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("HelloWorld");
@@ -53,12 +52,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 		MoveWindow(hWnd, 0, 0, clientRect.right - clientRect.left, clientRect.bottom - clientRect.top, TRUE);
 		SpriteManager::GetInstans()->SetImage(hWnd);
-		p1.SetData_Black();
+		GM.SetData();
 		return 0;
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
-		Map::GetInstans()->MapDraw(hdc);
-		p1.TestDraw(hdc);
+		//Map::GetInstans()->MapDraw(hdc);
+		GM.Draw(hdc);
 		EndPaint(hWnd, &ps);
 		return 0;
 	case WM_DESTROY:

@@ -1,5 +1,6 @@
 #pragma once
 #include  "SpriteManager.h"
+
 class Chess_Piece
 {
 protected:
@@ -12,6 +13,7 @@ public:
 	void Draw(HDC hdc, float x, float y, float spX, float spY);
 
 	virtual void SetPiece(int name, bool isBlack) = 0;
+	//virtual void CanMovePos() = 0; //이동가능한 거리 보여주기
 	virtual void Move() = 0;
 	virtual void Change() = 0;
 

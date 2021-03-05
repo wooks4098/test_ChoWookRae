@@ -1,5 +1,6 @@
 #include "Chess_Piece.h"
 
+
 //Piece
 void Chess_Piece::Draw(HDC hdc, float x, float y, float spX, float spY)
 {

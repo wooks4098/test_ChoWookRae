@@ -7,6 +7,8 @@
 #define WIDTH 75
 #define HEIGHT 75
 #define NULLPIECE -1
+#define WHITE 0
+#define BLACK 1
 
 enum SPRITE
 {

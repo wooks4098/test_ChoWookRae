@@ -1,13 +1,17 @@
 #include "Player.h"
 
+
+#pragma region 데이터 세팅
 void Player::SetData_White()
 {
+	IsBlack = WHITE;
 	SetPiece_Data_White();
 	SetPos_White();
 }
 
 void Player::SetData_Black()
 {
+	IsBlack = BLACK;
 	SetPiece_Data_Black();
 	SetPos_Black();
 }
@@ -22,7 +26,7 @@ void Player::SetPiece_Data_White()
 			Pos[y][x].Piece_Number = NULLPIECE;
 		}
 	}
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 16; i++)
 	{
 		switch (i)
 		{
@@ -56,7 +60,7 @@ void Player::SetPiece_Data_White()
 			break;
 		}
 	}
-	
+
 }
 
 void Player::SetPiece_Data_Black()
@@ -68,7 +72,7 @@ void Player::SetPiece_Data_Black()
 			Pos[y][x].Piece_Number = NULLPIECE;
 		}
 	}
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 16; i++)
 	{
 		switch (i)
 		{
@@ -105,7 +109,7 @@ void Player::SetPiece_Data_Black()
 }
 
 
-void Player::SetPos_White() 
+void Player::SetPos_White()
 {
 	int y;
 	for (int x = 0; x < 8; x++)
@@ -117,7 +121,7 @@ void Player::SetPos_White()
 		Pos[y][x].y = y;
 
 		//그외
-		y = 8;
+		y = 6;
 		Pos[y][x].Piece_Number = x;
 		Pos[y][x].x = x;
 		Pos[y][x].y = y;
@@ -130,10 +134,10 @@ void Player::SetPos_Black()
 {
 	int y;
 	for (int x = 0; x < 8; x++)
-	{		
+	{
 		//폰 세팅
 		y = 0;
-		Pos[y][x].Piece_Number = x+8;
+		Pos[y][x].Piece_Number = x + 8;
 		Pos[y][x].x = x;
 		Pos[y][x].y = y;
 
@@ -142,5 +146,18 @@ void Player::SetPos_Black()
 		Pos[y][x].Piece_Number = x;
 		Pos[y][x].x = x;
 		Pos[y][x].y = y;
+	}
+}
+#pragma endregion
+
+void Player::Draw(HDC hdc)
+{
+	for (int y = 0; y < 8; y++)
+	{
+		for (int x = 0; x < 8; x++)
+		{
+			if (Pos[y][x].Piece_Number != NULLPIECE)
+				Piece[Pos[y][x].Piece_Number]->Draw(hdc, 20 + x * WIDTH, 20 + y * HEIGHT, WIDTH, HEIGHT);
+		}
 	}
 }

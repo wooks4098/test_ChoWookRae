@@ -11,6 +11,7 @@ struct Position
 class Player
 {
 private:
+	bool IsBlack;
 	Chess_Piece *Piece[16];
 	Position Pos[8][8];
 public:
@@ -25,17 +26,11 @@ public:
 	void SetPiece_Data_White();
 	void SetPiece_Data_Black();
 
+	void Draw(HDC hdc);
 
-	void TestDraw(HDC hdc)
-	{
-		for (int y = 0; y < 8; y++)
-		{
-			for (int x = 0; x < 8; x++)
-			{
-				if (Pos[y][x].Piece_Number != NULLPIECE)
-					Piece[Pos[y][x].Piece_Number]->Draw(hdc, 20 + x * WIDTH, 20 + y * HEIGHT, WIDTH, HEIGHT);
-			}
-		}
-	}
+	void ClickPiece(int x, int y);
+	void MovePiece(int x, int y);
+
+
 };
 
