@@ -43,11 +43,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
 	HDC hdc;
 	PAINTSTRUCT ps;
+	POINT Point;
 	switch (iMessage)
 	{
 	case WM_CREATE:
 		SetRect(&clientRect, 0, 0, 640, 640); //원하는 클라이언트 크기를 저장한다.
-
 		AdjustWindowRect(&clientRect, WS_OVERLAPPEDWINDOW, FALSE); //윈도우 크기를 계산
 
 		MoveWindow(hWnd, 0, 0, clientRect.right - clientRect.left, clientRect.bottom - clientRect.top, TRUE);
@@ -59,6 +59,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		//Map::GetInstans()->MapDraw(hdc);
 		GM.Draw(hdc);
 		EndPaint(hWnd, &ps);
+		return 0;
+
+	case WM_LBUTTONDOWN:
+		hdc = BeginPaint(hWnd, &ps);
+		Point.x = LOWORD(lParam);
+		Point.y = HIWORD(lParam);
+
+		GM.MouseClick(Point);
+
+		EndPaint(hWnd, &ps);
+		InvalidateRect(hWnd, NULL, TRUE);
+
 		return 0;
 	case WM_DESTROY:
 		PostQuitMessage(0);

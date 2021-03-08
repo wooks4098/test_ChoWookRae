@@ -24,22 +24,22 @@ void Player::SetPiece_Data_White()
 		switch (i)
 		{
 		case Piece_KING:
-			Piece[i] = new King(SPRITE_W_KING, true);
+			Piece[i] = new King(SPRITE_W_KING, false);
 			break;
 		case Piece_QUEEN:
-			Piece[i] = new Queen(SPRITE_W_QUEEN, true);
+			Piece[i] = new Queen(SPRITE_W_QUEEN, false);
 			break;
 		case Piece_KNIGHT_0:
 		case Piece_KNIGHT_1:
-			Piece[i] = new Knight(SPRITE_W_BISHOP, true);
+			Piece[i] = new Knight(SPRITE_W_BISHOP, false);
 			break;
 		case Piece_BISHOP_0:
 		case Piece_BISHOP_1:
-			Piece[i] = new Bishop(SPRITE_W_KNIGHT, true);
+			Piece[i] = new Bishop(SPRITE_W_KNIGHT, false);
 			break;
 		case Piece_ROOK_0:
 		case Piece_ROOK_1:
-			Piece[i] = new Rook(SPRITE_W_ROOK, true);
+			Piece[i] = new Rook(SPRITE_W_ROOK, false);
 			break;
 		case Piece_PAWN_0:
 		case Piece_PAWN_1:
@@ -49,7 +49,7 @@ void Player::SetPiece_Data_White()
 		case Piece_PAWN_5:
 		case Piece_PAWN_6:
 		case Piece_PAWN_7:
-			Piece[i] = new Pawn(SPRITE_W_PAWN, true);
+			Piece[i] = new Pawn(SPRITE_W_PAWN, false);
 			break;
 		}
 	}
@@ -101,11 +101,11 @@ void Player::SetPos_White()
 	for (int x = 0; x < PIECECOUNT/2; x++)
 	{
 		//폰 세팅
-		y = 7;
+		y = 6;
 		Piece[x + 8]->SetPos(x, y);
 
 		//그외
-		y = 6;
+		y = 7;
 		Piece[x]->SetPos(x, y);
 	}
 }
@@ -117,12 +117,12 @@ void Player::SetPos_Black()
 	for (int x = 0; x < PIECECOUNT/2; x++)
 	{
 		//폰 세팅
-		y = 0;
+		y = 1;
 		Piece[x + 8]->SetPos(x, y);
 
 
 		//그외
-		y = 1;
+		y = 0;
 		Piece[x]->SetPos(x, y);
 	}
 }
@@ -132,38 +132,43 @@ void Player::SetPos_Black()
 bool Player::PieceCheck(POINT mouse, Piece_info* info, bool* isClick)
 {
 	POINT Check_Pos;
-	
-	for (int i = 0; i < PIECECOUNT; i++)
-	{
-		Check_Pos = Piece[i]->Return_Pos();
-		if (Check_Pos.x = mouse.x && Check_Pos.y == mouse.y)//마우스 클릭 위치에 피스 있는지 탐색
-		{
-			if (*isClick)//이미 클릭한 피스가 있는 경우
-			{
-				if (info->isBlack == Piece[i]->Return_isBlack() && info->PieceNumber == i)//이전에 선택했던 피스를 클릭했을 경우
-				{
-					//클릭 취소
-					Piece[i]->isClick(false);
 
-					//이동가능한 좌표 제거
+	//이미 클릭한 피스가 있는 경우인지 부터 체크
+	if (*isClick)	//이미 클릭한 피스가 있는 경우
+	{
+		if (0)	//이동가능한 경로인지 체크
+		{
+			//true 
+		//이동
+		//충돌체크
+		//이동가능한 좌표 제거
+			*isClick = false;
+			info->PieceNumber = -1;
+			return true;
+		}
+		else
+		{
+			for (int i = 0; i < PIECECOUNT; i++)
+			{
+				Check_Pos = Piece[i]->Return_Pos();
+				if (Check_Pos.x = mouse.x && Check_Pos.y == mouse.y //마우스 클릭 위치에 피스 있는지
+					&&info->isBlack == Piece[i]->Return_isBlack() && info->PieceNumber == i)  //이전에 클릭했던 피스를 클릭했는지 탐색
+				{
 					*isClick = false;
 					info->PieceNumber = -1;
-
-					return true;
-				}
-				else//이전에 선택했던 피스를 클릭하지 않았을 경우
-				{
-					//이동가능한 좌표를 클릭한 경우
-						//이동
-
-					//이동가능한 좌표를 클릭하지 않은 경우
-						//무시
-
-
 					return true;
 				}
 			}
-			else//이미 클릭한 피스가 없는 경우
+
+			return false;
+		}
+	}
+	else	//이미 클릭한 피스가 없는 경우
+	{
+		for (int i = 0; i < PIECECOUNT; i++)
+		{
+			Check_Pos = Piece[i]->Return_Pos();
+			if (Check_Pos.x = mouse.x && Check_Pos.y == mouse.y) //마우스 클릭 위치에 피스 있는지 탐색
 			{
 				//GameManager피스 정보 저장
 				Piece[i]->isClick(true);
@@ -172,14 +177,67 @@ bool Player::PieceCheck(POINT mouse, Piece_info* info, bool* isClick)
 				*isClick = true;
 
 				//이동가능한 좌표 표시
-				
+
 
 				return true;
 			}
 		}
+
+		//관련없는 좌표를 눌렀때 
+		return false;
+
 	}
-	return false; //탐색실패
+	//for (int i = 0; i < PIECECOUNT; i++)
+	//{
+	//	Check_Pos = Piece[i]->Return_Pos();
+	//	
+	//	if (Check_Pos.x = mouse.x && Check_Pos.y == mouse.y)//마우스 클릭 위치에 피스 있는지 탐색
+	//	{
+	//		if (*isClick)//이미 클릭한 피스가 있는 경우
+	//		{
+	//			if (info->isBlack == Piece[i]->Return_isBlack() && info->PieceNumber == i)//이전에 선택했던 피스를 클릭했을 경우
+	//			{
+	//				//클릭 취소
+	//				Piece[i]->isClick(false);
+	//
+	//				//이동가능한 좌표 제거
+	//				*isClick = false;
+	//				info->PieceNumber = -1;
+	//
+	//				return true;
+	//			}
+	//			else//이전에 선택했던 피스를 클릭하지 않았을 경우
+	//			{
+	//				//이동가능한 좌표를 클릭한 경우
+	//					//이동
+	//			
+	//				//이동가능한 좌표를 클릭하지 않은 경우
+	//					//무시
+	//
+	//
+	//				return false;
+	//			}
+	//		}
+	//		else//이미 클릭한 피스가 없는 경우
+	//		{
+	//			//GameManager피스 정보 저장
+	//			Piece[i]->isClick(true);
+	//			info->isBlack = IsBlack;
+	//			info->PieceNumber = i;
+	//			*isClick = true;
+	//
+	//			//이동가능한 좌표 표시
+	//			
+	//
+	//			return true;
+	//		}
+	//	}
+	//}
+	//return false; //탐색실패
 }
+
+
+
 #pragma endregion
 
 

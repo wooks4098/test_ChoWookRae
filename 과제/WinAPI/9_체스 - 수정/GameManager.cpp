@@ -1,13 +1,12 @@
 #include "GameManager.h"
-
+GameManager* GameManager::m_pThis = NULL;
 void GameManager::SetData()
 {
 	ClickPiece = false;
 	ClickPiece_info.PieceNumber = -1;
 	Trun = 0;
 	player[BLACK].SetData_Black();
-	player[WHITE].SetData_White();
-	
+	player[WHITE].SetData_White();	
 }
 
 void GameManager::Draw(HDC hdc)
@@ -59,7 +58,7 @@ void GameManager::PieceCheck(POINT mouse)
 {
 	for (int i = 0; i < 2; i++)
 	{
-		ClickPiece = player[i].PieceCheck(mouse, &ClickPiece_info);
+		ClickPiece = player[i].PieceCheck(mouse, &ClickPiece_info, &ClickPiece);
 		if (ClickPiece)
 			return;
 	}

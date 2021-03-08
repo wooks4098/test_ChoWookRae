@@ -1,5 +1,7 @@
 #pragma once
 #include  "SpriteManager.h"
+#include "Map.h"
+//#include "GameManager.h"
 
 class Chess_Piece
 {
@@ -11,7 +13,7 @@ protected:
 
 public:
 	virtual void SetPiece(int name, bool isBlack) = 0;
-	//virtual void CanMovePos() = 0; //이동가능한 거리 보여주기
+	virtual void CanMovePos() = 0; //이동가능한 거리 보여주기
 	virtual void Move() = 0;
 	virtual void Change() = 0;
 
@@ -33,6 +35,7 @@ public:
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
+	void CanMovePos();
 };
 
 
@@ -44,6 +47,7 @@ public:
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
+	void CanMovePos();
 };
 
 class Knight : public Chess_Piece
@@ -54,6 +58,7 @@ public:
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
+	void CanMovePos();
 };
 
 class Bishop : public Chess_Piece
@@ -64,6 +69,7 @@ public:
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
+	void CanMovePos();
 
 };
 
@@ -75,14 +81,17 @@ public:
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
+	void CanMovePos();
 };
 
 class Pawn : public Chess_Piece
 {
 
 public:
+
 	Pawn(int name, bool isBlack);
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
+	void CanMovePos();
 };

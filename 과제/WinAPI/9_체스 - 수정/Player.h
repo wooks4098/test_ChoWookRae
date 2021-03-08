@@ -31,7 +31,6 @@ public:
 
 	//클릭 이벤트
 	bool PieceCheck(POINT mouse, Piece_info* info, bool* isClick); //어떤 피스를 클릭했는지 
-	
 
 };
 

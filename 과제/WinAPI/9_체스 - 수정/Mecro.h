@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 #include<Windows.h>
 #include<string>
 #include<time.h>
@@ -10,6 +11,20 @@
 #define WHITE 0
 #define BLACK 1
 #define PIECECOUNT 16
+
+//이동가능한 좌표가 담긴 변수
+
+//피스 숫자, 위치, 진영이 담긴 변수
+
+//std::vector<POINT> dd;
+
+//std::vector<CanMovePos_info> canMovePos_info;
+//
+//struct CanMovePos_info
+//{
+//	bool isBlack;
+//	POINT Pos;
+//};
 
 struct Piece_info
 {

@@ -10,6 +10,7 @@ void Chess_Piece::SetPos(int x, int y)
 {
 	m_Pos.x = x;
 	m_Pos.y = y;
+
 }
 
 void Chess_Piece::isClick(bool check)
@@ -54,6 +55,10 @@ void King::Change()
 {
 
 }
+void King::CanMovePos()
+{
+
+}
 
 //Queen
 
@@ -79,7 +84,10 @@ void Queen::Change()
 {
 
 }
+void Queen::CanMovePos()
+{
 
+}
 //Knight
 
 Knight::Knight(int name, bool isBlack)
@@ -103,7 +111,10 @@ void Knight::Change()
 {
 
 }
+void Knight::CanMovePos()
+{
 
+}
 //Bishop
 
 Bishop::Bishop(int name, bool isBlack)
@@ -126,7 +137,10 @@ void Bishop::Change()
 {
 
 }
+void Bishop::CanMovePos()
+{
 
+}
 //Rook
 
 Rook::Rook(int name, bool isBlack)
@@ -151,7 +165,10 @@ void Rook::Change()
 {
 
 }
+void Rook::CanMovePos()
+{
 
+}
 
 //Pawn
 
@@ -175,4 +192,41 @@ void Pawn::Move()
 void Pawn::Change()
 {
 
+}
+
+void Pawn:: CanMovePos()
+{
+	//앞 2칸 && 앞 대각선 검은피스 있을 경우
+	
+
+	if (m_isBlack)//검은색인 경우
+	{
+		if (m_Pos.y == 1)//처음위치일 경우
+		{
+			//y+1 y+2
+
+		}
+		else
+		{
+			//y+1  && x-1 y-1 , x+1 y-1
+
+		}
+		
+	}
+	else//흰색인 경우
+	{
+		if (m_Pos.y == 6)//처음위치일 경우
+		{
+			//y-1  y -2
+
+		}
+		else
+		{
+			//y-1  && x-1 y-1 , x+1 y-1
+
+		}
+
+
+	
+	}
 }

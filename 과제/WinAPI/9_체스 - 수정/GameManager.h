@@ -1,15 +1,37 @@
 #pragma once
 #include "Player.h"
-#include "Map.h"
+
 
 
 class GameManager
 {
+#pragma region ΩÃ±€≈Ê
+private:
+
+	static GameManager* m_pThis;
+public:
+	static GameManager* GetInstans()
+	{
+		if (m_pThis == NULL)
+		{
+			m_pThis = new GameManager;
+		}
+		return m_pThis;
+	}
+
+#pragma endregion
+
+
 private:
 	int Trun;
 	bool ClickPiece;
+
 	Player player[2];
 	Piece_info ClickPiece_info;
+
+
+
+
 public:
 	void SetData();
 	void Draw(HDC hdc);
