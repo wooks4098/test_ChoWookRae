@@ -31,7 +31,7 @@ public:
 	void Load_Image(HDC hdc, LPCWSTR FileName, int Piece_Number);
 
 	void Draw(HDC hdc, float x, float y, float spX, float spY, int Piece_Number, bool Transparent);
-
+	void Draw(HDC hdc, float x, float y, float spX, float spY, int Piece_Number);
 	SIZE GetSize(std::string name);
 };
 

@@ -129,6 +129,65 @@ void Player::SetPos_Black()
 #pragma endregion
 
 #pragma region 클릭이벤트
+
+bool Player::Piece_Click(POINT mouse, Piece_info* info, bool* isClick)
+{
+	POINT Check_Pos;
+	for (int i = 0; i < PIECECOUNT; i++)
+	{
+		Check_Pos = Piece[i]->Return_Pos();
+		if (Check_Pos.x = mouse.x && Check_Pos.y == mouse.y) //마우스 클릭 위치에 피스 있는지 탐색
+		{
+			//GameManager피스 정보 저장
+			Piece[i]->isClick(true);
+			info->isBlack = IsBlack;
+			info->PieceNumber = i;
+			*isClick = true;
+			return true;
+		}
+	}
+}
+
+bool Player::Piece_Click_AgainCheck(POINT mouse, Piece_info* info, bool* isClick)
+{
+	POINT Check_Pos;
+	for (int i = 0; i < PIECECOUNT; i++)
+	{
+		Check_Pos = Piece[i]->Return_Pos();
+		if (Check_Pos.x = mouse.x && Check_Pos.y == mouse.y //마우스 클릭 위치에 피스 있는지
+			&&info->isBlack == Piece[i]->Return_isBlack() && info->PieceNumber == i)  //이전에 클릭했던 피스를 클릭했는지 탐색
+		{
+			*isClick = false;
+			info->PieceNumber = -1;
+			return true;
+		}
+	}
+	return false;
+}
+
+void Player::Piece_Can_Move_Search(Piece_info info, std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
+{
+	CanMove_Pos->clear();
+	Piece[info.PieceNumber]->CanMovePos(CanMove_Pos, Piece_Pos);
+	
+}
+void Player::Get_Piece_info(Piece_info Piece_Pos[][8])
+{
+	POINT Pos;
+	for (int i = 0; i < PIECECOUNT; i++)
+	{
+		if (Piece[i] != NULL)
+		{
+			Pos = Piece[i]->Return_Pos();
+			Piece_Pos[Pos.y][Pos.x].isBlack = Piece[i]->Return_isBlack();
+			Piece_Pos[Pos.y][Pos.x].PieceNumber = i;
+		}
+	}
+}
+
+
+
+
 bool Player::PieceCheck(POINT mouse, Piece_info* info, bool* isClick)
 {
 	POINT Check_Pos;

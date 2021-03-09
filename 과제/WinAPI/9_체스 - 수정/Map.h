@@ -21,7 +21,8 @@ public:
 private:
 
 public:
-	void MapDraw(HDC hdc);
+	void MapDraw(HDC hdc, std::vector<POINT> CanMove_Pos);
 	void MovePointDraw();
+	void Draw_CanMovePos(HDC hdc, std::vector<POINT> CanMove_Pos);
 };
 

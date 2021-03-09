@@ -2,6 +2,11 @@
 GameManager* GameManager::m_pThis = NULL;
 void GameManager::SetData()
 {
+	for (int y = 0; y < 8; y++)
+	{
+		for (int x = 0; x < 8; x++)
+			Piece_Pos[y][x].PieceNumber = -1;
+	}
 	ClickPiece = false;
 	ClickPiece_info.PieceNumber = -1;
 	Trun = 0;
@@ -11,27 +16,32 @@ void GameManager::SetData()
 
 void GameManager::Draw(HDC hdc)
 {
-	Map::GetInstans()->MapDraw(hdc);
+	Map::GetInstans()->MapDraw(hdc,CanMove_Pos);
 
 	for (int i = 0; i < 2; i++)
 		player[i].Draw(hdc);
 }
 
 #pragma region 클릭이벤트
-void GameManager::MouseClick(POINT mouse)
+void GameManager::MouseClick(HDC hdc, POINT mouse)
 {
 	mouse = MousePointChange(mouse);
 
-	for (int i = 0; i < 2; i++)
-	{
-		if (player[i].PieceCheck(mouse, &ClickPiece_info, &ClickPiece))
-			return;
-	}
+	
 
 	if (ClickPiece)//클릭한 피스가 있음
 	{
 		//해당 피스를 다시 클랙했는가?
+		for (int i = 0; i < 2; i++)
+		{
+			if (player[i].Piece_Click_AgainCheck(mouse, &ClickPiece_info, &ClickPiece))
+			{
+				CanMove_Pos.clear();
+				return;
 
+			}
+
+		}
 		//이동가능한 좌표를 클릭했는가?
 
 		//else
@@ -40,9 +50,20 @@ void GameManager::MouseClick(POINT mouse)
 	}
 	else//클릭한 피스가 없음
 	{
-		//피스를 클릭했는가?
+		//피스선택
+		for (int i = 0; i < 2; i++)
+		{
+			if (player[i].Piece_Click(mouse, &ClickPiece_info, &ClickPiece))
+			{
+				//이동가능한 좌표 탐색 후 표시
+				for (int i = 0; i < 2; i++)
+					player[i].Get_Piece_info(Piece_Pos);
+				player[ClickPiece_info.isBlack].Piece_Can_Move_Search(ClickPiece_info, &CanMove_Pos, Piece_Pos);
+				Map::GetInstans()->Draw_CanMovePos(hdc, CanMove_Pos);
+				return;
+			}
 
-		//else
+		}
 	}
 
 }

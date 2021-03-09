@@ -24,3 +24,7 @@ void Sprite::Draw(HDC hdc, float x, float y, float spX, float spY, bool Transpar
 	else
 		StretchBlt(hdc, x, y, m_size.cx * 0.6, m_size.cy * 0.6, MemDC, 0, 0, m_size.cx, m_size.cy, SRCCOPY);
 }
+void Sprite::Draw(HDC hdc, float x, float y, float spX, float spY)
+{
+	TransparentBlt(hdc, x, y, m_size.cx * 0.5, m_size.cy * 0.5, MemDC, 0, 0, m_size.cx, m_size.cy, RGB(255, 0, 255));
+}

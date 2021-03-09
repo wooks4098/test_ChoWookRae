@@ -55,7 +55,7 @@ void King::Change()
 {
 
 }
-void King::CanMovePos()
+void King::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
 
 }
@@ -84,7 +84,7 @@ void Queen::Change()
 {
 
 }
-void Queen::CanMovePos()
+void Queen::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
 
 }
@@ -111,7 +111,7 @@ void Knight::Change()
 {
 
 }
-void Knight::CanMovePos()
+void Knight::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
 
 }
@@ -137,7 +137,7 @@ void Bishop::Change()
 {
 
 }
-void Bishop::CanMovePos()
+void Bishop::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
 
 }
@@ -165,7 +165,7 @@ void Rook::Change()
 {
 
 }
-void Rook::CanMovePos()
+void Rook::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
 
 }
@@ -194,22 +194,38 @@ void Pawn::Change()
 
 }
 
-void Pawn:: CanMovePos()
+void Pawn:: CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
 	//앞 2칸 && 앞 대각선 검은피스 있을 경우
-	
-
+	POINT Pos;
+	Pos = m_Pos;
 	if (m_isBlack)//검은색인 경우
 	{
 		if (m_Pos.y == 1)//처음위치일 경우
 		{
-			//y+1 y+2
-
+			//y+1 y+2			
+			for (int i = 0; i < 2; i++)
+			{
+				Pos.y++;
+				CanMove_Pos->push_back(Pos);
+			}
+			
 		}
 		else
 		{
-			//y+1  && x-1 y-1 , x+1 y-1
+			//y+1
+			Pos.y++;
+			if(Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //( Pos.x <0 || Pos.x>8)  && 
+				CanMove_Pos->push_back(Pos);
+			//x-1 y+1
+			Pos.x--;
+			if(Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+				CanMove_Pos->push_back(Pos);
 
+			// x+1 y+1
+			Pos.x += 2;
+			if (Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+				CanMove_Pos->push_back(Pos);
 		}
 		
 	}
@@ -218,12 +234,27 @@ void Pawn:: CanMovePos()
 		if (m_Pos.y == 6)//처음위치일 경우
 		{
 			//y-1  y -2
-
+			for (int i = 0; i < 2; i++)
+			{
+				Pos.y--;
+				CanMove_Pos->push_back(Pos);
+			}
 		}
 		else
 		{
-			//y-1  && x-1 y-1 , x+1 y-1
+			//y-1
+			Pos.y--;
+			if ( Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+				CanMove_Pos->push_back(Pos);
+			//x-1 y-1
+			Pos.x--;
+			if (Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+				CanMove_Pos->push_back(Pos);
 
+			// x+1 y-1
+			Pos.x += 2;
+			if (Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+				CanMove_Pos->push_back(Pos);
 		}
 
 

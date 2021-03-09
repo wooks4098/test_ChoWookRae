@@ -11,6 +11,7 @@ private:
 
 public:
 	void Draw(HDC hdc, float x, float y, float spX, float spY, bool Transparent);
+	void Draw(HDC hdc, float x, float y, float spX, float spY);
 	void CreatImage(HDC hdc, LPCWSTR FileName);
 	inline SIZE GetSize()
 	{

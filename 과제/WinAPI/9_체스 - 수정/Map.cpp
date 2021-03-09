@@ -1,7 +1,7 @@
 #include "Map.h"
 Map* Map::m_pThis = NULL;
 
-void Map::MapDraw(HDC hdc)
+void Map::MapDraw(HDC hdc, std::vector<POINT> CanMove_Pos)
 {
 	for (int y = 0; y < 8; y++)
 	{
@@ -36,4 +36,17 @@ void Map::MapDraw(HDC hdc)
 			SpriteManager::GetInstans()->Draw(hdc, 20 + x * WIDTH, 20 + y * HEIGHT, WIDTH, HEIGHT, SPRITE_BLOCK_2, true);
 		}
 	}
+	Draw_CanMovePos(hdc, CanMove_Pos);
+}
+
+void Map::Draw_CanMovePos(HDC hdc, std::vector<POINT> CanMove_Pos)
+{
+	
+	std::vector<POINT>::iterator iter;
+	for (iter = CanMove_Pos.begin(); iter != CanMove_Pos.end(); ++iter)
+	{
+		SpriteManager::GetInstans()->Draw(hdc, 27 + iter->x *WIDTH, 27 + iter->y *HEIGHT, WIDTH, HEIGHT, SPRITE_BLOCK_2);
+		
+	}
+
 }

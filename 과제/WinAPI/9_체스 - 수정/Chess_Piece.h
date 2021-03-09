@@ -11,9 +11,10 @@ protected:
 	bool m_isBlack;
 	bool m_isClick;
 
+
 public:
 	virtual void SetPiece(int name, bool isBlack) = 0;
-	virtual void CanMovePos() = 0; //이동가능한 거리 보여주기
+	virtual void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]) = 0; //이동가능한 탐색
 	virtual void Move() = 0;
 	virtual void Change() = 0;
 
@@ -35,7 +36,7 @@ public:
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
-	void CanMovePos();
+	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 };
 
 
@@ -47,7 +48,7 @@ public:
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
-	void CanMovePos();
+	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 };
 
 class Knight : public Chess_Piece
@@ -58,7 +59,7 @@ public:
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
-	void CanMovePos();
+	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 };
 
 class Bishop : public Chess_Piece
@@ -69,7 +70,7 @@ public:
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
-	void CanMovePos();
+	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 
 };
 
@@ -81,7 +82,7 @@ public:
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
-	void CanMovePos();
+	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 };
 
 class Pawn : public Chess_Piece
@@ -93,5 +94,5 @@ public:
 	void SetPiece(int name, bool isBlack);
 	void Move();
 	void Change();
-	void CanMovePos();
+	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 };

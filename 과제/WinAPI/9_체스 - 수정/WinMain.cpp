@@ -1,3 +1,4 @@
+
 #include<windows.h>
 #pragma comment(lib, "msimg32.lib")
 #include "SpriteManager.h"
@@ -66,7 +67,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		Point.x = LOWORD(lParam);
 		Point.y = HIWORD(lParam);
 
-		GM.MouseClick(Point);
+		GM.MouseClick(hdc, Point);
 
 		EndPaint(hWnd, &ps);
 		InvalidateRect(hWnd, NULL, TRUE);

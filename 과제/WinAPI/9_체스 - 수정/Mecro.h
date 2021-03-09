@@ -1,4 +1,5 @@
 #pragma once
+
 #include <vector>
 #include<Windows.h>
 #include<string>
@@ -14,7 +15,8 @@
 
 //이동가능한 좌표가 담긴 변수
 
-//피스 숫자, 위치, 진영이 담긴 변수
+
+//피스 번호, 위치, 진영이 담긴 변수
 
 //std::vector<POINT> dd;
 
@@ -31,6 +33,7 @@ struct Piece_info
 	bool isBlack;
 	int PieceNumber;
 };
+
 
 
 enum SPRITE

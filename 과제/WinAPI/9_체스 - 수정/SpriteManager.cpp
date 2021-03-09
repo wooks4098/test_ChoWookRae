@@ -57,7 +57,11 @@ void SpriteManager::Draw(HDC hdc, float x, float y, float spX, float spY, int Pi
 	sprite[Piece_Number].Draw(hdc, x, y, spX, spY, Transparent);
 
 }
+void SpriteManager::Draw(HDC hdc, float x, float y, float spX, float spY, int Piece_Number)
+{
+	sprite[Piece_Number].Draw(hdc, x, y, spX, spY);
 
+}
 //SIZE SpriteManager::GetSize(std::string name)
 //{
 //	std::map<std::string, Bitmap>::iterator iter = Image.find(name);
