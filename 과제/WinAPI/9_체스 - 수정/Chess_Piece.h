@@ -14,10 +14,11 @@ protected:
 
 public:
 	virtual void SetPiece(int name, bool isBlack) = 0;
-	virtual void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]) = 0; //이동가능한 탐색
-	virtual void Move() = 0;
+	virtual bool CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]) = 0; //이동가능한 탐색
+
 	virtual void Change() = 0;
 
+	void Move(POINT mouse);
 	void Erase();
 	void Die();
 	void Draw(HDC hdc);
@@ -34,9 +35,8 @@ class King : public Chess_Piece
 public:
 	King(int name, bool isBlack);
 	void SetPiece(int name, bool isBlack);
-	void Move();
 	void Change();
-	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
+	bool CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 };
 
 
@@ -46,9 +46,8 @@ class Queen : public Chess_Piece
 public:
 	Queen(int name, bool isBlack);
 	void SetPiece(int name, bool isBlack);
-	void Move();
 	void Change();
-	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
+	bool CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 };
 
 class Knight : public Chess_Piece
@@ -57,9 +56,8 @@ class Knight : public Chess_Piece
 public:
 	Knight(int name, bool isBlack);
 	void SetPiece(int name, bool isBlack);
-	void Move();
 	void Change();
-	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
+	bool CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 };
 
 class Bishop : public Chess_Piece
@@ -68,9 +66,8 @@ class Bishop : public Chess_Piece
 public:
 	Bishop(int name, bool isBlack);
 	void SetPiece(int name, bool isBlack);
-	void Move();
 	void Change();
-	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
+	bool CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 
 };
 
@@ -80,9 +77,8 @@ class Rook : public Chess_Piece
 public:
 	Rook(int name, bool isBlack);
 	void SetPiece(int name, bool isBlack);
-	void Move();
 	void Change();
-	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
+	bool CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 };
 
 class Pawn : public Chess_Piece
@@ -92,7 +88,6 @@ public:
 
 	Pawn(int name, bool isBlack);
 	void SetPiece(int name, bool isBlack);
-	void Move();
 	void Change();
-	void CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
+	bool CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]);
 };

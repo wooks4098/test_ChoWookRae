@@ -17,6 +17,12 @@ void Chess_Piece::isClick(bool check)
 {
 	m_isClick = check;
 }
+
+void Chess_Piece::Move(POINT mouse)
+{
+	m_Pos = mouse;
+}
+
 #pragma region Return
 bool Chess_Piece::Return_isBlack()
 {
@@ -46,18 +52,14 @@ void King::SetPiece(int name, bool isBlack)
 	m_isClick = false;
 }
 
-void King::Move()
-{
-
-}
 
 void King::Change()
 {
 
 }
-void King::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
+bool King::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
-
+	return false;
 }
 
 //Queen
@@ -75,18 +77,13 @@ void Queen::SetPiece(int name, bool isBlack)
 }
 
 
-void Queen::Move()
-{
-
-}
-
 void Queen::Change()
 {
 
 }
-void Queen::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
+bool Queen::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
-
+	return false;
 }
 //Knight
 
@@ -102,17 +99,14 @@ void Knight::SetPiece(int name, bool isBlack)
 	m_isClick = false;
 }
 
-void Knight::Move()
-{
-
-}
 
 void Knight::Change()
 {
 
 }
-void Knight::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
+bool Knight::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
+	return false;
 
 }
 //Bishop
@@ -128,18 +122,14 @@ void Bishop::SetPiece(int name, bool isBlack)
 	m_isBlack = isBlack;
 	m_isClick = false;
 }
-void Bishop::Move()
-{
-
-}
 
 void Bishop::Change()
 {
 
 }
-void Bishop::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
+bool Bishop::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
-
+	return false;
 }
 //Rook
 
@@ -156,18 +146,94 @@ void Rook::SetPiece(int name, bool isBlack)
 }
 
 
-void Rook::Move()
-{
-
-}
-
 void Rook::Change()
 {
 
 }
-void Rook::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
+bool Rook::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
+	bool CanMove = false;
+	POINT Pos;
+	Pos = m_Pos;
+	//→ x++
+	for (int i = 0; i < 8; i++)
+	{
+		Pos.x++;
+		if (Pos.x > 7)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 ||		//피스가 없거나
+			(Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)	)	//다른피스가 있거나
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+	}
+	//← x--
+	Pos = m_Pos;
+	for (int i = 0; i < 8; i++)
+	{
+		Pos.x--;
+		if (Pos.x < 0)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 ||		//피스가 없거나
+			(Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack))	//다른피스가 있거나
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
 
+
+	}
+	//↑ y--
+	Pos = m_Pos;
+	for (int i = 0; i < 8; i++)
+	{
+		Pos.y--;
+		if (Pos.y < 0)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1)
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		//if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 ||		//피스가 없거나
+		//	(Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack))	//다른피스가 있거나
+		//{
+		//	CanMove_Pos->push_back(Pos);
+		//	CanMove = true;
+		//	break;
+		//}
+
+
+	}
+
+	//↓ y++
+	Pos = m_Pos;
+	for (int i = 0; i < 8; i++)
+	{
+		Pos.y++;
+		if (Pos.y > 7)
+			break;
+
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 ||		//피스가 없거나
+			(Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack))	//다른피스가 있거나
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+
+	}
+	return false;
 }
 
 //Pawn
@@ -184,19 +250,16 @@ void Pawn::SetPiece(int name, bool isBlack)
 	m_isClick = false;
 }
 
-void Pawn::Move()
-{
-
-}
-
 void Pawn::Change()
 {
 
 }
 
-void Pawn:: CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
+bool Pawn:: CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
+	
 	//앞 2칸 && 앞 대각선 검은피스 있을 경우
+	bool CanMove = false;
 	POINT Pos;
 	Pos = m_Pos;
 	if (m_isBlack)//검은색인 경우
@@ -208,6 +271,7 @@ void Pawn:: CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][
 			{
 				Pos.y++;
 				CanMove_Pos->push_back(Pos);
+				CanMove = true;
 			}
 			
 		}
@@ -215,17 +279,26 @@ void Pawn:: CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][
 		{
 			//y+1
 			Pos.y++;
-			if(Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //( Pos.x <0 || Pos.x>8)  && 
-				CanMove_Pos->push_back(Pos);
+			if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1)
+			{
+				CanMove_Pos->push_back(Pos); 
+				CanMove = true;
+
+			}
 			//x-1 y+1
 			Pos.x--;
-			if(Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+			if (Pos.x >= 0 &&Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+			{
 				CanMove_Pos->push_back(Pos);
-
+				CanMove = true;
+			}
 			// x+1 y+1
 			Pos.x += 2;
-			if (Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+			if (Pos.x <= 7 && Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+			{
 				CanMove_Pos->push_back(Pos);
+				CanMove = true;
+			}
 		}
 		
 	}
@@ -238,26 +311,39 @@ void Pawn:: CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][
 			{
 				Pos.y--;
 				CanMove_Pos->push_back(Pos);
+				CanMove = true;
 			}
 		}
 		else
 		{
 			//y-1
 			Pos.y--;
-			if ( Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+			if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1)
+			{
 				CanMove_Pos->push_back(Pos);
+				CanMove = true;
+
+			}
 			//x-1 y-1
 			Pos.x--;
-			if (Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+			if (Pos.x >= 0&&Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+			{
 				CanMove_Pos->push_back(Pos);
+				CanMove = true;
+			}
 
 			// x+1 y-1
 			Pos.x += 2;
-			if (Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+			if (Pos.x<= 7 &&Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+			{
 				CanMove_Pos->push_back(Pos);
+				CanMove = true;
+
+			}
 		}
 
 
 	
 	}
+	return CanMove;
 }

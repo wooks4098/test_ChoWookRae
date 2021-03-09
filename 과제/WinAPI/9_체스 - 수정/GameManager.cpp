@@ -12,6 +12,8 @@ void GameManager::SetData()
 	Trun = 0;
 	player[BLACK].SetData_Black();
 	player[WHITE].SetData_White();	
+	for (int i = 0; i < 2; i++)
+		player[i].Get_Piece_info(Piece_Pos);
 }
 
 void GameManager::Draw(HDC hdc)
@@ -27,23 +29,42 @@ void GameManager::MouseClick(HDC hdc, POINT mouse)
 {
 	mouse = MousePointChange(mouse);
 
-	
+	//순서에 따라 관리해주는 코드 추가
 
 	if (ClickPiece)//클릭한 피스가 있음
 	{
 		//해당 피스를 다시 클랙했는가?
-		for (int i = 0; i < 2; i++)
+		if (player[TurnCheck()].Piece_Click_AgainCheck(mouse, &ClickPiece_info, &ClickPiece, &CanMove_Pos))
 		{
-			if (player[i].Piece_Click_AgainCheck(mouse, &ClickPiece_info, &ClickPiece))
-			{
-				CanMove_Pos.clear();
-				return;
-
-			}
+			CanMove_Pos.clear();
+			return;
 
 		}
 		//이동가능한 좌표를 클릭했는가?
+		if (MouseClick_CanMovePos(mouse))
+		{
 
+			POINT pos;
+			pos = player[TurnCheck()].Return_Piece_Pos(ClickPiece_info.PieceNumber);
+			//이동
+			player[TurnCheck()].Piece_Move(mouse, ClickPiece_info);
+			
+			
+
+
+			Trun++;
+			ClickPiece_info.PieceNumber = -1;
+			CanMove_Pos.clear();
+			ClickPiece = false;
+
+
+			//피스정보 저장
+			Piece_Pos[mouse.y][mouse.x]= Piece_Pos[pos.y][pos.x];
+			//이동한 피스 위치 제거
+			Piece_Pos[pos.y][pos.x].PieceNumber = -1;
+
+
+		}
 		//else
 
 
@@ -51,21 +72,32 @@ void GameManager::MouseClick(HDC hdc, POINT mouse)
 	else//클릭한 피스가 없음
 	{
 		//피스선택
-		for (int i = 0; i < 2; i++)
+		if (player[TurnCheck()].Piece_Click(mouse, &ClickPiece_info, &ClickPiece))
 		{
-			if (player[i].Piece_Click(mouse, &ClickPiece_info, &ClickPiece))
+			////이동가능한 좌표 탐색 후 표시
+			//for (int i = 0; i < 2; i++)
+			//	player[i].Get_Piece_info(Piece_Pos);
+			if (!player[ClickPiece_info.isBlack].Piece_Can_Move_Search(ClickPiece_info, &CanMove_Pos, Piece_Pos))
 			{
-				//이동가능한 좌표 탐색 후 표시
-				for (int i = 0; i < 2; i++)
-					player[i].Get_Piece_info(Piece_Pos);
-				player[ClickPiece_info.isBlack].Piece_Can_Move_Search(ClickPiece_info, &CanMove_Pos, Piece_Pos);
-				Map::GetInstans()->Draw_CanMovePos(hdc, CanMove_Pos);
-				return;
+				ClickPiece_info.PieceNumber = -1;
+				CanMove_Pos.clear();
+				ClickPiece = false;
 			}
-
+			return;
 		}
 	}
 
+}
+
+bool GameManager::MouseClick_CanMovePos(POINT mouse)
+{
+	std::vector<POINT>::iterator iter;
+	for (iter = CanMove_Pos.begin(); iter != CanMove_Pos.end(); ++iter)
+	{
+		if (mouse.x == iter->x && mouse.y == iter->y)
+			return true;
+	}
+	return false;
 }
 
 POINT GameManager::MousePointChange(POINT mouse)
@@ -75,15 +107,15 @@ POINT GameManager::MousePointChange(POINT mouse)
 	return mouse;
 }
 
-void GameManager::PieceCheck(POINT mouse)
-{
-	for (int i = 0; i < 2; i++)
-	{
-		ClickPiece = player[i].PieceCheck(mouse, &ClickPiece_info, &ClickPiece);
-		if (ClickPiece)
-			return;
-	}
-}
+//void GameManager::PieceCheck(POINT mouse)
+//{
+//	for (int i = 0; i < 2; i++)
+//	{
+//		ClickPiece = player[i].PieceCheck(mouse, &ClickPiece_info, &ClickPiece);
+//		if (ClickPiece)
+//			return;
+//	}
+//}
 
 #pragma endregion
 
