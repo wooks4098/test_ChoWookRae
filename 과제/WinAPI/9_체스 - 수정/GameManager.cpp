@@ -59,7 +59,8 @@ void GameManager::MouseClick(HDC hdc, POINT mouse)
 
 
 			//피스정보 저장
-			Piece_Pos[mouse.y][mouse.x]= Piece_Pos[pos.y][pos.x];
+			Piece_Pos[mouse.y][mouse.x].isBlack= Piece_Pos[pos.y][pos.x].isBlack;
+			Piece_Pos[mouse.y][mouse.x].PieceNumber= Piece_Pos[pos.y][pos.x].PieceNumber;
 			//이동한 피스 위치 제거
 			Piece_Pos[pos.y][pos.x].PieceNumber = -1;
 

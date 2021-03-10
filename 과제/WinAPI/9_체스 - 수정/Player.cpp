@@ -31,11 +31,11 @@ void Player::SetPiece_Data_White()
 			break;
 		case Piece_KNIGHT_0:
 		case Piece_KNIGHT_1:
-			Piece[i] = new Knight(SPRITE_W_BISHOP, false);
+			Piece[i] = new Knight(SPRITE_W_KNIGHT, false);
 			break;
 		case Piece_BISHOP_0:
 		case Piece_BISHOP_1:
-			Piece[i] = new Bishop(SPRITE_W_KNIGHT, false);
+			Piece[i] = new Bishop(SPRITE_W_BISHOP, false);
 			break;
 		case Piece_ROOK_0:
 		case Piece_ROOK_1:
@@ -70,11 +70,11 @@ void Player::SetPiece_Data_Black()
 			break;
 		case Piece_KNIGHT_0:
 		case Piece_KNIGHT_1:
-			Piece[i] = new Knight(SPRITE_B_BISHOP, true);
+			Piece[i] = new Knight(SPRITE_B_KNIGHT, true);
 			break;
 		case Piece_BISHOP_0:
 		case Piece_BISHOP_1:
-			Piece[i] = new Bishop(SPRITE_B_KNIGHT, true);
+			Piece[i] = new Bishop(SPRITE_B_BISHOP, true);
 			break;
 		case Piece_ROOK_0:
 		case Piece_ROOK_1:

@@ -8,8 +8,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("HelloWorld");
 
-int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPervlnstance, LPSTR lpszCmdParam, int nCmdShow)
-{
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPervlnstance, LPSTR lpszCmdParam, int nCmdShow){
 	HWND hWnd;
 	MSG Message;
 

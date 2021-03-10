@@ -59,7 +59,66 @@ void King::Change()
 }
 bool King::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
-	return false;
+	bool CanMove = false;
+	POINT Pos;
+
+
+	//첫 번째 줄
+	Pos = m_Pos;
+	Pos.x--;
+	Pos.y--;
+	for (int i = 0; i < 3; i++)
+	{
+		if (Pos.x >= 0 && Pos.x <= 7 && Pos.y >= 0 && Pos.y <= 7)
+		{
+			if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 //피스가 없을 때
+				||(Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack))//다른 진영의 피스가 있을 때
+			{
+				CanMove_Pos->push_back(Pos);
+				CanMove = true;
+			}
+		}
+		Pos.x++;
+	}
+
+
+	//두 번째 줄
+	Pos = m_Pos;
+	Pos.x--;
+	for (int i = 0; i < 2; i++)
+	{
+		if (Pos.x >= 0 && Pos.x <= 7 && Pos.y >= 0 && Pos.y <= 7)
+		{
+			if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 //피스가 없을 때
+				|| (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack))//다른 진영의 피스가 있을 때
+			{
+				CanMove_Pos->push_back(Pos);
+				CanMove = true;
+			}
+		}
+		Pos.x += 2;
+
+	}
+	//세 번째 줄
+	Pos = m_Pos;
+	Pos.x--;
+	Pos.y++;
+	for (int i = 0; i < 3; i++)
+	{
+		if (Pos.x >= 0 && Pos.x <= 7 && Pos.y >= 0 && Pos.y <= 7)
+		{
+			if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 //피스가 없을 때
+				|| (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack))//다른 진영의 피스가 있을 때
+			{
+				CanMove_Pos->push_back(Pos);
+				CanMove = true;
+			}
+		}
+		Pos.x++;
+
+	}
+
+	return CanMove;
 }
 
 //Queen
@@ -83,7 +142,201 @@ void Queen::Change()
 }
 bool Queen::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
-	return false;
+	bool CanMove = false;
+	POINT Pos;
+	Pos = m_Pos;
+	//→ x++
+	for (int i = 0; i < 8; i++)
+	{
+		Pos.x++;
+		if (Pos.x > 7)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+	}
+	//← x--
+	Pos = m_Pos;
+	for (int i = 0; i < 8; i++)
+	{
+		Pos.x--;
+		if (Pos.x < 0)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+
+
+	}
+	//↑ y--
+	Pos = m_Pos;
+	for (int i = 0; i < 8; i++)
+	{
+		Pos.y--;
+		if (Pos.y < 0)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+
+
+	}
+
+	//↓ y++
+	Pos = m_Pos;
+	for (int i = 0; i < 8; i++)
+	{
+		Pos.y++;
+		if (Pos.y > 7)
+			break;
+
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+
+	}
+
+	//↗
+	Pos = m_Pos;
+	for (int i = 0; i < 7; i++)
+	{
+		Pos.x++;
+		Pos.y--;
+		if (Pos.x > 7 || Pos.y < 0)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+	}
+
+
+	//↖
+	Pos = m_Pos;
+	for (int i = 0; i < 7; i++)
+	{
+		Pos.x--;
+		Pos.y--;
+		if (Pos.x < 0 || Pos.y < 0)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+	}
+
+
+	//↙
+	Pos = m_Pos;
+	for (int i = 0; i < 7; i++)
+	{
+		Pos.x--;
+		Pos.y++;
+		if (Pos.x < 0 || Pos.y > 7)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+	}
+	//↘
+	Pos = m_Pos;
+	for (int i = 0; i < 7; i++)
+	{
+		Pos.x++;
+		Pos.y++;
+		if (Pos.x > 7 || Pos.y > 7)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+	}
+	return CanMove;
 }
 //Knight
 
@@ -106,7 +359,109 @@ void Knight::Change()
 }
 bool Knight::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
-	return false;
+	bool CanMove = false;
+	POINT Pos;
+
+	//↗
+	Pos = m_Pos;
+	Pos.x++;
+	Pos.y -= 2;
+	if (Pos.x >= 0 && Pos.x <= 7 && Pos.y >= 0 && Pos.y <= 7)
+	{
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 //피스가 없을 때
+			||(Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+		}
+	}
+
+	Pos.x++;
+	Pos.y++;
+	if (Pos.x >= 0 && Pos.x <= 7 && Pos.y >= 0 && Pos.y <= 7)
+	{
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 //피스가 없을 때
+			|| (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+		}
+	}
+	//↘
+	Pos = m_Pos;
+	Pos.x +=2;
+	Pos.y++;
+	if (Pos.x >= 0 && Pos.x <= 7 && Pos.y >= 0 && Pos.y <= 7)
+	{
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 //피스가 없을 때
+			|| (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+		}
+	}
+	Pos.x--;
+	Pos.y++;
+	if (Pos.x >= 0 && Pos.x <= 7 && Pos.y >= 0 && Pos.y <= 7)
+	{
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 //피스가 없을 때
+			|| (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+		}
+	}
+	//↙
+	Pos = m_Pos;
+	Pos.x--;
+	Pos.y += 2;
+	if (Pos.x >= 0 && Pos.x <= 7 && Pos.y >= 0 && Pos.y <= 7)
+	{
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 //피스가 없을 때
+			|| (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+		}
+	}
+	Pos.x--;
+	Pos.y--;
+	if (Pos.x >= 0 && Pos.x <= 7 && Pos.y >= 0 && Pos.y <= 7)
+	{
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 //피스가 없을 때
+			|| (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+		}
+	}
+
+	//↖
+	Pos = m_Pos;
+	Pos.x -= 2;
+	Pos.y--;
+	if (Pos.x >= 0 && Pos.x <= 7 && Pos.y >= 0 && Pos.y <= 7)
+	{
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 //피스가 없을 때
+			|| (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+		}
+	}
+	Pos.x++;
+	Pos.y--;
+	if (Pos.x >= 0 && Pos.x <= 7 && Pos.y >= 0 && Pos.y <= 7)
+	{
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 //피스가 없을 때
+			|| (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+		}
+	}
+
+	return CanMove;
 
 }
 //Bishop
@@ -129,7 +484,107 @@ void Bishop::Change()
 }
 bool Bishop::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
-	return false;
+	bool CanMove = false;
+	POINT Pos;
+
+
+	//↗
+	Pos = m_Pos;
+	for (int i = 0; i < 7; i++)
+	{
+		Pos.x++;
+		Pos.y--;
+		if (Pos.x > 7 || Pos.y < 0)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+	}
+	
+
+	//↖
+	Pos = m_Pos;
+	for (int i = 0; i < 7; i++)
+	{
+		Pos.x--;
+		Pos.y--;
+		if (Pos.x < 0 || Pos.y < 0)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+	}
+
+
+	//↙
+	Pos = m_Pos;
+	for (int i = 0; i < 7; i++)
+	{
+		Pos.x--;
+		Pos.y++;
+		if (Pos.x <0  || Pos.y > 7)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+	}
+	//↘
+	Pos = m_Pos;
+	for (int i = 0; i < 7; i++)
+	{
+		Pos.x++;
+		Pos.y++;
+		if (Pos.x > 7 || Pos.y > 7)
+			break;
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			break;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
+	}
+	return CanMove;
 }
 //Rook
 
@@ -161,13 +616,20 @@ bool Rook::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8
 		Pos.x++;
 		if (Pos.x > 7)
 			break;
-		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 ||		//피스가 없거나
-			(Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)	)	//다른피스가 있거나
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
 		{
 			CanMove_Pos->push_back(Pos);
 			CanMove = true;
 			break;
 		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
 	}
 	//← x--
 	Pos = m_Pos;
@@ -176,13 +638,20 @@ bool Rook::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8
 		Pos.x--;
 		if (Pos.x < 0)
 			break;
-		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 ||		//피스가 없거나
-			(Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack))	//다른피스가 있거나
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
 		{
 			CanMove_Pos->push_back(Pos);
 			CanMove = true;
 			break;
 		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
 
 
 	}
@@ -193,25 +662,20 @@ bool Rook::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8
 		Pos.y--;
 		if (Pos.y < 0)
 			break;
-		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1)
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
 		{
 			CanMove_Pos->push_back(Pos);
 			CanMove = true;
 			continue;
 		}
-		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack)
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
 		{
 			CanMove_Pos->push_back(Pos);
 			CanMove = true;
 			break;
 		}
-		//if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 ||		//피스가 없거나
-		//	(Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack))	//다른피스가 있거나
-		//{
-		//	CanMove_Pos->push_back(Pos);
-		//	CanMove = true;
-		//	break;
-		//}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
 
 
 	}
@@ -224,16 +688,23 @@ bool Rook::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8
 		if (Pos.y > 7)
 			break;
 
-		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 ||		//피스가 없거나
-			(Piece_Pos[Pos.y][Pos.x].PieceNumber == -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack))	//다른피스가 있거나
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber == -1) //피스가 없을 때
+		{
+			CanMove_Pos->push_back(Pos);
+			CanMove = true;
+			continue;
+		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack != m_isBlack) //다른 진영의 피스가 있을 때
 		{
 			CanMove_Pos->push_back(Pos);
 			CanMove = true;
 			break;
 		}
+		if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1 && Piece_Pos[Pos.y][Pos.x].isBlack == m_isBlack)//같은 진영의 피스가 있을 때
+			break;
 
 	}
-	return false;
+	return CanMove;
 }
 
 //Pawn
@@ -270,6 +741,10 @@ bool Pawn:: CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][
 			for (int i = 0; i < 2; i++)
 			{
 				Pos.y++;
+				
+				//앞에 다른 피스가 있는 경우 예외처리
+				if(Piece_Pos[Pos.y][Pos.x].PieceNumber != -1)
+					break;
 				CanMove_Pos->push_back(Pos);
 				CanMove = true;
 			}
@@ -310,6 +785,9 @@ bool Pawn:: CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][
 			for (int i = 0; i < 2; i++)
 			{
 				Pos.y--;
+				//앞에 다른 피스가 있는 경우 예외처리
+				if (Piece_Pos[Pos.y][Pos.x].PieceNumber != -1)
+					break;
 				CanMove_Pos->push_back(Pos);
 				CanMove = true;
 			}

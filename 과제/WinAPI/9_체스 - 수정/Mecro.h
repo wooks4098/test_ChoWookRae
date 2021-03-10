@@ -44,6 +44,7 @@ enum SPRITE
 	SPRITE_B_ROOK,
 	SPRITE_B_KING,
 	SPRITE_B_QUEEN,
+
 	SPRITE_W_PAWN,
 	SPRITE_W_KNIGHT,
 	SPRITE_W_BISHOP,
@@ -69,6 +70,7 @@ enum Piece
 	Piece_BISHOP_1,
 	Piece_KNIGHT_1,
 	Piece_ROOK_1,
+
 	Piece_PAWN_0,
 	Piece_PAWN_1,
 	Piece_PAWN_2,
