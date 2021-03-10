@@ -12,7 +12,10 @@ void Chess_Piece::SetPos(int x, int y)
 	m_Pos.y = y;
 
 }
-
+int Chess_Piece::Change(HWND hWnd)
+{
+	return 0;
+}
 void Chess_Piece::isClick(bool check)
 {
 	m_isClick = check;
@@ -32,6 +35,10 @@ bool Chess_Piece::Return_isBlack()
 POINT Chess_Piece::Return_Pos()
 {
 	return m_Pos;
+}
+int Chess_Piece::Return_PieceName()
+{
+	return m_name;
 }
 
 #pragma endregion
@@ -53,10 +60,7 @@ void King::SetPiece(int name, bool isBlack)
 }
 
 
-void King::Change()
-{
 
-}
 bool King::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
 	bool CanMove = false;
@@ -136,10 +140,7 @@ void Queen::SetPiece(int name, bool isBlack)
 }
 
 
-void Queen::Change()
-{
 
-}
 bool Queen::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
 	bool CanMove = false;
@@ -353,10 +354,6 @@ void Knight::SetPiece(int name, bool isBlack)
 }
 
 
-void Knight::Change()
-{
-
-}
 bool Knight::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
 	bool CanMove = false;
@@ -478,10 +475,7 @@ void Bishop::SetPiece(int name, bool isBlack)
 	m_isClick = false;
 }
 
-void Bishop::Change()
-{
 
-}
 bool Bishop::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
 	bool CanMove = false;
@@ -601,10 +595,6 @@ void Rook::SetPiece(int name, bool isBlack)
 }
 
 
-void Rook::Change()
-{
-
-}
 bool Rook::CanMovePos(std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8])
 {
 	bool CanMove = false;
@@ -721,8 +711,16 @@ void Pawn::SetPiece(int name, bool isBlack)
 	m_isClick = false;
 }
 
-void Pawn::Change()
+int Pawn::Change(HWND hWnd)
 {
+	if ((MessageBox(hWnd, TEXT("Queen"), TEXT("Promotion"), MB_YESNO)) == IDYES)
+		return Piece_QUEEN_3;
+	if ((MessageBox(hWnd, TEXT("Knight"), TEXT("Promotion"), MB_YESNO)) == IDYES)
+		return Piece_KNIGHT_3;
+	if ((MessageBox(hWnd, TEXT("Bishop"), TEXT("Promotion"), MB_YESNO)) == IDYES)
+		return Piece_BISHOP_3;
+	(MessageBox(hWnd, TEXT("Rook"), TEXT("Promotion"), MB_OK));
+	return Piece_ROOK_3;
 
 }
 

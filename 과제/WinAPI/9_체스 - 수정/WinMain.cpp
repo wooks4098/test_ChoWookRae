@@ -4,6 +4,7 @@
 #include "SpriteManager.h"
 #include "GameManager.h"
 GameManager GM;
+bool GameEnd = false;
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 LPCTSTR lpszClass = TEXT("HelloWorld");
@@ -65,8 +66,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		hdc = BeginPaint(hWnd, &ps);
 		Point.x = LOWORD(lParam);
 		Point.y = HIWORD(lParam);
-
-		GM.MouseClick(hdc, Point);
+		if(!GameEnd)
+			GameEnd = GM.MouseClick(hdc, hWnd, Point);
 
 		EndPaint(hWnd, &ps);
 		InvalidateRect(hWnd, NULL, TRUE);

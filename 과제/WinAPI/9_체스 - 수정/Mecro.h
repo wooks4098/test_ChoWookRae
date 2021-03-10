@@ -35,7 +35,6 @@ struct Piece_info
 };
 
 
-
 enum SPRITE
 {
 	SPRITE_B_PAWN= 0,
@@ -79,4 +78,8 @@ enum Piece
 	Piece_PAWN_5,
 	Piece_PAWN_6,
 	Piece_PAWN_7,
+	Piece_QUEEN_3,
+	Piece_KNIGHT_3,
+	Piece_BISHOP_3,
+	Piece_ROOK_3,
 };

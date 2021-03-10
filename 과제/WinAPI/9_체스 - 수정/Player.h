@@ -15,6 +15,7 @@ private:
 	Chess_Piece *Piece[16];
 	//Position Pos[8][8];
 public:
+	~Player();
 
 	//피스 세팅
 	void SetData_White();
@@ -35,7 +36,9 @@ public:
 	bool Piece_Click_AgainCheck(POINT mouse, Piece_info* info, bool* isClick, std::vector<POINT> *CanMove_Pos); //이전에 선택한 피스를 다시 클릭했는지 탐색
 	bool Piece_Can_Move_Search(Piece_info info, std::vector<POINT> *CanMove_Pos, Piece_info Piece_Pos[8][8]); //선택한 피스가 이동가능한 좌표 탐색
 	void Get_Piece_info(Piece_info Piece_Pos[][8]);//모든 피스 정보 저장
-	void Piece_Move(POINT mouse, Piece_info info);//피스이동
+	void Piece_Move(HWND hWnd,POINT mouse, Piece_info info);//피스이동 
+
+	bool Piece_Die(POINT mouse, Piece_info	Piece_Pos[8][8]); 
 
 	POINT Return_Piece_Pos(int PieceNumber); //선택한 피스 위치 리턴
 

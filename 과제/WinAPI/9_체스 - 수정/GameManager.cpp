@@ -25,7 +25,7 @@ void GameManager::Draw(HDC hdc)
 }
 
 #pragma region 클릭이벤트
-void GameManager::MouseClick(HDC hdc, POINT mouse)
+bool GameManager::MouseClick(HDC hdc, HWND hWnd, POINT mouse)
 {
 	mouse = MousePointChange(mouse);
 
@@ -37,7 +37,7 @@ void GameManager::MouseClick(HDC hdc, POINT mouse)
 		if (player[TurnCheck()].Piece_Click_AgainCheck(mouse, &ClickPiece_info, &ClickPiece, &CanMove_Pos))
 		{
 			CanMove_Pos.clear();
-			return;
+			return false;
 
 		}
 		//이동가능한 좌표를 클릭했는가?
@@ -47,16 +47,18 @@ void GameManager::MouseClick(HDC hdc, POINT mouse)
 			POINT pos;
 			pos = player[TurnCheck()].Return_Piece_Pos(ClickPiece_info.PieceNumber);
 			//이동
-			player[TurnCheck()].Piece_Move(mouse, ClickPiece_info);
+			player[TurnCheck()].Piece_Move(hWnd, mouse, ClickPiece_info);
 			
-			
-
-
-			Trun++;
-			ClickPiece_info.PieceNumber = -1;
-			CanMove_Pos.clear();
-			ClickPiece = false;
-
+			//충돌체크
+			if (Piece_Pos[mouse.y][mouse.x].PieceNumber != -1)
+			{
+				if (player[Piece_Pos[mouse.y][mouse.x].isBlack].Piece_Die(mouse, Piece_Pos))
+				{
+					//종료
+					Win(hWnd);
+					return true;
+				}
+			}
 
 			//피스정보 저장
 			Piece_Pos[mouse.y][mouse.x].isBlack= Piece_Pos[pos.y][pos.x].isBlack;
@@ -64,7 +66,10 @@ void GameManager::MouseClick(HDC hdc, POINT mouse)
 			//이동한 피스 위치 제거
 			Piece_Pos[pos.y][pos.x].PieceNumber = -1;
 
-
+			Trun++;
+			ClickPiece_info.PieceNumber = -1;
+			CanMove_Pos.clear();
+			ClickPiece = false;
 		}
 		//else
 
@@ -76,19 +81,32 @@ void GameManager::MouseClick(HDC hdc, POINT mouse)
 		if (player[TurnCheck()].Piece_Click(mouse, &ClickPiece_info, &ClickPiece))
 		{
 			////이동가능한 좌표 탐색 후 표시
-			//for (int i = 0; i < 2; i++)
-			//	player[i].Get_Piece_info(Piece_Pos);
 			if (!player[ClickPiece_info.isBlack].Piece_Can_Move_Search(ClickPiece_info, &CanMove_Pos, Piece_Pos))
 			{
 				ClickPiece_info.PieceNumber = -1;
 				CanMove_Pos.clear();
 				ClickPiece = false;
 			}
-			return;
+			return false;
 		}
 	}
-
+	return false;
 }
+
+void GameManager::Win(HWND hWnd)
+{
+	InvalidateRect(hWnd, NULL, TRUE);
+	CanMove_Pos.clear();
+	if (TurnCheck() == BLACK)
+	{
+		(MessageBox(hWnd, TEXT("흑 승리"), TEXT("체스"), MB_OK));
+	}
+	else
+	{
+		(MessageBox(hWnd, TEXT("백 승리"), TEXT("체스"), MB_OK));
+	}
+}
+
 
 bool GameManager::MouseClick_CanMovePos(POINT mouse)
 {
