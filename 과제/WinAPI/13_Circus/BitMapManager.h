@@ -22,6 +22,6 @@ public:
 	BitMapManager();
 	~BitMapManager();
 
-	void CreatImage();
+	void CreatImage(HWND hWnd);
 };
 
