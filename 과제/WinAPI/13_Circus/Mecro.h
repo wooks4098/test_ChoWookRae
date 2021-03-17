@@ -26,5 +26,6 @@ enum BITMAP
 	BITMAP_STAR2,
 	BITMAP_WIN,
 	BITMAP_WIN2,
+	z_backBlack,
 
 };

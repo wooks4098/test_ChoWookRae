@@ -13,7 +13,7 @@ void BitMapManager::CreatImage(HWND hWnd)
 	TCHAR buf[256];
 	HDC hdc = GetDC(hWnd);
 
-	for (int i = 0; i < 22; i++)
+	for (int i = 0; i < 23; i++)
 	{
 
 		switch (i)
@@ -87,6 +87,9 @@ void BitMapManager::CreatImage(HWND hWnd)
 			break;
 		case 22:
 			wsprintf(buf, L"ReSource//win2.bmp");
+			break;
+		case 23:
+			wsprintf(buf, L"ReSource//z_backBlack.bmp");
 			break;
 
 		}
