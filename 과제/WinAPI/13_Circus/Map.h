@@ -1,24 +1,26 @@
 #pragma once
 #include "Mecro.h"
+#include "BitMapManager.h"
+struct BackGround
+{
+	POINT pos;
+	int BitMap_Number;
+};
 class Map
 {
-#pragma region ΩÃ±€≈Ê
+
 private:
+	//¿Œ≈Õ∆‰¿ÃΩ∫ ∞¸∞¥ ¿‹µ
+	BackGround Ground[8];
+	BackGround Ui;
 
-	static Map* m_pThis;
-public:
-	static Map* GetInstans()
-	{
-		if (m_pThis == NULL)
-		{
-			m_pThis = new Map;
-		}
-		return m_pThis;
-	}
-
-#pragma endregion
 public:
 	Map();
 	~Map();
+	
+	void Draw(HDC hdc);
+
+
+
 };
 

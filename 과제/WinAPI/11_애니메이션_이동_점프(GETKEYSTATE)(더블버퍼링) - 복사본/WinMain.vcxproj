@@ -140,19 +140,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BitMap.cpp" />
-    <ClCompile Include="BitMapManager.cpp" />
-    <ClCompile Include="GameFrame.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitMap.h" />
-    <ClInclude Include="BitMapManager.h" />
-    <ClInclude Include="GameFrame.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="Mecro.h" />
-    <ClInclude Include="Player.h" />
+    <ClInclude Include="GameManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,9 @@
 #pragma once
 #include <Windows.h>
 
-enum BITMAP
+#define RESOURCE 23
+
+enum BITMAP_IMAGE
 {
 	BITMAP_BACK,
 	BITMAP_BACK_DECO,

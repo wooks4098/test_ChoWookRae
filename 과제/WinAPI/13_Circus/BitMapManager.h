@@ -1,5 +1,6 @@
 #pragma once
 #include "Mecro.h"
+#include "BitMap.h"
 
 class BitMapManager
 {
@@ -18,9 +19,14 @@ public:
 	}
 
 #pragma endregion
+private:
+	BitMap bitmap[RESOURCE];
+
 public:
 	BitMapManager();
 	~BitMapManager();
+	void Draw(HDC hdc, POINT pos,int FileName ,int Frame, int Direction);
+	void Draw(HDC hdc, POINT pos, int FileName);
 
 	void CreatImage(HWND hWnd);
 };

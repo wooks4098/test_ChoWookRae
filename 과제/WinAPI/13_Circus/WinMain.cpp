@@ -47,11 +47,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 		}
 		else
 		{
+			g_GameFrame.Update();
 			//메세지가 없을때 업데이트를 진행한다.
 		}
 	}
-
 	//종료직전에 릴리즈 해준다.
+	g_GameFrame.Release();
 
 	return (int)Message.wParam;
 }

@@ -7,15 +7,27 @@ BitMapManager::BitMapManager()
 {
 }
 
+void BitMapManager::Draw(HDC hdc, POINT pos, int FileName, int Frame, int Direction)
+{
+	bitmap[FileName].Draw(hdc, pos,Frame,Direction);
+
+}
+
+
+
+void BitMapManager::Draw(HDC hdc, POINT pos, int FileName)
+{
+	bitmap[FileName].Draw(hdc, pos);
+}
+
+
 void BitMapManager::CreatImage(HWND hWnd)
 {
-
 	TCHAR buf[256];
 	HDC hdc = GetDC(hWnd);
 
-	for (int i = 0; i < 23; i++)
+	for (int i = 0; i < RESOURCE; i++)
 	{
-
 		switch (i)
 		{											   
 		case 0:										   
@@ -63,7 +75,6 @@ void BitMapManager::CreatImage(HWND hWnd)
 		case 14:								  
 			wsprintf(buf, L"ReSource//miter.bmp");
 			break;
-
 		case 15:
 			wsprintf(buf, L"ReSource//player0.bmp");
 			break;
@@ -93,7 +104,7 @@ void BitMapManager::CreatImage(HWND hWnd)
 			break;
 
 		}
-		//Load_Image(hdc, buf, i);
+		bitmap[i].CreatImage(hdc, buf);
 	}
 }
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "Mecro.h"
+#include<Windows.h>
 
 class BitMap
 {
@@ -15,8 +15,8 @@ private:
 
 public:
 	//void Draw(HDC hdc, float x, float y, float spX, float spY, bool Transparent);
-	void Draw(HDC hdc, POINT pos, int Frame, int Direction);
-	void Draw(HDC hdc, POINT pos);
+	void Draw(HDC hdc[], int x, int y, int Frame, int Direction);
+	void Draw(HDC hdc[], int x, int y);
 	void CreatImage(HDC hdc, LPCWSTR FileName);
 	/*inline SIZE GetSize()
 	{
