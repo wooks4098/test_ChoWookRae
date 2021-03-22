@@ -7,17 +7,17 @@ BitMapManager::BitMapManager()
 {
 }
 
-void BitMapManager::Draw(HDC hdc, POINT pos, int FileName, int Frame, int Direction)
+void BitMapManager::Draw(HDC hdc, RECT rect, int FileName, int Frame, int Direction)
 {
-	bitmap[FileName].Draw(hdc, pos,Frame,Direction);
+	bitmap[FileName].Draw(hdc, rect,Frame,Direction);
 
 }
 
 
 
-void BitMapManager::Draw(HDC hdc, POINT pos, int FileName)
+void BitMapManager::Draw(HDC hdc, RECT rect, int FileName)
 {
-	bitmap[FileName].Draw(hdc, pos);
+	bitmap[FileName].Draw(hdc, rect);
 }
 
 

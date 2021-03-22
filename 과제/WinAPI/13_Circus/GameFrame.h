@@ -20,7 +20,7 @@ public:
 	GameFrame();
 	~GameFrame();
 
-	void SetData();
+	void SetData(HWND hWnd);
 	void Update();
 
 

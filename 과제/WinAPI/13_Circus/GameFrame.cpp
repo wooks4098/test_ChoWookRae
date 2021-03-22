@@ -4,15 +4,13 @@
 
 GameFrame::GameFrame()
 {
-	SetData();
-	m_dwLastTime = GetTickCount();
-	m_dwCurTime = GetTickCount();
 	
 }
 
-void GameFrame::SetData()
+void GameFrame::SetData(HWND hWnd)
 {
-	HDC hdc = GetDC(m_hWnd);
+	m_hWnd = hWnd;
+	HDC hdc = GetDC(hWnd);
 
 	m_hMemDC[0] = CreateCompatibleDC(hdc);
 	m_hBitmap = CreateCompatibleBitmap(hdc, 1024, 768);
@@ -22,8 +20,11 @@ void GameFrame::SetData()
 	
 
 	m_hMemDC[2] = CreateCompatibleDC(m_hMemDC[0]);
-	
 	ReleaseDC(m_hWnd, hdc);
+
+	m_dwLastTime = GetTickCount();
+	m_dwCurTime = GetTickCount();
+	BitMapManager::GetInstans()->CreatImage(m_hWnd);
 }
 
 void GameFrame::Update()
@@ -45,12 +46,17 @@ void GameFrame::Update()
 
 void GameFrame::Draw()
 {
+	m_hMemDC[1] = GetDC(m_hWnd);
 	//배경 캐릭터 오브젝트  숨겨 그리기
 
 	map.Draw(m_hMemDC[0]);
-
+	RECT rect;
+	rect.left= 230;
+	rect.top = 300;
+	BitMapManager::GetInstans()->Draw(m_hMemDC[0], rect, 16);
 	//숨긴 그림 복사
-	m_hMemDC[1] = CreateCompatibleDC(m_hMemDC[0]);
+	BitBlt(m_hMemDC[1], 0	, 0, 536, 383, m_hMemDC[0], 0, 0, SRCCOPY);
+
 }
 
 void GameFrame::Release()

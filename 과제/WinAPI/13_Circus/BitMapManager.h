@@ -25,8 +25,8 @@ private:
 public:
 	BitMapManager();
 	~BitMapManager();
-	void Draw(HDC hdc, POINT pos,int FileName ,int Frame, int Direction);
-	void Draw(HDC hdc, POINT pos, int FileName);
+	void Draw(HDC hdc, RECT rect,int FileName ,int Frame, int Direction);
+	void Draw(HDC hdc, RECT rect, int FileName);
 
 	void CreatImage(HWND hWnd);
 };

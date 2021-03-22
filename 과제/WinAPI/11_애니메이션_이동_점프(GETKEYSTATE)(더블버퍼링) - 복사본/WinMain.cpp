@@ -73,11 +73,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 		ReleaseDC(hWnd, hdc);
 		return 0;
 	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
+		g_MemDC[1] = BeginPaint(hWnd, &ps);
 
  		
 		GM.Animation(g_MemDC);
-		BitBlt(hdc, 0, 0, 1024, 768, g_MemDC[0], 0, 0, SRCCOPY);
+		BitBlt(g_MemDC[1], 0, 0, 1024, 768, g_MemDC[0], 0, 0, SRCCOPY);
 
 		EndPaint(hWnd, &ps);
 

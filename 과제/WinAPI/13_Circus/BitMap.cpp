@@ -5,13 +5,13 @@
 BitMap::BitMap()
 {
 }
-void BitMap::Draw(HDC hdc, POINT pos, int Frame, int Direction)
+void BitMap::Draw(HDC hdc, RECT rect, int Frame, int Direction)
 {
-	TransparentBlt(hdc, pos.x, pos.y, m_size.cx / 4, m_size.cy / 4, MemDC, (m_size.cx / 4)*Frame, (m_size.cy / 4)*Direction, m_size.cx / 4, m_size.cy / 4, RGB(255, 0, 255));
+	TransparentBlt(hdc, rect.left, rect.top, m_size.cx / 4, m_size.cy / 4, MemDC, (m_size.cx / 4)*Frame, (m_size.cy / 4)*Direction, m_size.cx / 4, m_size.cy / 4, RGB(255, 0, 255));
 }
-void BitMap::Draw(HDC hdc, POINT pos)
+void BitMap::Draw(HDC hdc, RECT rect)
 {
-	BitBlt(hdc, pos.x, pos.y, m_size.cx, m_size.cy, MemDC, 0, 0, SRCCOPY);
+	TransparentBlt(hdc, rect.left, rect.top, m_size.cx, m_size.cy, MemDC, 0, 0, m_size.cx, m_size.cy, RGB(255, 0, 255));
 }
 void BitMap::CreatImage(HDC hdc, LPCWSTR FileName)
 {

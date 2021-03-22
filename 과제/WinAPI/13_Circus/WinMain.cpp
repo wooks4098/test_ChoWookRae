@@ -33,7 +33,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	ShowWindow(hWnd, nCmdShow);
 
 	//윈도우를 만들고 나면 초기화 해준다.
-
+	g_GameFrame.SetData(hWnd);
 	while (true)
 	{
 		/// 메시지큐에 메시지가 있으면 메시지 처리
@@ -61,6 +61,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 {
 	switch (iMessage)
 	{
+	case WM_CREATE:
+		RECT clientRect;
+		SetRect(&clientRect, 0, 0, 536, 383); //원하는 클라이언트 크기를 저장한다.
+		AdjustWindowRect(&clientRect, WS_OVERLAPPEDWINDOW, FALSE); //윈도우 크기를 계산
+
+		MoveWindow(hWnd, 0, 0, clientRect.right - clientRect.left, clientRect.bottom - clientRect.top, TRUE);
+		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;
