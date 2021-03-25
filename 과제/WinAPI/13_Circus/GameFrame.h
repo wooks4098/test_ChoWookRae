@@ -1,6 +1,7 @@
 #pragma once
 #include "Mecro.h"
 #include "Map.h"
+#include "Player.h"
 class GameFrame
 {
 private:
@@ -10,12 +11,14 @@ private:
 	HBITMAP		m_hOld;
 
 	//타임체크용
-	DWORD		m_dwLastTime;
+	DWORD		Time;
 	DWORD		m_dwCurTime;
 	float		m_fDeltaTime;
 
 	Map map;
 
+
+	Player player;
 public:
 	GameFrame();
 	~GameFrame();

@@ -1,7 +1,11 @@
 #pragma once
 #include <Windows.h>
+#include <math.h>
+#define M_PI 3.141592f
 
 #define RESOURCE 23
+#define CLEARFRAME 2
+#define RUNFRAME 3
 
 enum BITMAP_IMAGE
 {

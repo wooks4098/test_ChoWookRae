@@ -54,16 +54,16 @@ Map::Map()
 }
 void Map::Draw(HDC hdc)
 {
+	//UI출력
 	BitMapManager::GetInstans()->Draw(hdc, Ui.rect, Ui.BitMap_Number[0]);
-	for (int i = 0; i < 8; i ++ )
-	{
-		BitMapManager::GetInstans()->Draw(hdc, Ground[i].rect, Ground[i].BitMap_Number[0]);
-	}
-	for (int i = 0; i < 16; i++)
-	{
-		BitMapManager::GetInstans()->Draw(hdc, crowd[i].rect, crowd[i].BitMap_Number[0]);
 
-	}
+	//잔디 출력
+	for (int i = 0; i < 8; i ++ )
+		BitMapManager::GetInstans()->Draw(hdc, Ground[i].rect, Ground[i].BitMap_Number[0]);
+
+	//관중 출력
+	for (int i = 0; i < 16; i++)
+		BitMapManager::GetInstans()->Draw(hdc, crowd[i].rect, crowd[i].BitMap_Number[0]);
 }
 
 
