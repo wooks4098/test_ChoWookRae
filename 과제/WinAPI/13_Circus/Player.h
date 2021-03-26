@@ -25,6 +25,7 @@ public:
 	Player();
 	void Draw(HDC hdc,DWORD G_time);
 	void Move(DWORD Time);
+	void Jump(DWORD Time);
 	~Player();
 };
 

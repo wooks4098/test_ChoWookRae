@@ -14,7 +14,32 @@ Player::Player()
 	Pos.bottom = Pos.top + 63;
 	isJump = false;
 }
+void Player::Jump(DWORD Time)
+{
+	if (!isJump&&GetKeyState(VK_SPACE) & 0x8000)
+	{
+		isJump = true;
+		Jump_y = 280;
+		JumpCount = 0;
+	}
+	if (isJump)
+	{
+		if (time % 6 != 0)
+			return;
+		JumpCount++;
 
+		Pos.top = Jump_y -sinf(0.02f * JumpCount * M_PI) * 100;
+		if (Pos.top >= 280)
+		{
+			isJump = false;
+		}
+		
+		/*if (JumpCount >= 50)
+		{
+			isJump = false;
+		}*/
+	}
+}
 void Player::Move(DWORD Time)
 {
 	if (GetKeyState(VK_LEFT) & 0x8000)
@@ -28,30 +53,9 @@ void Player::Move(DWORD Time)
 		Pos.right += 1;
 	}
 
-	if (!isJump&&GetKeyState(VK_SPACE) & 0x8000)
-	{
-		isJump = true;
-		Jump_y = 280;
-		JumpCount = 0;
-	}
+	
 
-
-	//มกวม7
-	//
-	if (isJump)
-	{
-		if (time % 6 != 0)
-			return;
-		JumpCount++;
-
-		Pos.top -= cos(M_PI / 1000 * JumpCount);
-		Pos.top = Jump_y -
-			sinf(0.02f * JumpCount * M_PI) * 100;
-		if (JumpCount >= 50)
-		{
-			isJump = false;
-		}
-	}
+	
 }
 
 void Player::Draw(HDC hdc, DWORD G_time)

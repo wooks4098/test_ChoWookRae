@@ -17,7 +17,7 @@ private:
 
 	Map map;
 
-
+	int Move_x;
 	Player player;
 public:
 	GameFrame();
@@ -26,6 +26,7 @@ public:
 	void SetData(HWND hWnd);
 	void Update();
 
+	void Move();//캐릭터, 맵, 오브젝트(거리, 항아리)이동
 
 	void Draw();
 
