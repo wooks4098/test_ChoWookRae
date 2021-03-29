@@ -80,11 +80,11 @@ void GameFrameWork::Update()
 	//점프는 점프해서 움직이고 있는 시간이 있기때문에 점프 지속시간동안 동작이 없어야함.
 	if (m_eState == JUMP)
 	{
-		m_fCurJumpTime += m_fDeltaTime;
+   		m_fCurJumpTime += m_fDeltaTime;
 
 		//원그리는 것 이것을 적절하게 조합하면 점프가 된다.
 		//점프 지속시간을 체크해서 위치나 상태를 초기화 해준다.
-		Player_x = m_fJumpX - cosf(m_fCurJumpTime * PI ) * 80;
+		//Player_x = m_fJumpX - cosf(m_fCurJumpTime * PI ) * 80;
 		Player_y = m_fJumpY - sinf(m_fCurJumpTime * PI ) * 80;
 
 		//점프 지속시간 체크용 초기화.

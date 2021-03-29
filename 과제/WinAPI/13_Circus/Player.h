@@ -20,12 +20,13 @@ private:
 	int RunFrame;
 	bool isJump;
 	int Jump_y;
-	DWORD JumpCount;
+	float JumpCount;
 public:
 	Player();
 	void Draw(HDC hdc,DWORD G_time);
-	void Move(DWORD Time);
-	void Jump(DWORD Time);
+	void Move(float Time);
+	void Jump(float Time);
+	void StartJump();
 	~Player();
 };
 

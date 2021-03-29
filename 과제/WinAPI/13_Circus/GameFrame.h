@@ -11,7 +11,7 @@ private:
 	HBITMAP		m_hOld;
 
 	//타임체크용
-	DWORD		Time;
+	DWORD		m_dwLastTime;
 	DWORD		m_dwCurTime;
 	float		m_fDeltaTime;
 

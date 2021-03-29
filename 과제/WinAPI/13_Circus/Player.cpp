@@ -8,39 +8,38 @@ Player::Player()
 	time = 0;
 	ClearFrame = BITMAP_WIN;
 	RunFrame = BITMAP_PLAYER0;
-	Pos.left = 0;
+	Pos.left = 40;
 	Pos.top = 280;
 	Pos.right = Pos.left + 66;
 	Pos.bottom = Pos.top + 63;
 	isJump = false;
 }
-void Player::Jump(DWORD Time)
+void Player::StartJump()
 {
-	if (!isJump&&GetKeyState(VK_SPACE) & 0x8000)
-	{
-		isJump = true;
-		Jump_y = 280;
-		JumpCount = 0;
-	}
+	if (isJump)
+		return;
+
+	isJump = true;
+	Jump_y = 280;
+	Player_State = PLAYERSTATE_JUMP;
+}
+
+void Player::Jump(float Time)
+{
 	if (isJump)
 	{
-		if (time % 6 != 0)
-			return;
-		JumpCount++;
-
-		Pos.top = Jump_y -sinf(0.02f * JumpCount * M_PI) * 100;
-		if (Pos.top >= 280)
+		JumpCount += Time;
+		Pos.top = Jump_y - sinf(JumpCount * M_PI) * 100;
+		if (JumpCount > 1)
 		{
 			isJump = false;
+			JumpCount = 0;
+			Player_State = PLAYERSTATE_RUN;
 		}
-		
-		/*if (JumpCount >= 50)
-		{
-			isJump = false;
-		}*/
 	}
 }
-void Player::Move(DWORD Time)
+
+void Player::Move(float Time)
 {
 	if (GetKeyState(VK_LEFT) & 0x8000)
 	{
@@ -74,7 +73,7 @@ void Player::Draw(HDC hdc, DWORD G_time)
 		BitMapManager::GetInstans()->Draw(hdc, Pos, RunFrame);
 		break;
 	case PLAYERSTATE_JUMP:
-		BitMapManager::GetInstans()->Draw(hdc, Pos, BITMAP_DIE);
+		BitMapManager::GetInstans()->Draw(hdc, Pos, BITMAP_PLAYER2);
 		break;
 	case PLAYERSTATE_CLEAR:
 		if (time >= 100)

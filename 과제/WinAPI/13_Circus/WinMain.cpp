@@ -68,6 +68,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 
 		MoveWindow(hWnd, 0, 0, clientRect.right - clientRect.left, clientRect.bottom - clientRect.top, TRUE);
 		break;
+	
+
+
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		return 0;

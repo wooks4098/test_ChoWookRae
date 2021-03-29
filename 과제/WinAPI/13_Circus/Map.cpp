@@ -49,8 +49,6 @@ Map::Map()
 		Ground[i].rect.left = i * 67;
 	}
 #pragma endregion
-	
-	WinTIme = 0;
 }
 void Map::Draw(HDC hdc)
 {
@@ -66,13 +64,13 @@ void Map::Draw(HDC hdc)
 		BitMapManager::GetInstans()->Draw(hdc, crowd[i].rect, crowd[i].BitMap_Number[0]);
 }
 
-void Map::Crowd_Move(int x)
+void Map::Crowd_Move(int x, float Time)
 {
+
 	int WindowOut_image = -1;
 	int FrontImage_Number;
 	for (int i = 0; i < 24; i++)
 	{
-
 		crowd[i].rect.left += x;
 		crowd[i].rect.right += x;
 		
@@ -86,8 +84,6 @@ void Map::Crowd_Move(int x)
 			if (crowd[i].rect.right < -521)
 				WindowOut_image = i;
 		}
-
-		
 	}
 	
 	if (WindowOut_image != -1)//화면 밖으로 나가면
@@ -104,11 +100,6 @@ void Map::Crowd_Move(int x)
 			else
 				crowd[WindowOut_image].rect.left = crowd[WindowOut_image].rect.right - 65;
 
-			//crowd[WindowOut_image].rect.left = crowd[FrontImage_Number].rect.right + 1;
-			//if (WindowOut_image == 0 || WindowOut_image == 8 || WindowOut_image == 16)
-			//	crowd[WindowOut_image].rect.right = crowd[WindowOut_image].rect.right = crowd[WindowOut_image].rect.left + 66;
-			//else
-			//	crowd[WindowOut_image].rect.right = crowd[WindowOut_image].rect.right = crowd[WindowOut_image].rect.left + 66;
 		}
 		else
 		{

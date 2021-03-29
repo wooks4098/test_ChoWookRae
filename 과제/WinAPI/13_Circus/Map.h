@@ -14,13 +14,11 @@ private:
 	BackGround Ui;
 	BackGround crowd[24];
 
-	bool isWin();
-	DWORD WinTIme;
 public:
 	Map();
 	~Map();
 	
-	void Crowd_Move(int x);
+	void Crowd_Move(int x, float Time);
 	void Draw(HDC hdc);
 
 

@@ -1,6 +1,6 @@
 #include <Windows.h>
 #include "GameFrameWork.h"
-
+#pragma comment(lib, "msimg32.lib")
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
 HWND hWnd;
