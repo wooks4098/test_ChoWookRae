@@ -8,7 +8,7 @@ Player::Player()
 	time = 0;
 	ClearFrame = BITMAP_WIN;
 	RunFrame = BITMAP_PLAYER0;
-	Pos.left = 40;
+	Pos.left = 50;
 	Pos.top = 280;
 	Pos.right = Pos.left + 66;
 	Pos.bottom = Pos.top + 63;
@@ -39,31 +39,24 @@ void Player::Jump(float Time)
 	}
 }
 
-void Player::Move(float Time)
+void Player::Move(int Move_Dir,float Time)
 {
-	if (GetKeyState(VK_LEFT) & 0x8000)
-	{
-		Pos.left -= 1;
-		Pos.right -= 1;
-	}
-	if (GetKeyState(VK_RIGHT) & 0x8000)
-	{
-		Pos.left += 1;
-		Pos.right += 1;
-	}
+	Pos.left += Move_Dir;
+	Pos.right += Move_Dir;
+	
 
 	
 
 	
 }
 
-void Player::Draw(HDC hdc, DWORD G_time)
+void Player::Draw(HDC hdc, float G_time)
 {
 	time++;
 	switch (Player_State)
 	{
 	case PLAYERSTATE_RUN:
-		if (time >= 100)
+		if (time >= 30)
 		{
 			RunFrame++;
 			time = 0;

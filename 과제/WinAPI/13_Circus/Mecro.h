@@ -7,9 +7,9 @@
 #define CLEARFRAME 2
 #define RUNFRAME 3
 #define StartMap 0
-#define EndMap 1000
-#define Map_Right_Move 1
-#define Map_Left_Move -1
+#define EndMap 200
+#define Map_Right_Move 2
+#define Map_Left_Move -2
 enum BITMAP_IMAGE
 {
 	BITMAP_BACK,

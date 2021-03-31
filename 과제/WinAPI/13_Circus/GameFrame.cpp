@@ -23,7 +23,6 @@ void GameFrame::SetData(HWND hWnd)
 
 	m_dwLastTime = GetTickCount();
 	m_dwCurTime = GetTickCount();
-	
 	BitMapManager::GetInstans()->CreatImage(m_hWnd);
 
 	Move_x = 0;
@@ -43,7 +42,6 @@ void GameFrame::Update()
 	m_dwLastTime = m_dwCurTime;
 
 	Move();
-
 	Draw();
 		
 }
@@ -51,21 +49,46 @@ void GameFrame::Move()
 {
 	if (GetKeyState(VK_LEFT) & 0x8000)
 	{
-		if (Move_x - 1 <= StartMap)
+		//캐릭터가 왼쪽 끝에 있지 않으면 캐릭터 이동
+
+		if ( player.Return_PlayerRect().left <= 50)
 		{
-			//캐릭터 이동
+			if (Move_x >= 2)
+			{
+				map.Crowd_Move(Map_Right_Move, m_fDeltaTime);		//캐릭터가 왼쪽으로 이동하면 맵은 오른쪽으로 이동
+				Move_x--;
+
+			}
+			
 		}
 		else
 		{
-			map.Crowd_Move(Map_Right_Move, m_fDeltaTime);		//캐릭터가 왼쪽으로 이동하면 맵은 오른쪽으로 이동
-			Move_x--;
+
+			player.Move(-2, m_fDeltaTime);
+
 		}
+
+		//아니면 Map이동
+
+
+		//if (Move_x - 1 <= StartMap)
+		//{
+		//	//캐릭터 이동
+		//	player.Move(-2, m_fDeltaTime);
+		//}
+		//else
+		//{
+		//	map.Crowd_Move(Map_Right_Move, m_fDeltaTime);		//캐릭터가 왼쪽으로 이동하면 맵은 오른쪽으로 이동
+		//	Move_x--;
+		//}
 	}
 	if (GetKeyState(VK_RIGHT) & 0x8000)
 	{
 		if (Move_x + 1 >= EndMap)
 		{
 			//캐릭터 이동
+			player.Move(2, m_fDeltaTime);
+
 		}
 		else
 		{
@@ -86,7 +109,7 @@ void GameFrame::Draw()
 	//배경 캐릭터 오브젝트  숨겨 그리기
 	map.Draw(m_hMemDC[0]);
 
-	player.Draw(m_hMemDC[0],m_dwCurTime);
+	player.Draw(m_hMemDC[0], m_fDeltaTime);
 	
 	BitBlt(m_hMemDC[1], 0	, 0, 536, 383, m_hMemDC[0], 0, 0, SRCCOPY);
 

@@ -23,10 +23,11 @@ private:
 	float JumpCount;
 public:
 	Player();
-	void Draw(HDC hdc,DWORD G_time);
-	void Move(float Time);
+	void Draw(HDC hdc, float G_time);
+	void Move(int Move_Dir, float Time);
 	void Jump(float Time);
 	void StartJump();
+	RECT Return_PlayerRect() { return Pos; }
 	~Player();
 };
 
