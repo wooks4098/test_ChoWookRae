@@ -142,6 +142,7 @@
     <ClCompile Include="BitMap.cpp" />
     <ClCompile Include="BitMapManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="GameFrame.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="BitMap.h" />
     <ClInclude Include="BitMapManager.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="GameFrame.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Map.h" />

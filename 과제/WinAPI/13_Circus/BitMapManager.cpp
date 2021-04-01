@@ -102,7 +102,18 @@ void BitMapManager::CreatImage(HWND hWnd)
 		case 23:
 			wsprintf(buf, L"ReSource//z_backBlack.bmp");
 			break;
-
+		case 24:
+			wsprintf(buf, L"ReSource//Z_Enemy_L.bmp");
+			break;
+		case 25:
+			wsprintf(buf, L"ReSource//Z_Enemy_L1.bmp");
+			break;
+		case 26:
+			wsprintf(buf, L"ReSource//Z_Enemy_R.bmp");
+			break;
+		case 27:
+			wsprintf(buf, L"ReSource//Z_Enemy_R1.bmp");
+			break;
 		}
 		bitmap[i].CreatImage(hdc, buf);
 	}

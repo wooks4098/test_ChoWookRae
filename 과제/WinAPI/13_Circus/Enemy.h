@@ -14,15 +14,16 @@ class Enemy
 {
 protected:
 	int Enemy_State;
-	RECT Pos;
-	RECT HitBox;
 	int Time_L;
 	int Time_R;
+	int Image;
 	bool isActive;
+	RECT Pos;
+	RECT HitBox;
 public:
 
-	virtual void Draw_First() = 0;
-	virtual void Draw_Back() = 0;
+	virtual void Draw_First(HDC hdc) = 0;
+	virtual void Draw_Back(HDC hdc) = 0;
 	virtual void Reset() = 0;//초기화(생성시)
 
 	void Move_Left();//기본 이동
@@ -32,9 +33,11 @@ public:
 
 class Enemy_Original : public Enemy
 {
+
 public:
-	void Draw_First();
-	void Draw_Back();
+	Enemy_Original();
+	void Draw_First(HDC hdc);
+	void Draw_Back(HDC hdc);
 	void Reset();
 };
 
@@ -43,7 +46,8 @@ class Enemy_Item : public Enemy
 private:
 	Item item;
 public:
-	void Draw_First();
-	void Draw_Back();
+	Enemy_Item();
+	void Draw_First(HDC hdc);
+	void Draw_Back(HDC hdc);
 	void Reset();
 };

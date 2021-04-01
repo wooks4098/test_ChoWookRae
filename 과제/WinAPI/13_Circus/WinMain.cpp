@@ -1,4 +1,6 @@
 #include <Windows.h>
+#include <stdlib.h>
+#include <time.h> 
 #pragma comment(lib, "msimg32.lib")
 
 #include "GameFrame.h"
@@ -12,6 +14,7 @@ LPCTSTR lpszClass = TEXT("Hello World!!");
 
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdParam, int nCmdShow)
 {
+	srand(time(NULL));
 	MSG Message;
 	WNDCLASS WndClass;
 	g_hInst = hInstance;

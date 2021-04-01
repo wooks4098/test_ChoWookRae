@@ -12,7 +12,6 @@ enum PLAYERSTATE
 class Player
 {
 private:
-
 	int Player_State;
 	RECT Pos;
 	DWORD time;

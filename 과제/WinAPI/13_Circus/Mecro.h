@@ -1,9 +1,11 @@
 #pragma once
 #include <Windows.h>
 #include <math.h>
+#include <stdlib.h>
+
 #define M_PI 3.141592f
 
-#define RESOURCE 23
+#define RESOURCE 27
 #define CLEARFRAME 2
 #define RUNFRAME 3
 #define StartMap 0
@@ -36,5 +38,8 @@ enum BITMAP_IMAGE
 	BITMAP_WIN,
 	BITMAP_WIN2,
 	z_backBlack,
-
+	BITMAP_ItemEnemy_L,
+	BITMAP_ItemEnemy_L1,
+	BITMAP_ItemEnemy_R,
+	BITMAP_ItemEnemy_R1,
 };
