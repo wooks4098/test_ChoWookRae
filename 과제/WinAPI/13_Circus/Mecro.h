@@ -5,7 +5,7 @@
 
 #define M_PI 3.141592f
 
-#define RESOURCE 27
+#define RESOURCE 28
 #define CLEARFRAME 2
 #define RUNFRAME 3
 #define StartMap 0

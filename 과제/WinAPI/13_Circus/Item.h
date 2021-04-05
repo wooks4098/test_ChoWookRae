@@ -5,11 +5,13 @@ class Item
 {
 private :
 	RECT Pos;
-	RECT HitBox;
+
 	bool isActive;
 public:
-	void Draw();
+	void Draw(HDC hdc);
 	void Reset();
+	void Spawn(int _left, int _top);
+
 	bool Return_Active() { return isActive; }
 };
 

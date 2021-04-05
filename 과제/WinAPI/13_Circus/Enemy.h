@@ -18,12 +18,14 @@ protected:
 	int Time_R;
 	int Image;
 	bool isActive;
-	RECT Pos;
+	RECT Pos_Front;
+	RECT Pos_Back;
 	RECT HitBox;
 public:
 
 	virtual void Draw_First(HDC hdc) = 0;
 	virtual void Draw_Back(HDC hdc) = 0;
+	virtual void Spawn() = 0;//생성
 	virtual void Reset() = 0;//초기화(생성시)
 
 	void Move_Left();//기본 이동
@@ -38,6 +40,7 @@ public:
 	Enemy_Original();
 	void Draw_First(HDC hdc);
 	void Draw_Back(HDC hdc);
+	void Spawn();
 	void Reset();
 };
 
@@ -49,5 +52,6 @@ public:
 	Enemy_Item();
 	void Draw_First(HDC hdc);
 	void Draw_Back(HDC hdc);
+	void Spawn();
 	void Reset();
 };

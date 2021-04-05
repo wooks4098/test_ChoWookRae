@@ -41,7 +41,9 @@ void GameFrame::Update()
 	//결론적으로 이전 타임의 시간을 받는것.
 	m_dwLastTime = m_dwCurTime;
 
+
 	Move();
+	CreatEnemy(m_fDeltaTime);
 	Draw();
 		
 }
@@ -50,7 +52,6 @@ void GameFrame::Move()
 	if (GetKeyState(VK_LEFT) & 0x8000)
 	{
 		//캐릭터가 왼쪽 끝에 있지 않으면 캐릭터 이동
-
 		if ( player.Return_PlayerRect().left <= 50)
 		{
 			if (Move_x >= 2)
@@ -67,20 +68,6 @@ void GameFrame::Move()
 			player.Move(-2, m_fDeltaTime);
 
 		}
-
-		//아니면 Map이동
-
-
-		//if (Move_x - 1 <= StartMap)
-		//{
-		//	//캐릭터 이동
-		//	player.Move(-2, m_fDeltaTime);
-		//}
-		//else
-		//{
-		//	map.Crowd_Move(Map_Right_Move, m_fDeltaTime);		//캐릭터가 왼쪽으로 이동하면 맵은 오른쪽으로 이동
-		//	Move_x--;
-		//}
 	}
 	if (GetKeyState(VK_RIGHT) & 0x8000)
 	{
@@ -106,21 +93,28 @@ void GameFrame::Draw()
 {
 
 	m_hMemDC[1] = GetDC(m_hWnd);
-	//배경 캐릭터 오브젝트  숨겨 그리기
-	map.Draw(m_hMemDC[0]);
 
-	player.Draw(m_hMemDC[0], m_fDeltaTime);
-	
+	//맵 그리기
+	map.Draw(m_hMemDC[0]);
+	//enemy앞 그리기
+	enemyManager.Draw_Front(m_hMemDC[0]);
+	//플레이어 그리기
+	player.Draw(m_hMemDC[0], m_fDeltaTime);	
+	//enemy뒤 그리기
+	enemyManager.Draw_Back(m_hMemDC[0]);
+
+	//더블 버퍼링
 	BitBlt(m_hMemDC[1], 0	, 0, 536, 383, m_hMemDC[0], 0, 0, SRCCOPY);
 
 	ReleaseDC(m_hWnd, m_hMemDC[1]);
 
-	//DeleteObject(SelectObject(m_hMemDC[0], m_hOld)); //끝으로 메모리와 오브젝트을 해지해준다.
-	//DeleteObject(m_hMemDC[1]);
-	//DeleteDC(m_hMemDC[0]);
-	//DeleteDC(m_hMemDC[1]);
 
 
+}
+
+void GameFrame::CreatEnemy(float _Time)
+{
+	enemyManager.Creat_Enemy(_Time);
 }
 
 void GameFrame::Release()

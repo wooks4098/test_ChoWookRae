@@ -9,11 +9,20 @@ class EnemyManager
 private:
 	Enemy* enemy[ENEMY_COUNT];
 	Enemy* enemy_Item[ENEMY_ITEM_COUNT];
+
+	float Time;
+	float Enemy_Spawn_Time;
 public:
 	EnemyManager();
 
-	void Creat_Enemy();
+	void Creat_Enemy(float _Time);
 	bool Is_Item();
+
+	void Move_Left();
+	void Move_Right();
+
+	void Draw_Front(HDC hdc);
+	void Draw_Back(HDC hdc);
 
 
 };

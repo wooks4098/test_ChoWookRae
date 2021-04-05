@@ -2,6 +2,7 @@
 #include "Mecro.h"
 #include "Map.h"
 #include "Player.h"
+#include "EnemyManager.h"
 class GameFrame
 {
 private:
@@ -19,6 +20,7 @@ private:
 
 	int Move_x;
 	Player player;
+	EnemyManager enemyManager;
 public:
 	GameFrame();
 	~GameFrame();
@@ -30,6 +32,7 @@ public:
 
 	void Draw();
 
+	void CreatEnemy(float _Time);
 
 	void Release();
 
