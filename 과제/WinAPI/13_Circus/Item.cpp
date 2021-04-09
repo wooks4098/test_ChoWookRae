@@ -14,6 +14,25 @@ void Item::Spawn(int _left, int _top)
 	Pos.bottom = Pos.top + 35;
 }
 
+void Item::Move()
+{
+	Pos.left -= 2;
+	Pos.right -= 2;
+
+
+}
+void Item::Move_Left()
+{
+	Pos.left -= 2;
+	Pos.right -= 2;
+
+}
+void Item::Move_Right()
+{
+	Pos.left +=3;
+	Pos.right += 3;
+}
+
 void Item::Draw(HDC hdc)
 {
 	BitMapManager::GetInstans()->Draw(hdc, Pos, BITMAP_CASH);

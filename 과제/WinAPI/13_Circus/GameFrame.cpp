@@ -49,8 +49,11 @@ void GameFrame::Update()
 }
 void GameFrame::Move()
 {
+	enemyManager.Move();
+
 	if (GetKeyState(VK_LEFT) & 0x8000)
 	{
+
 		//캐릭터가 왼쪽 끝에 있지 않으면 캐릭터 이동
 		if ( player.Return_PlayerRect().left <= 50)
 		{
@@ -58,9 +61,8 @@ void GameFrame::Move()
 			{
 				map.Crowd_Move(Map_Right_Move, m_fDeltaTime);		//캐릭터가 왼쪽으로 이동하면 맵은 오른쪽으로 이동
 				Move_x--;
-
+				enemyManager.Move_Right();
 			}
-			
 		}
 		else
 		{
@@ -68,6 +70,7 @@ void GameFrame::Move()
 			player.Move(-2, m_fDeltaTime);
 
 		}
+
 	}
 	if (GetKeyState(VK_RIGHT) & 0x8000)
 	{
@@ -80,6 +83,7 @@ void GameFrame::Move()
 		else
 		{
 			map.Crowd_Move(Map_Left_Move, m_fDeltaTime);		//캐릭터가 오른쪽으로 이동하면 맵은 왼쪽으로 이동
+			enemyManager.Move_Left();
 			Move_x++;
 		}
 	}

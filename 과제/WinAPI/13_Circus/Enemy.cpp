@@ -1,13 +1,39 @@
 #include "Enemy.h"
 
+void Enemy::Move()
+{
+	Pos_Front.left-=2;
+	Pos_Front.right -= 2;
+
+	Pos_Back.left -= 2;
+	Pos_Back.right -= 2;
+}
+
 void Enemy::Move_Left()
 {
+	Pos_Front.left-=2;
+	Pos_Front.right -= 2;
 
+	Pos_Back.left -= 2;
+	Pos_Back.right -= 2;
 }
 void Enemy::Move_Right()
 {
+	Pos_Front.left += 3;
+	Pos_Front.right += 3;
 
+	Pos_Back.left += 3;
+	Pos_Back.right += 3;
 }
+
+void Enemy::Disable()
+{
+	if (Pos_Front.left <= 600)
+	{
+
+	}
+}
+
 
 //기본
 Enemy_Original::Enemy_Original()
@@ -36,7 +62,7 @@ void Enemy_Original::Draw_Back(HDC hdc)
 void Enemy_Original::Spawn()
 {
 	//위치 리셋
-	Pos_Front.left = 200;
+	Pos_Front.left = 550;
 	Pos_Front.top = 150;
 	Pos_Front.right = Pos_Front.left + 25;
 	Pos_Front.bottom = Pos_Front.top + 132;
@@ -82,7 +108,7 @@ void Enemy_Item::Draw_Back(HDC hdc)
 void Enemy_Item::Spawn()
 {
 	//위치 리셋  	138
-	Pos_Front.left = 200;
+	Pos_Front.left = 550;
 	Pos_Front.top = 165;
 	Pos_Front.right = Pos_Front.left + 24;
 	Pos_Front.bottom = Pos_Front.top + 100;
@@ -99,4 +125,33 @@ void Enemy_Item::Spawn()
 void Enemy_Item::Reset()
 {
 	isActive = false;
+}
+
+void Enemy_Item::Move()
+{
+	Pos_Front.left -= 2;
+	Pos_Front.right -= 2;
+
+	Pos_Back.left -= 2;
+	Pos_Back.right -= 2;
+	item.Move();
+}
+
+void Enemy_Item::Move_Left()
+{
+	Pos_Front.left -= 2;
+	Pos_Front.right -= 2;
+
+	Pos_Back.left -= 2;
+	Pos_Back.right -= 2;
+	item.Move_Left();
+}
+void Enemy_Item::Move_Right()
+{
+	Pos_Front.left += 3;
+	Pos_Front.right += 3;
+
+	Pos_Back.left += 3;
+	Pos_Back.right += 3;
+	item.Move_Right();
 }

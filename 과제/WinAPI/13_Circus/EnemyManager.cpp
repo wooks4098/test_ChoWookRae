@@ -62,6 +62,48 @@ bool EnemyManager::Is_Item()
 		return false;
 }
 
+void EnemyManager::Move()
+{
+	for (int i = 0; i < ENEMY_COUNT; i++)
+	{
+		if (enemy[i]->Return_Active())
+			enemy[i]->Move();
+	}
+	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
+	{
+		if (enemy_Item[i]->Return_Active())
+			enemy_Item[i]->Move();
+	}
+
+}
+void EnemyManager::Move_Left()
+{
+	for (int i = 0; i < ENEMY_COUNT; i++)
+	{
+		if (enemy[i]->Return_Active())
+			enemy[i]->Move_Left();
+	}
+	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
+	{
+		if (enemy_Item[i]->Return_Active())
+			enemy_Item[i]->Move_Left();
+	}
+
+}
+void EnemyManager::Move_Right()
+{
+	for (int i = 0; i < ENEMY_COUNT; i++)
+	{
+		if (enemy[i]->Return_Active())
+			enemy[i]->Move_Right();
+	}
+	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
+	{
+		if (enemy_Item[i]->Return_Active())
+			enemy_Item[i]->Move_Right();
+	}
+
+}
 
 void EnemyManager::Draw_Front(HDC hdc)
 {

@@ -18,6 +18,7 @@ public:
 	void Creat_Enemy(float _Time);
 	bool Is_Item();
 
+	void Move();
 	void Move_Left();
 	void Move_Right();
 
