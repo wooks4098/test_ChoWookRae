@@ -64,15 +64,15 @@ void Map::Draw(HDC hdc)
 		BitMapManager::GetInstans()->Draw(hdc, crowd[i].rect, crowd[i].BitMap_Number[0]);
 }
 
-void Map::Crowd_Move(int x, float Time)
+void Map::Crowd_Move(int x, float m_fDeltaTime)
 {
 
 	int WindowOut_image = -1;
 	int FrontImage_Number;
 	for (int i = 0; i < 24; i++)
 	{
-		crowd[i].rect.left += x;
-		crowd[i].rect.right += x;
+		crowd[i].rect.left += (int)x* m_fDeltaTime;
+		crowd[i].rect.right += (int)x* m_fDeltaTime;
 		
 		if (x >= 0)
 		{

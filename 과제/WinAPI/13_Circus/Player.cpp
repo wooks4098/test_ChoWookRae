@@ -39,24 +39,20 @@ void Player::Jump(float Time)
 	}
 }
 
-void Player::Move(int Move_Dir,float Time)
+void Player::Move(int Move_Dir,float m_fDeltaTime)
 {
-	Pos.left += Move_Dir;
-	Pos.right += Move_Dir;
-	
-
-	
-
-	
+	Pos.left += Move_Dir* m_fDeltaTime;
+	Pos.right += Move_Dir * m_fDeltaTime;
 }
 
-void Player::Draw(HDC hdc, float G_time)
+void Player::Draw(HDC hdc, float m_fDeltaTime)
 {
-	time++;
+	//time++;
+	time += m_fDeltaTime;
 	switch (Player_State)
 	{
 	case PLAYERSTATE_RUN:
-		if (time >= 30)
+		if (time >= 0.1)
 		{
 			RunFrame++;
 			time = 0;
@@ -69,7 +65,7 @@ void Player::Draw(HDC hdc, float G_time)
 		BitMapManager::GetInstans()->Draw(hdc, Pos, BITMAP_PLAYER2);
 		break;
 	case PLAYERSTATE_CLEAR:
-		if (time >= 100)
+		if (time >= 0.1)
 		{
 			ClearFrame++;
 			time = 0;

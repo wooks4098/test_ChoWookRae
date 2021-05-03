@@ -1,29 +1,31 @@
 #include "Enemy.h"
+#define LeftSpeed 140
+#define RightSpeed 300
 
-void Enemy::Move()
+void Enemy::Move(float m_fDeltaTime)
 {
-	Pos_Front.left-=2;
-	Pos_Front.right -= 2;
+	Pos_Front.left-= LeftSpeed * m_fDeltaTime;	
+	Pos_Front.right -= LeftSpeed * m_fDeltaTime;
 
-	Pos_Back.left -= 2;
-	Pos_Back.right -= 2;
+	Pos_Back.left -= LeftSpeed * m_fDeltaTime;
+	Pos_Back.right -= LeftSpeed * m_fDeltaTime;
 }
 
-void Enemy::Move_Left()
+void Enemy::Move_Left(float m_fDeltaTime)
 {
-	Pos_Front.left-=2;
-	Pos_Front.right -= 2;
+	Pos_Front.left-= LeftSpeed * m_fDeltaTime;
+	Pos_Front.right -= LeftSpeed * m_fDeltaTime;
 
-	Pos_Back.left -= 2;
-	Pos_Back.right -= 2;
+	Pos_Back.left -= LeftSpeed * m_fDeltaTime;
+	Pos_Back.right -= LeftSpeed * m_fDeltaTime;
 }
-void Enemy::Move_Right()
+void Enemy::Move_Right(float m_fDeltaTime)
 {
-	Pos_Front.left += 3;
-	Pos_Front.right += 3;
+	Pos_Front.left += RightSpeed * m_fDeltaTime;
+	Pos_Front.right += RightSpeed * m_fDeltaTime;
 
-	Pos_Back.left += 3;
-	Pos_Back.right += 3;
+	Pos_Back.left += RightSpeed * m_fDeltaTime;
+	Pos_Back.right += RightSpeed * m_fDeltaTime;
 }
 
 void Enemy::Disable()

@@ -37,7 +37,7 @@ void EnemyManager::Creat_Enemy(float _Time)
 		{
 			for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
 			{
-				if (!enemy[0]->Return_Active())
+				if (!enemy[i]->Return_Active())
 				{
 					enemy[i]->Spawn();
 					break;
@@ -53,54 +53,53 @@ void EnemyManager::Creat_Enemy(float _Time)
 }
 bool EnemyManager::Is_Item()
 {
-	//return false;
-	//return true;
+	return false;
 	int item = rand() % 10 + 1;
 	if (item >= 8)
-		return true;
+		return true;//酒捞袍 利 积己
 	else
-		return false;
+		return false;//老馆 利 积己
 }
 
-void EnemyManager::Move()
+void EnemyManager::Move(float m_fDeltaTime)
 {
 	for (int i = 0; i < ENEMY_COUNT; i++)
 	{
 		if (enemy[i]->Return_Active())
-			enemy[i]->Move();
+			enemy[i]->Move(m_fDeltaTime);
 	}
 	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
 	{
 		if (enemy_Item[i]->Return_Active())
-			enemy_Item[i]->Move();
+			enemy_Item[i]->Move(m_fDeltaTime);
 	}
 
 }
-void EnemyManager::Move_Left()
+void EnemyManager::Move_Left(float m_fDeltaTime)
 {
 	for (int i = 0; i < ENEMY_COUNT; i++)
 	{
 		if (enemy[i]->Return_Active())
-			enemy[i]->Move_Left();
+			enemy[i]->Move_Left(m_fDeltaTime);
 	}
 	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
 	{
 		if (enemy_Item[i]->Return_Active())
-			enemy_Item[i]->Move_Left();
+			enemy_Item[i]->Move_Left(m_fDeltaTime);
 	}
 
 }
-void EnemyManager::Move_Right()
+void EnemyManager::Move_Right(float m_fDeltaTime)
 {
 	for (int i = 0; i < ENEMY_COUNT; i++)
 	{
 		if (enemy[i]->Return_Active())
-			enemy[i]->Move_Right();
+			enemy[i]->Move_Right(m_fDeltaTime);
 	}
 	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
 	{
 		if (enemy_Item[i]->Return_Active())
-			enemy_Item[i]->Move_Right();
+			enemy_Item[i]->Move_Right(m_fDeltaTime);
 	}
 
 }

@@ -18,9 +18,9 @@ public:
 	void Creat_Enemy(float _Time);
 	bool Is_Item();
 
-	void Move();
-	void Move_Left();
-	void Move_Right();
+	void Move(float m_fDeltaTime);
+	void Move_Left(float m_fDeltaTime);
+	void Move_Right(float m_fDeltaTime);
 
 	void Draw_Front(HDC hdc);
 	void Draw_Back(HDC hdc);

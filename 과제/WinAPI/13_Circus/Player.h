@@ -14,7 +14,7 @@ class Player
 private:
 	int Player_State;
 	RECT Pos;
-	DWORD time;
+	float time;
 	int ClearFrame;
 	int RunFrame;
 	bool isJump;
@@ -22,8 +22,8 @@ private:
 	float JumpCount;
 public:
 	Player();
-	void Draw(HDC hdc, float G_time);
-	void Move(int Move_Dir, float Time);
+	void Draw(HDC hdc, float m_fDeltaTime);
+	void Move(int Move_Dir, float m_fDeltaTime);
 	void Jump(float Time);
 	void StartJump();
 	RECT Return_PlayerRect() { return Pos; }

@@ -18,7 +18,7 @@ public:
 	Map();
 	~Map();
 	
-	void Crowd_Move(int x, float Time);
+	void Crowd_Move(int x, float m_fDeltaTime);
 	void Draw(HDC hdc);
 
 

@@ -10,8 +10,8 @@
 #define RUNFRAME 3
 #define StartMap 0
 #define EndMap 1000
-#define Map_Right_Move 3
-#define Map_Left_Move -3
+#define Map_Right_Move 300
+#define Map_Left_Move -300
 enum BITMAP_IMAGE
 {
 	BITMAP_BACK,
