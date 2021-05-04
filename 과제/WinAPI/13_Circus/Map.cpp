@@ -71,8 +71,10 @@ void Map::Crowd_Move(int x, float m_fDeltaTime)
 	int FrontImage_Number;
 	for (int i = 0; i < 24; i++)
 	{
-		crowd[i].rect.left += (int)x* m_fDeltaTime;
-		crowd[i].rect.right += (int)x* m_fDeltaTime;
+		crowd[i].rect.left +=(int) (x* m_fDeltaTime);
+		crowd[i].rect.right += (int)(x* m_fDeltaTime);
+		/*crowd[i].rect.left += (int)(x* m_fDeltaTime);
+		crowd[i].rect.right += (int)(x* m_fDeltaTime);*/
 		
 		if (x >= 0)
 		{
@@ -89,12 +91,12 @@ void Map::Crowd_Move(int x, float m_fDeltaTime)
 	if (WindowOut_image != -1)//화면 밖으로 나가면
 	{
 		if (x >= 0)
-		{
+		{// 배경 오른쪽으로 이동
 			FrontImage_Number = WindowOut_image + 1;
 			if (FrontImage_Number >= 24)
 				FrontImage_Number = 0;
 
-			crowd[WindowOut_image].rect.right = crowd[FrontImage_Number].rect.left - 1;
+			crowd[WindowOut_image].rect.right = crowd[FrontImage_Number].rect.left;
 			if (WindowOut_image == 0 || WindowOut_image == 8 || WindowOut_image == 16)
 				crowd[WindowOut_image].rect.left = crowd[WindowOut_image].rect.right - 66;
 			else
@@ -102,11 +104,11 @@ void Map::Crowd_Move(int x, float m_fDeltaTime)
 
 		}
 		else
-		{
+		{//배경 왼쪽으로 이동
 			FrontImage_Number = WindowOut_image - 1;
 			if (FrontImage_Number <= -1)
 				FrontImage_Number = 23;
-			crowd[WindowOut_image].rect.left = crowd[FrontImage_Number].rect.right + 1;
+			crowd[WindowOut_image].rect.left = crowd[FrontImage_Number].rect.right;
 			if (WindowOut_image == 0 || WindowOut_image == 8 || WindowOut_image == 16)
 				crowd[WindowOut_image].rect.right = crowd[WindowOut_image].rect.right = crowd[WindowOut_image].rect.left + 66;
 			else
