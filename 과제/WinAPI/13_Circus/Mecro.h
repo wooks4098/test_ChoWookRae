@@ -12,6 +12,13 @@
 #define EndMap 1000
 #define Map_Right_Move 300
 #define Map_Left_Move -300
+enum PLAYER_DIR
+{
+	PLAYER_DIR_Stay = 0,
+	PLAYER_DIR_Left,
+	PLAYER_DIR_Right,
+};
+
 enum BITMAP_IMAGE
 {
 	BITMAP_BACK,

@@ -6,6 +6,9 @@
 class GameFrame
 {
 private:
+
+
+
 	HWND	m_hWnd;
 	HDC			m_hMemDC[2]; //0 ¸ÞÀÎ 1¼û±è
 	HBITMAP		m_hBitmap;
@@ -21,6 +24,9 @@ private:
 	int Move_x;
 	Player player;
 	EnemyManager enemyManager;
+
+	float Player_Speed;
+
 public:
 	GameFrame();
 	~GameFrame();

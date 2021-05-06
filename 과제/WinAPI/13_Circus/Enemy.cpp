@@ -1,14 +1,22 @@
 #include "Enemy.h"
 #define LeftSpeed 140
 #define RightSpeed 300
-
-void Enemy::Move(float m_fDeltaTime)
+#define EnemySpeed 150
+void Enemy::Move(float m_fDeltaTime, int Player_Speed)
 {
-	Pos_Front.left-= LeftSpeed * m_fDeltaTime;	
-	Pos_Front.right -= LeftSpeed * m_fDeltaTime;
+	float Speed;
+	if (Player_Speed == 0)
+		Speed = -EnemySpeed * m_fDeltaTime;
+	else
+	{
+		Speed = (Player_Speed- EnemySpeed )* m_fDeltaTime;
+	}
 
-	Pos_Back.left -= LeftSpeed * m_fDeltaTime;
-	Pos_Back.right -= LeftSpeed * m_fDeltaTime;
+	Pos_Front.left+= Speed ;
+	Pos_Front.right += Speed ;
+
+	Pos_Back.left += Speed ;
+	Pos_Back.right += Speed ;
 }
 
 void Enemy::Move_Left(float m_fDeltaTime)

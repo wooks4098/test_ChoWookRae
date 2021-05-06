@@ -61,17 +61,17 @@ bool EnemyManager::Is_Item()
 		return false;//老馆 利 积己
 }
 
-void EnemyManager::Move(float m_fDeltaTime)
+void EnemyManager::Move(float m_fDeltaTime, int Player_Speed)
 {
 	for (int i = 0; i < ENEMY_COUNT; i++)
 	{
 		if (enemy[i]->Return_Active())
-			enemy[i]->Move(m_fDeltaTime);
+			enemy[i]->Move(m_fDeltaTime, Player_Speed);
 	}
 	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
 	{
 		if (enemy_Item[i]->Return_Active())
-			enemy_Item[i]->Move(m_fDeltaTime);
+			enemy_Item[i]->Move(m_fDeltaTime, Player_Speed);
 	}
 
 }
