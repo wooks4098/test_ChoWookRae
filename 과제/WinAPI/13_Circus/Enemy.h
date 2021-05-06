@@ -18,8 +18,7 @@ protected:
 	int Time_R;
 	int Image;
 	bool isActive;
-	RECT Pos_Front;
-	RECT Pos_Back;
+	RECT Pos;
 	RECT HitBox;
 public:
 
@@ -30,8 +29,7 @@ public:
 	virtual void Reset() = 0;//초기화(생성시)
 
 	virtual void Move(float m_fDeltaTime,int Player_Speed);//기본이동
-	virtual void Move_Left(float m_fDeltaTime);//플레이어가 앞으로가면 이동하도록
-	virtual void Move_Right(float m_fDeltaTime);//플레이어가 뒤로가면 이동하도록
+
 	bool Return_Active() { return isActive; }
 };
 
