@@ -39,7 +39,7 @@ public:
 	void Draw();
 
 	void CreatEnemy(float _Time);
-
+	void Enemey_Disable_Check();
 	void Release();
 
 };

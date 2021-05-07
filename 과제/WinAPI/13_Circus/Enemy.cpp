@@ -21,7 +21,8 @@ void Enemy::Move(float m_fDeltaTime, int Player_Speed)
 
 void Enemy::Disable()
 {
-	
+	if (Pos.right <= -50)
+		Reset();
 }
 
 
@@ -115,31 +116,17 @@ void Enemy_Item::Reset()
 	isActive = false;
 }
 
-void Enemy_Item::Move()
+void Enemy_Item::Move(float m_fDeltaTime, int Player_Speed)
 {
-	Pos_Front.left -= 2;
-	Pos_Front.right -= 2;
+	float Speed;
+	if (Player_Speed == 0)
+		Speed = -EnemySpeed * m_fDeltaTime;
+	else
+	{
+		Speed = (Player_Speed - EnemySpeed)* m_fDeltaTime;
+	}
 
-	Pos_Back.left -= 2;
-	Pos_Back.right -= 2;
-	item.Move();
-}
-
-void Enemy_Item::Move_Left()
-{
-	Pos_Front.left -= 2;
-	Pos_Front.right -= 2;
-
-	Pos_Back.left -= 2;
-	Pos_Back.right -= 2;
-	item.Move_Left();
-}
-void Enemy_Item::Move_Right()
-{
-	Pos_Front.left += 3;
-	Pos_Front.right += 3;
-
-	Pos_Back.left += 3;
-	Pos_Back.right += 3;
-	item.Move_Right();
+	Pos.left += Speed;
+	Pos.right += Speed;
+	//item.Move();
 }

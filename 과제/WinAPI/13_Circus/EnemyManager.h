@@ -19,8 +19,8 @@ public:
 	bool Is_Item();
 
 	void Move(float m_fDeltaTime, int Player_Speed);
-	void Move_Left(float m_fDeltaTime);
-	void Move_Right(float m_fDeltaTime);
+	
+	void Disable_Check();
 
 	void Draw_Front(HDC hdc);
 	void Draw_Back(HDC hdc);

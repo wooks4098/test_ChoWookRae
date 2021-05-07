@@ -28,6 +28,7 @@ void EnemyManager::Creat_Enemy(float _Time)
 			{
 				if (!enemy_Item[i]->Return_Active())
 				{
+					enemy_Item[i]->Reset();
 					enemy_Item[i]->Spawn();
 					break;
 				}
@@ -75,34 +76,23 @@ void EnemyManager::Move(float m_fDeltaTime, int Player_Speed)
 	}
 
 }
-void EnemyManager::Move_Left(float m_fDeltaTime)
+
+
+void EnemyManager::Disable_Check()
 {
 	for (int i = 0; i < ENEMY_COUNT; i++)
 	{
 		if (enemy[i]->Return_Active())
-			enemy[i]->Move_Left(m_fDeltaTime);
+			enemy[i]->Disable();
 	}
+
 	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
 	{
 		if (enemy_Item[i]->Return_Active())
-			enemy_Item[i]->Move_Left(m_fDeltaTime);
+			enemy_Item[i]->Disable();
 	}
-
 }
-void EnemyManager::Move_Right(float m_fDeltaTime)
-{
-	for (int i = 0; i < ENEMY_COUNT; i++)
-	{
-		if (enemy[i]->Return_Active())
-			enemy[i]->Move_Right(m_fDeltaTime);
-	}
-	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
-	{
-		if (enemy_Item[i]->Return_Active())
-			enemy_Item[i]->Move_Right(m_fDeltaTime);
-	}
 
-}
 
 void EnemyManager::Draw_Front(HDC hdc)
 {

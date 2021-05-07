@@ -46,6 +46,7 @@ void GameFrame::Update()
 
 	Move();
 	CreatEnemy(m_fDeltaTime);
+	Enemey_Disable_Check();
 	Draw();
 
 	m_dwLastTime = m_dwCurTime;
@@ -153,7 +154,10 @@ void GameFrame::CreatEnemy(float _Time)
 {
 	enemyManager.Creat_Enemy(_Time);
 }
-
+void GameFrame::Enemey_Disable_Check()
+{
+	enemyManager.Disable_Check();
+}
 void GameFrame::Release()
 {
 	for(int i =0; i<2; i++)
