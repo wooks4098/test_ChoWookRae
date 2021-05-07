@@ -14,23 +14,10 @@ void Item::Spawn(int _left, int _top)
 	Pos.bottom = Pos.top + 35;
 }
 
-void Item::Move()
+void Item::Move(float Speed)
 {
-	Pos.left -= 2;
-	Pos.right -= 2;
-
-
-}
-void Item::Move_Left()
-{
-	Pos.left -= 2;
-	Pos.right -= 2;
-
-}
-void Item::Move_Right()
-{
-	Pos.left +=3;
-	Pos.right += 3;
+	Pos.left += Speed;
+	Pos.right += Speed;
 }
 
 void Item::Draw(HDC hdc)

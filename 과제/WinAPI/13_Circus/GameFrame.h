@@ -38,8 +38,12 @@ public:
 
 	void Draw();
 
+	//enemy
 	void CreatEnemy(float _Time);
 	void Enemey_Disable_Check();
+	void Enemey_HitCheck();
+
+
 	void Release();
 
 };

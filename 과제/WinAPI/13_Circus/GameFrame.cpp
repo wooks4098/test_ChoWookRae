@@ -47,6 +47,7 @@ void GameFrame::Update()
 	Move();
 	CreatEnemy(m_fDeltaTime);
 	Enemey_Disable_Check();
+	Enemey_HitCheck();
 	Draw();
 
 	m_dwLastTime = m_dwCurTime;
@@ -132,6 +133,12 @@ void GameFrame::Enemey_Disable_Check()
 {
 	enemyManager.Disable_Check();
 }
+void GameFrame::Enemey_HitCheck()
+{
+	enemyManager.HitCheck(player.Return_PlayerRect());
+}
+
+
 void GameFrame::Release()
 {
 	for(int i =0; i<2; i++)

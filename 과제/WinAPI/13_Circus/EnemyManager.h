@@ -21,6 +21,8 @@ public:
 	void Move(float m_fDeltaTime, int Player_Speed);
 	
 	void Disable_Check();
+	void HitCheck(RECT Player_Rect);
+
 
 	void Draw_Front(HDC hdc);
 	void Draw_Back(HDC hdc);

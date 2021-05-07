@@ -18,10 +18,18 @@ void Enemy::Move(float m_fDeltaTime, int Player_Speed)
 
 }
 
+bool Enemy::HitCheck(RECT Player_Rect)
+{
+	RECT tmp;
+	if (IntersectRect(&tmp, &Pos, &Player_Rect))
+		return true;
+	else
+		return false;
+}
 
 void Enemy::Disable()
 {
-	if (Pos.right <= -100)
+	if (Pos.right <= -150)
 		Reset();
 }
 
@@ -61,8 +69,13 @@ void Enemy_Original::Spawn()
 	Pos.top = 150;
 	Pos.right = Pos.left + 25;
 	Pos.bottom = Pos.top + 132;
-
 	isActive = true;
+	//히트박스 리셋
+	HitBox.left = Pos.left -5;
+	HitBox.top = Pos.bottom;
+	HitBox.right = Pos.left + 5;
+	HitBox.bottom = 20;
+
 }
 void Enemy_Original::Reset()
 {
@@ -128,5 +141,14 @@ void Enemy_Item::Move(float m_fDeltaTime, int Player_Speed)
 
 	Pos.left += Speed;
 	Pos.right += Speed;
-	//item.Move();
+	item.Move(Speed);
+}
+
+void Enemy_Item::Disable()
+{
+	if (Pos.right <= -150)
+	{
+		Reset();
+		item.Reset();
+	}
 }

@@ -92,7 +92,20 @@ void EnemyManager::Disable_Check()
 			enemy_Item[i]->Disable();
 	}
 }
+void EnemyManager::HitCheck(RECT Player_Rect)
+{
+	for (int i = 0; i < ENEMY_COUNT; i++)
+	{
+		if (enemy[i]->Return_Active())
+			enemy[i]->HitCheck(Player_Rect);
+	}
 
+	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
+	{
+		if (enemy_Item[i]->Return_Active())
+			enemy_Item[i]->HitCheck(Player_Rect);
+	}
+}
 
 void EnemyManager::Draw_Front(HDC hdc)
 {

@@ -27,6 +27,7 @@ public:
 	virtual void Draw_Back(HDC hdc) = 0;
 	virtual void Spawn() = 0;//생성
 	virtual void Reset() = 0;//초기화(생성시)
+	virtual bool HitCheck(RECT Player_Rect);
 
 	virtual void Move(float m_fDeltaTime,int Player_Speed);//기본이동
 
@@ -54,7 +55,7 @@ public:
 	void Draw_Back(HDC hdc);
 	void Spawn();
 	void Reset();
-
+	void Disable();
 
 	void Move(float m_fDeltaTime, int Player_Speed);//기본이동
 
