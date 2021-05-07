@@ -21,7 +21,7 @@ void Enemy::Move(float m_fDeltaTime, int Player_Speed)
 
 void Enemy::Disable()
 {
-	if (Pos.right <= -50)
+	if (Pos.right <= -100)
 		Reset();
 }
 
