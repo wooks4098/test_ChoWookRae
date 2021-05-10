@@ -54,7 +54,7 @@ void EnemyManager::Creat_Enemy(float _Time)
 }
 bool EnemyManager::Is_Item()
 {
-	return false;
+	return true;
 	int item = rand() % 10 + 1;
 	if (item >= 8)
 		return true;//아이템 적 생성

@@ -22,7 +22,7 @@ bool Enemy::HitCheck(RECT Player_Rect)
 {
 	RECT tmp;
 	if (IntersectRect(&tmp, &Pos, &Player_Rect))
-		return true;
+ 		return true;
 	else
 		return false;
 }
@@ -116,7 +116,7 @@ void Enemy_Item::Spawn()
 {
 	//위치 리셋  	138
 	Pos.left = 550;
-	Pos.top = 150;
+	Pos.top = 172;
 	Pos.right = Pos.left + 25;
 	Pos.bottom = Pos.top + 132;
 

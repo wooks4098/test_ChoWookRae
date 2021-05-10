@@ -88,16 +88,20 @@ void GameFrame::Move()
 	
 	player.Jump(m_fDeltaTime);
 	
-	if (Move_x >= 0 && Move_x + 1 < EndMap)
+	if (Move_x >= 0 && Move_x + 1 < EndMap) //Map이 움직일 경우
 	{
 		map.Crowd_Move(Player_Speed, m_fDeltaTime);
 		enemyManager.Move(m_fDeltaTime, Player_Speed);
-
 	}
-	else
+	else //플레이어가 움직일 경우
 	{
 		player.Move(Player_Speed, m_fDeltaTime);
+
+		if (Player_Speed < 0) //캐릭터가 뒤로 가는 경우
+			Player_Speed = 0;
 		enemyManager.Move(m_fDeltaTime, -Player_Speed);
+
+
 
 	}
 
