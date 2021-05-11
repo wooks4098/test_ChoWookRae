@@ -54,7 +54,7 @@ void EnemyManager::Creat_Enemy(float _Time)
 }
 bool EnemyManager::Is_Item()
 {
-	return true;
+
 	int item = rand() % 10 + 1;
 	if (item >= 8)
 		return true;//아이템 적 생성
@@ -92,18 +92,18 @@ void EnemyManager::Disable_Check()
 			enemy_Item[i]->Disable();
 	}
 }
-void EnemyManager::HitCheck(RECT Player_Rect)
+bool EnemyManager::HitCheck(RECT Player_Rect)
 {
 	for (int i = 0; i < ENEMY_COUNT; i++)
 	{
 		if (enemy[i]->Return_Active())
-			enemy[i]->HitCheck(Player_Rect);
+			return enemy[i]->HitCheck(Player_Rect);
 	}
 
 	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
 	{
 		if (enemy_Item[i]->Return_Active())
-			enemy_Item[i]->HitCheck(Player_Rect);
+			return enemy_Item[i]->HitCheck(Player_Rect);
 	}
 }
 
@@ -111,16 +111,16 @@ void EnemyManager::Draw_Front(HDC hdc)
 {
 	for (int i = 0; i < ENEMY_COUNT; i++)
 	{
-		if(enemy[i]->Return_Active())
+		if (enemy[i]->Return_Active())
 			enemy[i]->Draw_First(hdc);
 	}
-
 	for (int i = 0; i < ENEMY_ITEM_COUNT; i++)
 	{
 		if (enemy_Item[i]->Return_Active())
 			enemy_Item[i]->Draw_First(hdc);
 	}
 }
+
 
 void EnemyManager::Draw_Back(HDC hdc)
 {

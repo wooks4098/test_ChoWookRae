@@ -5,7 +5,7 @@
 
 #include "GameFrame.h"
 
-GameFrame g_GameFrame;
+//GameFrame g_GameFrame;
 
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 HINSTANCE g_hInst;
@@ -36,7 +36,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 	ShowWindow(hWnd, nCmdShow);
 
 	//윈도우를 만들고 나면 초기화 해준다.
-	g_GameFrame.SetData(hWnd);
+	GameFrame::GetInstans()->SetData(hWnd);
+	//g_GameFrame.SetData(hWnd);
 	while (true)
 	{
 		/// 메시지큐에 메시지가 있으면 메시지 처리
@@ -50,12 +51,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmd
 		}
 		else
 		{
-			g_GameFrame.Update();
+		//	g_GameFrame.Update();
+			GameFrame::GetInstans()->Update();
 			//메세지가 없을때 업데이트를 진행한다.
 		}
 	}
 	//종료직전에 릴리즈 해준다.
-	g_GameFrame.Release();
+	//g_GameFrame.Release();
+	GameFrame::GetInstans()->Release();
 
 	return (int)Message.wParam;
 }

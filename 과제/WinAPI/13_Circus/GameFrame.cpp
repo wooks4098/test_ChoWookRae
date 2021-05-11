@@ -1,6 +1,6 @@
 #include "GameFrame.h"
-
-
+#include <string>
+GameFrame* GameFrame::m_pThis = NULL;
 
 GameFrame::GameFrame()
 {
@@ -24,8 +24,9 @@ void GameFrame::SetData(HWND hWnd)
 	m_dwLastTime = GetTickCount64();
 	m_dwCurTime = GetTickCount64();
 	BitMapManager::GetInstans()->CreatImage(m_hWnd);
-
+	Score = 0;
 	Move_x = 0;
+	HP = 3;
 }
 
 void GameFrame::Update()
@@ -106,6 +107,24 @@ void GameFrame::Move()
 	}
 
 }
+
+void GameFrame::DrawScore()
+{
+
+	//TCHAR str[] = (TCHAR)Score;
+	//str= (TCHAR)Score;
+	//std::wstring temp;
+	int a = 110;
+
+	auto temp = std::to_wstring(Score);
+	TextOut(m_hMemDC[0], 10, 10, std::to_wstring(Score).c_str(), temp.length());
+}
+
+void GameFrame::ChangeScore(int score)
+{
+	Score += score;
+}
+
 void GameFrame::Draw()
 {
 
@@ -113,13 +132,17 @@ void GameFrame::Draw()
 
 	//맵 그리기
 	map.Draw(m_hMemDC[0]);
+	endFloor.Draw(m_hMemDC[0]);
+
 	//enemy앞 그리기
 	enemyManager.Draw_Front(m_hMemDC[0]);
 	//플레이어 그리기
 	player.Draw(m_hMemDC[0], m_fDeltaTime);	
 	//enemy뒤 그리기
 	enemyManager.Draw_Back(m_hMemDC[0]);
-
+	//Hp 그리기
+	Draw_Hp();
+	DrawScore();
 	//더블 버퍼링
 	BitBlt(m_hMemDC[1], 0	, 0, 536, 383, m_hMemDC[0], 0, 0, SRCCOPY);
 
@@ -127,6 +150,18 @@ void GameFrame::Draw()
 
 
 
+}
+
+
+void GameFrame::Draw_Hp()
+{
+	RECT Pos = {470,10,485,23};
+	for (int i = 0; i < HP; i++)
+	{
+		BitMapManager::GetInstans()->Draw(m_hMemDC[0], Pos, BITMAP_ICON);
+		Pos.left += 17;
+		Pos.right += 17;
+	}
 }
 
 void GameFrame::CreatEnemy(float _Time)
@@ -139,7 +174,24 @@ void GameFrame::Enemey_Disable_Check()
 }
 void GameFrame::Enemey_HitCheck()
 {
-	enemyManager.HitCheck(player.Return_PlayerRect());
+	if (enemyManager.HitCheck(player.Return_PlayerRect()))
+	{
+		//리셋 
+		//PlayerHit();
+		HP--;
+	}
+}
+
+void GameFrame::PlayerHit()
+{
+	if (HP > 0)
+	{
+		HP--;
+	}
+	else
+	{
+
+	}
 }
 
 

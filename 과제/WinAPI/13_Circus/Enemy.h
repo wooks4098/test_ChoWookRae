@@ -18,6 +18,8 @@ protected:
 	int Time_R;
 	int Image;
 	bool isActive;
+	bool isHit;
+	bool isPass;
 	RECT Pos;
 	RECT HitBox;
 public:
@@ -56,7 +58,7 @@ public:
 	void Spawn();
 	void Reset();
 	void Disable();
-
+	bool HitCheck(RECT Player_Rect);
 	void Move(float m_fDeltaTime, int Player_Speed);//기본이동
 
 };

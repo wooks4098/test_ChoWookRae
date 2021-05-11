@@ -3,9 +3,26 @@
 #include "Map.h"
 #include "Player.h"
 #include "EnemyManager.h"
+#include "BitMapManager.h"
+#include "EndFloor.h"
 class GameFrame
 {
+
+#pragma region 싱글톤
 private:
+
+	static GameFrame* m_pThis;
+public:
+	static GameFrame* GetInstans()
+	{
+		if (m_pThis == NULL)
+		{
+			m_pThis = new GameFrame;
+		}
+		return m_pThis;
+	}
+
+#pragma endregionprivate:
 
 
 
@@ -24,10 +41,13 @@ private:
 	int Move_x;
 	Player player;
 	EnemyManager enemyManager;
-
+	EndFloor endFloor;
 	float Player_Speed;
-
+	int Score;
+	int HP;
 public:
+
+
 	GameFrame();
 	~GameFrame();
 
@@ -37,13 +57,17 @@ public:
 	void Move();//캐릭터, 맵, 오브젝트(거리, 항아리)이동
 
 	void Draw();
+	void Draw_Hp();
+
+	void DrawScore();
+	void ChangeScore(int score);
 
 	//enemy
 	void CreatEnemy(float _Time);
 	void Enemey_Disable_Check();
 	void Enemey_HitCheck();
 
-
+	void PlayerHit();
 	void Release();
 
 };

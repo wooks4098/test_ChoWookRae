@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="BitMap.cpp" />
     <ClCompile Include="BitMapManager.cpp" />
+    <ClCompile Include="EndFloor.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="GameFrame.cpp" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="BitMap.h" />
     <ClInclude Include="BitMapManager.h" />
+    <ClInclude Include="EndFloor.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="GameFrame.h" />

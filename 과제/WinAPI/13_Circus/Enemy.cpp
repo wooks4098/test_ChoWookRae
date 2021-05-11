@@ -2,6 +2,7 @@
 #define LeftSpeed 140
 #define RightSpeed 300
 #define EnemySpeed 150
+#include "GameFrame.h"
 void Enemy::Move(float m_fDeltaTime, int Player_Speed)
 {
 	float Speed;
@@ -14,17 +15,30 @@ void Enemy::Move(float m_fDeltaTime, int Player_Speed)
 
 	Pos.left+= Speed ;
 	Pos.right += Speed ;
-
+	HitBox.left += Speed;
+	HitBox.right += Speed;
 
 }
 
 bool Enemy::HitCheck(RECT Player_Rect)
 {
 	RECT tmp;
-	if (IntersectRect(&tmp, &Pos, &Player_Rect))
- 		return true;
+	if (IntersectRect(&tmp, &HitBox, &Player_Rect) && !isHit)
+	{
+		isHit = true;
+		return true;
+	}
 	else
+	{
+		if (IntersectRect(&tmp, &Pos, &Player_Rect) && !isHit &&!isPass)
+		{
+ 			GameFrame::GetInstans()->ChangeScore(100);
+
+			isPass = true;
+		}
+
 		return false;
+	}
 }
 
 void Enemy::Disable()
@@ -70,11 +84,13 @@ void Enemy_Original::Spawn()
 	Pos.right = Pos.left + 25;
 	Pos.bottom = Pos.top + 132;
 	isActive = true;
+	isHit = false;
+	isPass = false;
 	//히트박스 리셋
 	HitBox.left = Pos.left -5;
 	HitBox.top = Pos.bottom;
 	HitBox.right = Pos.left + 5;
-	HitBox.bottom = 20;
+	HitBox.bottom = HitBox.top +20;
 
 }
 void Enemy_Original::Reset()
@@ -121,8 +137,15 @@ void Enemy_Item::Spawn()
 	Pos.bottom = Pos.top + 132;
 
 	item.Spawn(Pos.left, Pos.top);
-	//HitBox;
+
+	HitBox.left = Pos.left - 5;
+	HitBox.top = Pos.bottom;
+	HitBox.right = Pos.left + 5;
+	HitBox.bottom = HitBox.top + 20;
+
 	isActive = true;
+	isHit = false;
+	isPass = false;
 }
 void Enemy_Item::Reset()
 {
@@ -141,8 +164,36 @@ void Enemy_Item::Move(float m_fDeltaTime, int Player_Speed)
 
 	Pos.left += Speed;
 	Pos.right += Speed;
+	HitBox.left += Speed;
+	HitBox.right += Speed;
+
 	item.Move(Speed);
 }
+
+bool Enemy_Item::HitCheck(RECT Player_Rect)
+{
+	RECT tmp;
+
+	item.IsHIt(Player_Rect);
+
+	if (IntersectRect(&tmp, &HitBox, &Player_Rect)&& !isHit)
+	{
+		isHit = true;
+		return true;
+	}
+	else
+	{
+		if (IntersectRect(&tmp, &Pos, &Player_Rect) && !isHit && !isPass)
+		{
+			GameFrame::GetInstans()->ChangeScore(100);
+			isPass = true;
+		}
+
+		return false;
+	}
+
+}
+
 
 void Enemy_Item::Disable()
 {

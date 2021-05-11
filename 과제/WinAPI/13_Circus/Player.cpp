@@ -13,6 +13,7 @@ Player::Player()
 	Pos.right = Pos.left + 66;
 	Pos.bottom = Pos.top + 63;
 	isJump = false;
+	JumpCount = 0;
 }
 void Player::StartJump()
 {

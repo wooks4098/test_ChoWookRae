@@ -22,6 +22,8 @@ void Item::Move(float Speed)
 
 bool Item::IsHIt(RECT Player_Rect)
 {
+	if (!isActive)
+		return false;
 	RECT tmp;
 	if (IntersectRect(&tmp, &Pos, &Player_Rect))
 		return true;//Ãæµ¹
