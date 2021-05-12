@@ -105,6 +105,7 @@ bool EnemyManager::HitCheck(RECT Player_Rect)
 		if (enemy_Item[i]->Return_Active())
 			return enemy_Item[i]->HitCheck(Player_Rect);
 	}
+	return false;
 }
 
 void EnemyManager::Draw_Front(HDC hdc)

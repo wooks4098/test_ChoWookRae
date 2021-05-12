@@ -11,7 +11,7 @@ Player::Player()
 	Pos.left = 50;
 	Pos.top = 280;
 	Pos.right = Pos.left + 66;
-	Pos.bottom = Pos.top + 63;
+	Pos.bottom = Pos.top + 20;
 	isJump = false;
 	JumpCount = 0;
 }
@@ -31,6 +31,7 @@ void Player::Jump(float Time)
 	{
 		JumpCount += Time;
 		Pos.top = Jump_y - sinf(JumpCount * M_PI) * 100;
+		Pos.bottom = Pos.top + 20;
 		if (JumpCount > 1)
 		{
 			isJump = false;

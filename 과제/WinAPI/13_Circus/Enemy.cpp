@@ -39,6 +39,7 @@ bool Enemy::HitCheck(RECT Player_Rect)
 
 		return false;
 	}
+	return false;
 }
 
 void Enemy::Disable()
