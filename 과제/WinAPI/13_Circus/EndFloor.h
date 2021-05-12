@@ -8,7 +8,7 @@ private:
 
 public:
 
-	void Move(int Move_Dir, float m_fDeltaTime);
+	void Move(float Move_Dir, float Player_Speed);
 	bool HitCheck(RECT Player_Rect);
 	void Draw(HDC hdc);
 	EndFloor();

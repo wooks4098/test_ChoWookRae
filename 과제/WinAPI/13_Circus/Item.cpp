@@ -1,5 +1,5 @@
 #include "Item.h"
-
+#include "GameFrame.h"
 void Item::Reset()
 {
 	isActive = false;
@@ -20,20 +20,26 @@ void Item::Move(float Speed)
 	Pos.right += Speed;
 }
 
-bool Item::IsHIt(RECT Player_Rect)
+void Item::IsHIt(RECT Player_Rect)
 {
 	if (!isActive)
-		return false;
+		return;
 	RECT tmp;
-	if (IntersectRect(&tmp, &Pos, &Player_Rect))
-		return true;//Ãæµ¹
-	else
-		return false;
+	if (IntersectRect(&tmp, &Pos, &Player_Rect))  
+  	{
+		GameFrame::GetInstans()->ChangeScore(400);
+
+		isActive = false; 
+		return;
+	}
+
 }
 
 
 void Item::Draw(HDC hdc)
 {
+	if (!isActive)
+		return;
 	BitMapManager::GetInstans()->Draw(hdc, Pos, BITMAP_CASH);
 }
 

@@ -9,7 +9,7 @@
 #define CLEARFRAME 2
 #define RUNFRAME 3
 #define StartMap 0
-#define EndMap 1000
+#define EndMap 3000
 #define Map_Right_Move 300
 #define Map_Left_Move -300
 enum PLAYER_DIR

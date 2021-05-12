@@ -43,6 +43,8 @@ void Player::Jump(float Time)
 
 void Player::Move(int Move_Dir,float m_fDeltaTime)
 {
+ 	if (Pos.right >= 536 && Move_Dir > 0)
+		return;
 	Pos.left += Move_Dir* m_fDeltaTime;
 	Pos.right += Move_Dir * m_fDeltaTime;
 }

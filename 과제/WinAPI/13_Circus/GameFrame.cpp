@@ -65,7 +65,7 @@ void GameFrame::Move()
 			if (Move_x >= 2)
 			{
 				Player_Speed = Map_Right_Move;
-				Move_x--;
+				Move_x += m_fDeltaTime *-Player_Speed;
 			}
 		}
 		else
@@ -81,7 +81,7 @@ void GameFrame::Move()
 		else
 		{
 			Player_Speed = Map_Left_Move;	
-			Move_x++;
+			Move_x += m_fDeltaTime * -Player_Speed;
 		}
 	}	
 	if (GetKeyState(VK_SPACE) & 0x8000)
@@ -93,17 +93,12 @@ void GameFrame::Move()
 	{
 		map.Crowd_Move(Player_Speed, m_fDeltaTime);
 		enemyManager.Move(m_fDeltaTime, Player_Speed);
+		endFloor.Move(m_fDeltaTime, Player_Speed);
 	}
 	else //플레이어가 움직일 경우
 	{
 		player.Move(Player_Speed, m_fDeltaTime);
-
-		if (Player_Speed < 0) //캐릭터가 뒤로 가는 경우
-			Player_Speed = 0;
-		enemyManager.Move(m_fDeltaTime, -Player_Speed);
-
-
-
+		enemyManager.Move(m_fDeltaTime);
 	}
 
 }

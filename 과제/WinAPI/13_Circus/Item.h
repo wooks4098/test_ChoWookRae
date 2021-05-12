@@ -14,7 +14,7 @@ public:
 
 	void Move(float Speed);//기본이동
 
-	bool IsHIt(RECT Player_Rect);
+	void IsHIt(RECT Player_Rect);
 
 	bool Return_Active() { return isActive; }
 };

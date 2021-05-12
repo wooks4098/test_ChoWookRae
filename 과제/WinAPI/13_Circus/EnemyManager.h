@@ -18,7 +18,7 @@ public:
 	void Creat_Enemy(float _Time);
 	bool Is_Item();
 
-	void Move(float m_fDeltaTime, int Player_Speed);
+	void Move(float m_fDeltaTime, int Player_Speed = 0);
 	
 	void Disable_Check();
 	bool HitCheck(RECT Player_Rect);

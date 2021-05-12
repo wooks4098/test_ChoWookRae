@@ -4,16 +4,24 @@
 
 EndFloor::EndFloor()
 {
-	Pos.left = 5000;
+	Pos.left = 3650;
 	Pos.top = 310;
 	Pos.right = Pos.left + 100;
 	Pos.bottom = Pos.top + 20;
 }
 
-void EndFloor::Move(int Move_Dir, float m_fDeltaTime)
+void EndFloor::Move(float Move_Dir, float Player_Speed)
 {
-	Pos.left += Move_Dir * m_fDeltaTime;
-	Pos.right += Move_Dir * m_fDeltaTime;
+	
+	Pos.left += Move_Dir * Player_Speed;
+	Pos.right += Move_Dir * Player_Speed;
+	if (Pos.left <= 500)
+	{
+		Pos.left = 500;
+		Pos.right = Pos.left + 100;
+		return;
+
+	}
 }
 bool EndFloor::HitCheck(RECT Player_Rect)
 {

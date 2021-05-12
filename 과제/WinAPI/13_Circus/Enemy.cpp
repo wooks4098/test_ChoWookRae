@@ -25,7 +25,7 @@ bool Enemy::HitCheck(RECT Player_Rect)
 	RECT tmp;
 	if (IntersectRect(&tmp, &HitBox, &Player_Rect) && !isHit)
 	{
-		isHit = true;
+ 		isHit = true;
 		return true;
 	}
 	else
@@ -81,7 +81,7 @@ void Enemy_Original::Spawn()
 {
 	//위치 리셋
 	Pos.left = 550;
-	Pos.top = 150;
+	Pos.top = 160;
 	Pos.right = Pos.left + 25;
 	Pos.bottom = Pos.top + 132;
 	isActive = true;
@@ -133,9 +133,9 @@ void Enemy_Item::Spawn()
 {
 	//위치 리셋  	138
 	Pos.left = 550;
-	Pos.top = 172;
+	Pos.top = 182;
 	Pos.right = Pos.left + 25;
-	Pos.bottom = Pos.top + 132;
+	Pos.bottom = Pos.top + 104;
 
 	item.Spawn(Pos.left, Pos.top);
 
@@ -186,7 +186,6 @@ bool Enemy_Item::HitCheck(RECT Player_Rect)
 	{
 		if (IntersectRect(&tmp, &Pos, &Player_Rect) && !isHit && !isPass)
 		{
-			GameFrame::GetInstans()->ChangeScore(100);
 			isPass = true;
 		}
 

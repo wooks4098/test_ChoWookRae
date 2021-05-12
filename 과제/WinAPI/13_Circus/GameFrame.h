@@ -38,7 +38,7 @@ public:
 
 	Map map;
 
-	int Move_x;
+	float Move_x;
 	Player player;
 	EnemyManager enemyManager;
 	EndFloor endFloor;
