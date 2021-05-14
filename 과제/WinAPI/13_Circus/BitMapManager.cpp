@@ -46,7 +46,7 @@ void BitMapManager::CreatImage(HWND hWnd)
 			wsprintf(buf, L"ReSource//cash.bmp");
 			break;								  
 		case 5:									  
-			wsprintf(buf, L"ReSource//die.");
+			wsprintf(buf, L"ReSource//die.bmp.");
 			break;								  
 		case 6:									  
 			wsprintf(buf, L"ReSource//end.bmp");

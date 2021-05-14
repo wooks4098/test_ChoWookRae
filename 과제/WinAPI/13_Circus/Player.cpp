@@ -17,6 +17,8 @@ Player::Player()
 }
 void Player::StartJump()
 {
+	if (Player_State == PLAYERSTATE_CLEAR)
+		return;
 	if (isJump)
 		return;
 
@@ -27,6 +29,8 @@ void Player::StartJump()
 
 void Player::Jump(float Time)
 {
+	if (Player_State == PLAYERSTATE_CLEAR )
+		return;
 	if (isJump)
 	{
 		JumpCount += Time;
@@ -43,10 +47,42 @@ void Player::Jump(float Time)
 
 void Player::Move(int Move_Dir,float m_fDeltaTime)
 {
+	if (Player_State == PLAYERSTATE_CLEAR || Player_State == PLAYERSTATE_DIE)
+		return;
  	if (Pos.right >= 536 && Move_Dir > 0)
 		return;
 	Pos.left += Move_Dir* m_fDeltaTime;
 	Pos.right += Move_Dir * m_fDeltaTime;
+}
+
+void Player::Hit_EndFloor(RECT end_Rect)
+{
+	RECT tmp;
+	RECT Player_Rect = Pos;
+	Player_Rect.bottom += 45;
+	if (IntersectRect(&tmp, &Player_Rect, &end_Rect))
+	{
+		Player_State = PLAYERSTATE_CLEAR;
+		return;
+	}
+}
+
+void Player::Change_State(int _state)
+{
+	Player_State = _state;
+}
+void Player::Reset()
+{
+	Player_State = PLAYERSTATE_RUN;
+	time = 0;
+	ClearFrame = BITMAP_WIN;
+	RunFrame = BITMAP_PLAYER0;
+	Pos.left = 50;
+	Pos.top = 280;
+	Pos.right = Pos.left + 66;
+	Pos.bottom = Pos.top + 20;
+	isJump = false;
+	JumpCount = 0;
 }
 
 void Player::Draw(HDC hdc, float m_fDeltaTime)

@@ -66,9 +66,10 @@ public:
 	void CreatEnemy(float _Time);
 	void Enemey_Disable_Check();
 	void Enemey_HitCheck();
-
 	void PlayerHit();
+	void GameReset();
 	void Release();
+	
 
 };
 
