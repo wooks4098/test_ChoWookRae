@@ -22,7 +22,6 @@ public:
 	
 	void Disable_Check();
 	bool HitCheck(RECT Player_Rect);
-
 	void Reset();
 
 	void Draw_Front(HDC hdc);

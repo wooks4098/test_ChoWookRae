@@ -108,6 +108,7 @@ bool EnemyManager::HitCheck(RECT Player_Rect)
 	return false;
 }
 
+
 void EnemyManager::Reset()
 {
 	for (int i = 0; i < ENEMY_COUNT; i++)
@@ -119,7 +120,6 @@ void EnemyManager::Reset()
 		enemy_Item[i]->Reset();
 	}
 }
-
 void EnemyManager::Draw_Front(HDC hdc)
 {
 	for (int i = 0; i < ENEMY_COUNT; i++)

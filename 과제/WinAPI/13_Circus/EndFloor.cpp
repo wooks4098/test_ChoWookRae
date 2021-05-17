@@ -12,23 +12,26 @@ EndFloor::EndFloor()
 
 void EndFloor::Move(float Move_Dir, float Player_Speed)
 {
+	if (Player_Speed < 0)
+	{
+		if (Pos.left <= 450)
+			return;
+	}
 
-	Pos.left += (Move_Dir * Player_Speed);
-	Pos.right += (Move_Dir * Player_Speed);
-	//if (Move_Dir > 0)
-	//{
-	//	if (Pos.left <= 450)
-	//	{
-	//		Pos.left = 450;
-	//		Pos.right = Pos.left + 100;
-	//		return;
+	Pos.left += Move_Dir * Player_Speed;
+	Pos.right += Move_Dir * Player_Speed;
 
-	//	}
-	//}
-	
+
 }
 bool EndFloor::HitCheck(RECT Player_Rect)
 {
+	RECT tmp;
+	RECT PlayerRect = Player_Rect;
+	PlayerRect.bottom += 45;
+	if (IntersectRect(&tmp, &Pos, &PlayerRect))
+	{
+		return true;
+	}
 	return false;
 }
 void EndFloor::Draw(HDC hdc)

@@ -45,6 +45,8 @@ public:
 	float Player_Speed;
 	int Score;
 	int HP;
+
+	bool Game_Finish;
 public:
 
 
@@ -66,10 +68,13 @@ public:
 	void CreatEnemy(float _Time);
 	void Enemey_Disable_Check();
 	void Enemey_HitCheck();
+	void EndFloor_HitCheck();
 	void PlayerHit();
-	void GameReset();
-	void Release();
 	
+	void Reset();
+
+
+	void Release();
 
 };
 

@@ -20,12 +20,9 @@ public:
 	void Move(int Move_Dir, float m_fDeltaTime);
 	void Jump(float Time);
 	void StartJump();
-	void Hit_EndFloor(RECT end_Rect);
-	void Change_State(int _state);
+	void ChangeState(int _State);
 	void Reset();
-
 	RECT Return_PlayerRect() { return Pos; }
-	int Return_PlayerState() { return Player_State; };
 	~Player();
 };
 

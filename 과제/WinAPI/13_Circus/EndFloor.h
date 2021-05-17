@@ -12,8 +12,6 @@ public:
 	bool HitCheck(RECT Player_Rect);
 	void Draw(HDC hdc);
 	void Reset();
-
-	RECT Return_Rect() { return Pos; };
 	EndFloor();
 	~EndFloor();
 };
