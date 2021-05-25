@@ -36,7 +36,7 @@ int main()
         // 데이터 입력.
         ZeroMemory(buf, sizeof(buf));
         printf("\n[보낼 데이터]");
-        if (fgets(buf, MAX_BUFFER_SIZE + 1, stdin) == NULL) break;
+        if (fgets(buf, MAX_BUFFER_SIZE, stdin) == NULL) break;
 
         // '\n' 문자 제거.
         len = strlen(buf);
