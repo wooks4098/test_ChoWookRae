@@ -6,6 +6,27 @@
 #include <WinSock2.h>
 #include <vector>
 #include <algorithm>
+
+#pragma pack(1)
+struct PackHeader
+{
+    int type;
+    PackHeader(int value) : type(value) {}
+};
+struct UserMessage : public PackHeader
+{
+    char msg[132];
+    UserMessage() : PackHeader(0) {}
+};
+struct UserData : public PackHeader
+{
+    char Name[128];
+    int Level;
+
+    UserData() : PackHeader(1) {}
+};
+#pragma pack()
+
 #define MAX_BUFFER_SIZE 2048
 HANDLE g_hMutex; // 전역 변수로 선언.
 std::vector<SOCKET> Save_Socket;
@@ -21,9 +42,9 @@ DWORD WINAPI ProcessClient(LPVOID arg)
     int addrlen = sizeof(clientaddr);
     getpeername(client_sock, (SOCKADDR*)&clientaddr, &addrlen); // 클라이언트 정보 얻기.
     int retval;
-    char buf[MAX_BUFFER_SIZE + 1];
+    char buf[sizeof(UserData)];
 
-
+    
 
     while (1)
     {
@@ -37,19 +58,40 @@ DWORD WINAPI ProcessClient(LPVOID arg)
             break;
         }
         else if (0 == retval) break;
+
+        PackHeader* data = (PackHeader*)buf;
+        UserMessage SendMessage;
+        switch (data->type)
+        {
+        case 0:
+        {
+            UserMessage* Msg = (UserMessage*)buf;
+            SendMessage = *Msg;
+            break;
+        }
+        case 1:
+        {
+            UserData* userData = (UserData*)buf;
+
+            auto str = strcat(userData->Name, "님이 접속하셨습니다.");
+            strcpy_s(SendMessage.msg, strlen(str), str);
+            break;
+        }
+        default:
+            break;
+        }
+
         
-        // 받은 데이터 출력.
-        buf[retval] = '\0';
-        printf("\n[TCP/%s:%d]%s\n",
-            inet_ntoa(clientaddr.sin_addr),
-            ntohs(clientaddr.sin_port),
-            buf);
+
+        //send_data.type
 
         WaitForSingleObject(g_hMutex, INFINITE);
         // 데이터 보내기.
         for (auto sock : Save_Socket)
         {
-            retval = send(sock, buf, retval, 0);
+            //if (client_sock = sock)
+            //    continue;
+            retval = send(sock, (char*)&SendMessage, sizeof(SendMessage), 0);
             if (SOCKET_ERROR == retval)
             {
                 printf("send()");
@@ -76,7 +118,6 @@ DWORD WINAPI ProcessClient(LPVOID arg)
 
 int main()
 {
-
 
     // 윈속 초기화.
     WSADATA wsa;

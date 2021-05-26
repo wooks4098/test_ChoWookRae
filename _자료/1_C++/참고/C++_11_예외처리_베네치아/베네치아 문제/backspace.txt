@@ -1,0 +1,13 @@
+string str;
+case KEY_BACKSPACE:
+				str = str.substr(0, str.length() - 1);
+				return KEY_BACKSPACE;
+			case KEY_ENTER:
+				return KEY_ENTER;
+			default:
+				if(State)
+				{
+					if((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
+						str += ch;
+					return KEY_CHAR;
+				}
