@@ -16,13 +16,13 @@ struct PackHeader
 };
 struct UserMessage : public PackHeader
 {
-    char msg[132];
+    char msg[128];
     UserMessage() : PackHeader(0) {}
 };
 struct UserData : public PackHeader
 {
     char Name[128];
-    int Level;
+   // int Level;
 
     UserData() : PackHeader(1) {}
 };
@@ -65,10 +65,10 @@ int main()
             ZeroMemory(&userData, sizeof(userData));
             printf("[이름 입력]");
             if (fgets(userData.Name, sizeof(userData.Name), stdin) == NULL) break;
-            printf("[레벨 입력]");
-            char Level[4];
+            //printf("[레벨 입력]");
+           /* char Level[4];
             if (fgets(Level, sizeof(Level), stdin) == NULL) break;
-            userData.Level = (int)Level;
+            userData.Level = (int)Level;*/
 
             //scanf("%d", &userData.Level);
             // 데이터 보내기.
