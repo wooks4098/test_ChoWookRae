@@ -60,4 +60,6 @@ public:
 	afx_msg void OnLbnSelchangeList1();
 	afx_msg void OnEnChangeEdit1();
 	CEdit m_edit_chat;
+	CEdit Name;
+	afx_msg void OnEnChangeEdit2();
 };

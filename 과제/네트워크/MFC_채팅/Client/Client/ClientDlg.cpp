@@ -61,6 +61,7 @@ void CClientDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, m_List);
 	DDX_Control(pDX, IDC_EDIT1, m_edit_chat);
+	DDX_Control(pDX, IDC_EDIT2, Name);
 }
 
 BEGIN_MESSAGE_MAP(CClientDlg, CDialogEx)
@@ -70,6 +71,7 @@ BEGIN_MESSAGE_MAP(CClientDlg, CDialogEx)
 	ON_BN_CLICKED(IDOK, &CClientDlg::OnBnClickedOk)
 	ON_LBN_SELCHANGE(IDC_LIST1, &CClientDlg::OnLbnSelchangeList1)
 	ON_EN_CHANGE(IDC_EDIT1, &CClientDlg::OnEnChangeEdit1)
+	ON_EN_CHANGE(IDC_EDIT2, &CClientDlg::OnEnChangeEdit2)
 END_MESSAGE_MAP()
 
 
@@ -111,9 +113,10 @@ BOOL CClientDlg::OnInitDialog()
 
 	m_client_Socket.Create();                       // 클라이언트 소켓 생성.
 	m_client_Socket.Connect(_T("127.0.0.1"), 9000);
-	m_List.AddString(_T("이름 입력"));
+	//m_List.AddString(_T("이름 입력"));
 	m_edit_chat.EnableWindow(false);
-
+	Name.SetFocus();
+	Name.ReplaceSel(_T("닉네임 입력"));
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
@@ -177,15 +180,17 @@ void CClientDlg::OnBnClickedOk()
 	{
 		isLogin = true;
 		UserData userData;
-		ZeroMemory(&userData, sizeof(userData));
+		ZeroMemory(&userData.Name, sizeof(userData.Name));
 		//printf("[이름 입력]");
-		GetDlgItemText(IDC_EDIT1, msg);
+		GetDlgItemText(IDC_EDIT2, msg);
 
 		CW2A message(msg.GetString());
 		strcpy_s(userData.Name, sizeof(userData.Name), message.m_szBuffer);
 
 		// 데이터 보내기.
 		m_client_Socket.Send((char*)&userData, sizeof(userData));
+		Name.EnableWindow(false);
+		m_edit_chat.EnableWindow(true);
 
 	}
 	else
@@ -216,6 +221,17 @@ void CClientDlg::OnLbnSelchangeList1()
 
 
 void CClientDlg::OnEnChangeEdit1()
+{
+	// TODO:  RICHEDIT 컨트롤인 경우, 이 컨트롤은
+	// CDialogEx::OnInitDialog() 함수를 재지정 
+	//하고 마스크에 OR 연산하여 설정된 ENM_CHANGE 플래그를 지정하여 CRichEditCtrl().SetEventMask()를 호출하지 않으면
+	// 이 알림 메시지를 보내지 않습니다.
+
+	// TODO:  여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+
+void CClientDlg::OnEnChangeEdit2()
 {
 	// TODO:  RICHEDIT 컨트롤인 경우, 이 컨트롤은
 	// CDialogEx::OnInitDialog() 함수를 재지정 

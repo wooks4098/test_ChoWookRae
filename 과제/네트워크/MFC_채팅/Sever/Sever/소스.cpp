@@ -41,10 +41,10 @@ DWORD WINAPI ProcessClient(LPVOID arg)
     int addrlen = sizeof(clientaddr);
     getpeername(client_sock, (SOCKADDR*)&clientaddr, &addrlen); // 클라이언트 정보 얻기.
     int retval;
-    char buf[sizeof(UserData)];
-
-    
-
+    char buf[sizeof(UserMessage)];
+    std::string name;
+    UserData* userData;
+    UserMessage SendMessage;
     while (1)
     {
         ZeroMemory(buf, sizeof(buf));
@@ -59,21 +59,34 @@ DWORD WINAPI ProcessClient(LPVOID arg)
         else if (0 == retval) break;
 
         PackHeader* data = (PackHeader*)buf;
-        UserMessage SendMessage;
+
+        ZeroMemory(&SendMessage, sizeof(SendMessage));
         switch (data->type)
         {
         case 0:
         {
             UserMessage* Msg = (UserMessage*)buf;
-            SendMessage = *Msg;
+            std::string str;
+            str.append("[");
+            str.append(name);
+            str.append("] : ");
+            str.append(Msg->msg);
+            strcpy(SendMessage.msg, str.c_str());
             break;
         }
         case 1:
         {
-            UserData* userData = (UserData*)buf;
+            userData = (UserData*)buf;
 
-            auto str = strcat(userData->Name, "님이 접속하셨습니다.");
-            strcpy_s(SendMessage.msg, strlen(str), str);
+            name = userData->Name;
+            std::string str;
+            str.append(name);
+            str.append("님이 접속하셨습니다.");
+
+            strcpy(SendMessage.msg, str.c_str());
+           // auto str = strcat(userData->Name, "님이 접속하셨습니다.");
+           // strcpy_s(SendMessage.msg, strlen(SendMessage.msg), str);
+
             break;
         }
         default:
@@ -105,7 +118,22 @@ DWORD WINAPI ProcessClient(LPVOID arg)
     auto re = std::find(Save_Socket.begin(), Save_Socket.end(), client_sock);
     if (re != Save_Socket.end())
         Save_Socket.erase(re);
+    std::string str;
+    str.append(name);
+    str.append("님이 접속을 종료하셨습니다.");
+    ZeroMemory(&SendMessage, sizeof(SendMessage));
 
+    strcpy_s(SendMessage.msg, sizeof(SendMessage.msg), str.c_str());
+    for (auto sock : Save_Socket)
+    {
+
+        retval = send(sock, (char*)&SendMessage, sizeof(SendMessage), 0);
+        if (SOCKET_ERROR == retval)
+        {
+            printf("send()");
+            break;
+        }
+    }
     ReleaseMutex(g_hMutex);
     closesocket(client_sock);
     printf("\n[TCP 서버] 클라이언트 종료 : IP 주소=%s, 포트 번호=%d\n",
