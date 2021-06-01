@@ -98,6 +98,8 @@ DWORD WINAPI ProcessClient(LPVOID arg)
         //send_data.type
 
         WaitForSingleObject(g_hMutex, INFINITE);
+        printf(SendMessage.msg);
+        printf("\n");
         // 데이터 보내기.
         for (auto sock : Save_Socket)
         {

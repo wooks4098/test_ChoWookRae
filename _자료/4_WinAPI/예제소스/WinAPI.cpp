@@ -41,7 +41,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_WINAPI));
     //Accelerator:단축키를 의미한다. 단축키를 의미하는 shorcut이 있지만 이 이름의 다른 기능이 존재한다.
 
-    ULONGLONG frameTime, limitFrameTime = 0;
+    ULONGLONG frameTime, limitFrameTime = GetTickCount64();
     ULONGLONG time;
 
     MSG msg;

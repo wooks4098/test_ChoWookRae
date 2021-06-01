@@ -1,0 +1,7 @@
+struct CUSTOMVERTEX
+{
+FLOAT x, y, z; /// 정점의 변환된 좌표
+DWORD color; /// 정점의 색깔
+};
+/// 사용자 정점 구조체에 관한 정보를 나타내는 FVF값
+#define D3DFVF_CUSTOMVERTEX (D3DFVF_XYZ|D3DFVF_DIFFUSE)
