@@ -188,7 +188,9 @@ void CClientDlg::OnBnClickedOk()
 		strcpy_s(userData.Name, sizeof(userData.Name), message.m_szBuffer);
 
 		// 데이터 보내기.
+
 		m_client_Socket.Send((char*)&userData, sizeof(userData));
+		//m_List.AddString(msg);
 		Name.EnableWindow(false);
 		m_edit_chat.EnableWindow(true);
 

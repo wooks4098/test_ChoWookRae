@@ -101,8 +101,8 @@ DWORD WINAPI ProcessClient(LPVOID arg)
         // 데이터 보내기.
         for (auto sock : Save_Socket)
         {
-            //if (client_sock = sock)
-            //    continue;
+            if (data->type == 1 && client_sock == sock)
+                continue;
             retval = send(sock, (char*)&SendMessage, sizeof(SendMessage), 0);
             if (SOCKET_ERROR == retval)
             {
