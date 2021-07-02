@@ -8,6 +8,7 @@
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
+HWND g_hWnd;
 //WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
@@ -42,11 +43,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     //Accelerator:단축키를 의미한다. 단축키를 의미하는 shorcut이 있지만 이 이름의 다른 기능이 존재한다.
 
     ULONGLONG frameTime, limitFrameTime = GetTickCount64();
-    ULONGLONG time;
+    float time = 0.0f;
+
+    HDC hdc = GetDC(g_hWnd);
 
     MSG msg;
-    // 기본 메시지 루프입니다:
-    while (true) //GetMessage(&msg, nullptr, 0, 0) 게임 루프는 계속 돌아야 하므로 제거.
+    ZeroMemory(&msg, sizeof(msg));
+    // 게임 루프.
+    while (WM_QUIT != msg.message) //GetMessage(&msg, nullptr, 0, 0) 게임 루프는 계속 돌아야 하므로 제거.
     {            //GetMessage는 메시지를 받을 때까지 대기를 하므로 같은 기능을 하는 PeekMessage를 사용한다.
 
         //0U:unsigned형의 모든 상수 접미사는 'U'를 사용한다
@@ -56,11 +60,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE)) //!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)
         {                                               //Accelerator를 사용할 수 있게해준다.
                                                         //키보드 입력을 받으면 WM_COMMAND 메시지 처리가 되도록 한다.
-
-            if (WM_QUIT == msg.message) break; //while 조건에서 GetMessage를 제거했기 때문에,
-                                               //프로그램이 종료되었다는 것을 알리는 WM_QUIT를 확인하여 게임 루프를 종료한다.
-                                               //PostQuitMessage 함수가 호출되면 발생.
-
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
@@ -70,17 +69,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             frameTime = GetTickCount64();       //윈도우가 시작된 후 지금까지 시간. 1/1000초.
             if (!(limitFrameTime > frameTime))  //0.03초마다 업데이트.
             {
-                ULONGLONG elapsed = frameTime - limitFrameTime; //유저의 시스템 환경에 따라 발생하는 시간차이.
+                float elapsed = (frameTime - limitFrameTime) * 0.01f; //유저의 시스템 환경에 따라 발생하는 시간차이.
                 limitFrameTime = frameTime + 30;//30 => 0.03초.
 
-                time += elapsed;
-                if (1000 <= time)
-                {
-                    time = 0;
-                }
+                //time += elapsed;
+                //if (1 <= time)
+                //{
+                //    time = 0;
+                //}
             }
         }
     }
+
+    ReleaseDC(g_hWnd, hdc);
 
     return (int) msg.wParam;
 }
@@ -133,7 +134,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    //WS_MINIMIZEBOX :최소화 버튼을 가진다.
    //WS_MAXIMIZEBOX :최대화 버튼을 가진다.
    //WS_THICKFRAME  :크기조절을 가능하게 한다.
-   HWND hWnd = CreateWindowW(szWindowClass, L"타이틀 이름!!"/*szTitle*/, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
+   HWND hWnd = g_hWnd = CreateWindowW(szWindowClass, L"타이틀 이름!!"/*szTitle*/, WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)

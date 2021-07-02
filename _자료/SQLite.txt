@@ -1,6 +1,0 @@
-Drop Table		: "DROP TABLE IF EXISTS [테이블 이름];"
-Create Table	: "CREATE TABLE IF NOT EXISTS [테이블 이름] ([컬럼 이름(ex : id)] [자료형(ex : INTEGER /*PRIMARY KEY*/)], ... );"
-Insert Recod	: "INSERT INTO [테이블 이름] ([컬럼 이름], [컬럼 이름], ... ) VALUES(?, ?, ... );"
-Select Table		: "SELECT [칼럼 이름 or *] FROM [테이블 이름] /*WHERE [조건식]*/;"
-Update Recod	: "UPDATE [테이블 이름] SET [컬럼 이름] = ?(수정 할 값);" <= Test 필요
-Alter Table		: "ALTER TABLE  [원래의 테이블 이름] RENAME TO [변경 할 테이블 이름];"

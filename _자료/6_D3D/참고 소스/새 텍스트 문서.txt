@@ -1,0 +1,12 @@
+void DrawMesh(const D3DXMATRIXA16& matrix)
+{
+    g_pd3dDevice->SetTransform(D3DTS_WORLD, &matrix);
+    // 정점의 정보가 담긴 정점 버퍼를 출력 스트림으로 할당.
+    g_pd3dDevice->SetStreamSource(0, g_pVB, 0, sizeof(CUSTOMVERTEX));
+    // D3D에 정점 쉐이더 정보를 지정. / 대부분의 경우 FVF만 지정한다.
+    // FVF는 정점 버퍼를 만들때 정의한 값과 같아야 한다.
+    g_pd3dDevice->SetFVF(D3DFVF_CUSTOM);
+    // 인덱스 버퍼를 지정.
+    g_pd3dDevice->SetIndices(g_pIB);
+    g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+}
