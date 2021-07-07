@@ -35,7 +35,7 @@ LPDIRECT3DDEVICE9 g_pd3dDevice = NULL; // 렌더링에 사용될 D3D Device. 전
 
 LPDIRECT3DVERTEXBUFFER9 g_pVB = NULL; // 정점 버퍼. 전역변수.
 
-D3DXMATRIXA16 g_matEarth, g_matMoon; 
+D3DXMATRIXA16 g_matEarth, g_matMoon, g_matSun; 
 
 
 struct CUSTOMVERTEX
@@ -189,7 +189,9 @@ HRESULT InitD3D(HWND hWnd)
     d3dpp.Windowed = TRUE; // 창 모드로 생성.
     d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD; // 가장 효율적인 SWAP 효과. 백 버퍼의 내용을 프론트 버퍼로 Swap하는 방식.
     d3dpp.BackBufferFormat = D3DFMT_UNKNOWN; // 런타임에, 현재 디스플레이 모드에 맞춰 백 버퍼를 생성.
-    
+    d3dpp.EnableAutoDepthStencil = TRUE; // D3D에서 프로그램의 깊이 버퍼(Z-Buffer)를 관리하게 한다.
+// 깊이 버퍼:화면에 그려질 각 픽셀의 z(깊이) 값을 저장하기위한 버퍼. 주로 절두체에서 픽셀의 깊이 값을 기록하는데 사용.
+    d3dpp.AutoDepthStencilFormat = D3DFMT_D16; // 16비트의 깊이 버퍼를 사용.
     DWORD level;
     for (auto type = (int)D3DMULTISAMPLE_16_SAMPLES; 0 < type; type--)
     {
@@ -212,9 +214,7 @@ HRESULT InitD3D(HWND hWnd)
     // TODO: 여기에서 Device 상태 정보 처리를 처리를 한다.
     g_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); // 컬링 모들를 켠다.
     g_pd3dDevice->SetRenderState(D3DRS_LIGHTING, FALSE); // 광원 기능을 끈다.
-    d3dpp.EnableAutoDepthStencil = TRUE; // D3D에서 프로그램의 깊이 버퍼(Z-Buffer)를 관리하게 한다.
-// 깊이 버퍼:화면에 그려질 각 픽셀의 z(깊이) 값을 저장하기위한 버퍼. 주로 절두체에서 픽셀의 깊이 값을 기록하는데 사용.
-    d3dpp.AutoDepthStencilFormat = D3DFMT_D16; // 16비트의 깊이 버퍼를 사용.
+  
     g_pd3dDevice->SetRenderState(D3DRS_ZENABLE, TRUE); // Z(깊이) 버퍼 기능을 켠다
     // 컬링 모들를 켠다.
     g_pd3dDevice->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
@@ -246,7 +246,7 @@ void Render()
     // 다음과 같은 경우 IDirect3DDevice9 :: Clear() 함수가 실패.
     // - 깊이 버퍼가 연결되지 않은 렌더링 대상의 깊이 버퍼 또는 스텐실 버퍼를 지운다.
     // - 깊이 버퍼에 스텐실 데이터가 포함되지 않은 경우 스텐실 버퍼를 지운다.
-    if (SUCCEEDED(g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET, D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0)))
+    if (SUCCEEDED(g_pd3dDevice->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0, 0, 255), 1.0f, 0)))
     {
         SetupMatrices();
         // 렌더링 시작, 폴리곤을 그리겠다고 D3D에 알림(BeginScene).
@@ -269,8 +269,10 @@ void Render()
             //g_pd3dDevice->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
 
             //계층구조
+            DrawMesh(g_matSun);
             DrawMesh(g_matEarth);
             DrawMesh(g_matMoon);
+
 
             // 렌더링 종료.
             g_pd3dDevice->EndScene();
@@ -325,7 +327,7 @@ void SetupMatrices()
     // D3DXMatrixTranslation(& matWorld, 0, 0, 0);
     g_pd3dDevice->SetTransform(D3DTS_WORLD, &matWorld); // 월드 스페이스로 변환.
     // 뷰 스페이스.
-    D3DXVECTOR3 vEyePt(3.0f, 3.0f, -5.0f); // 월드 좌표의 카메라의 위치.
+    D3DXVECTOR3 vEyePt(3.0f, 8.0f, -15.0f); // 월드 좌표의 카메라의 위치.
     D3DXVECTOR3 vLookAtPt(0.0f, 0.0f, 0.0f); // 월드 좌표의 카메라가 바라보는 위치.
     D3DXVECTOR3 vUpVector(0.0f, 0.1f, 0.0f); // 월드 좌표의 하늘 방향을 알기 위한 up vector.
     D3DXMATRIXA16 matView;
@@ -375,12 +377,24 @@ void DrawMesh(const D3DXMATRIXA16& matrix)
 void Update()
 {
     auto angle = GetTickCount64() * 0.001f;
-    D3DXMATRIXA16 matEarthTr, matEarthRo;
+    D3DXMATRIXA16 matSunTr, matSunRo;
+    D3DXMATRIXA16 matEarthTr, matEarthRo, matEarthSc;
     D3DXMATRIXA16 matMoonTr, matMoonRo, matMoonSc;
-    D3DXMatrixTranslation(&matEarthTr, 0, 0, 0);
-    D3DXMatrixRotationY(&matEarthRo, angle);
+
+    D3DXMatrixTranslation(&matSunTr, 0, 0, 0);
+    D3DXMatrixRotationY(&matSunRo, angle);
+
+     // 회전(자전) * 이동.
+    g_matSun = matSunRo * matSunTr;
+
+    D3DXMatrixRotationY(&matEarthRo, angle * 0.5f);
+    D3DXMatrixScaling(&matEarthSc, 0.5f, 0.5f, 0.5f);
+    D3DXMatrixTranslation(&matEarthTr, 5, 0, 0);
+
+
     // 회전(자전) * 이동.
-    g_matEarth = matEarthRo * matEarthTr;
+    g_matEarth = matEarthSc * matEarthRo * matEarthTr * matEarthRo * g_matSun;
+
     D3DXMatrixRotationY(&matMoonRo, angle * 0.5f);
     D3DXMatrixScaling(&matMoonSc, 0.5f, 0.5f, 0.5f);
     D3DXMatrixTranslation(&matMoonTr, 5, 0, 0);
